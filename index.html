@@ -1,0 +1,3776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phuket · 6 人潜水团 · 2026.06.18 — 22</title>
+<style>
+:root {
+  /* 冷调灰阶系统 — 偏蓝、钢、雾 */
+  --ink: #16181d;
+  --ink-soft: #5d6573;
+  --ink-ghost: #818a9a;
+  --ink-faint: #a4adbd;
+  --paper: #ffffff;
+  --paper-deep: #eef2f7;
+  --paper-warm: #f5f7fa;
+  --paper-card: #ffffff;
+  --line: #d6dce5;
+  --line-soft: #e4e9f0;
+  --line-hairline: rgba(20, 30, 60, 0.06);
+
+  /* 鲜亮原色 + 透明度 — Liquid Glass 风（颜色不闷、视觉轻盈） */
+  --apple-blue: #0071e3;
+  --apple-blue-dark: #0058b0;
+  --apple-blue-hover: #1f8aef;
+  --apple-blue-tint: rgba(0, 113, 227, 0.08);   /* 极浅蓝叠白 */
+  --apple-blue-soft: rgba(0, 113, 227, 0.65);   /* 半透 border 用 */
+  --apple-red: #d93025;
+  --apple-red-soft: rgba(217, 48, 37, 0.65);    /* 半透红 */
+  --apple-green: var(--apple-blue);              /* 绿色废弃 → 折叠到主蓝 */
+
+  /* 同色系渐变带 alpha — 颜色"亮但轻"（玻璃涂层感） */
+  --grad-blue: linear-gradient(135deg,
+    rgba(0, 163, 255, 0.92) 0%,
+    rgba(0, 113, 227, 0.92) 45%,
+    rgba(0, 88, 176, 0.92) 100%);
+  --grad-blue-soft: linear-gradient(135deg,
+    rgba(31, 138, 239, 0.82) 0%,
+    rgba(0, 113, 227, 0.82) 100%);
+
+  /* 主题映射 — 全部聚拢到「蓝 / 红 / 灰」三组，去除 cyan / teal / indigo / mint / orange / gold */
+  --ocean: var(--apple-blue);
+  --ocean-deep: #1d4072;        /* 深蓝灰，标题强调，比 apple-blue 暗 1 档 */
+  --ocean-shallow: #e8f1fb;     /* 极浅蓝底 */
+  --sunset: var(--apple-blue);  /* 原 cyan 强调色全部并入主蓝 */
+  --sunset-deep: var(--apple-blue-dark);
+  --coral: var(--apple-red);    /* 原 brand red → 系统红 */
+  --jungle: var(--ink-soft);    /* 原 teal → 中性灰 */
+  --gold: var(--ink-soft);      /* 原 gold → 中性灰 */
+  --sand: var(--paper-deep);
+
+  /* 这些遗留变量已废弃但保留映射避免无样式：废弃语义同 ink-soft */
+  --apple-cyan: var(--ink-soft);
+  --apple-teal: var(--ink-soft);
+  --apple-indigo: var(--ink-soft);
+  --apple-mint: var(--ink-soft);
+
+  /* 字号阶梯 — Apple 模块化系统 */
+  --text-mega: clamp(2.8rem, 1.6rem + 5vw, 5.5rem);
+  --text-display: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+  --text-day: clamp(3rem, 2rem + 4vw, 5.5rem);
+  --text-h1: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+  --text-h2: clamp(1.3rem, 1.1rem + 0.6vw, 1.55rem);
+  --text-body: 17px;
+  --text-small: 14px;
+  --text-tiny: 12px;
+
+  --space-section: clamp(4.5rem, 3.5rem + 4vw, 8rem);
+  --space-block: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-card: 18px;
+
+  /* Apple 风格阴影 — 极克制 */
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-lift: 0 4px 12px rgba(0,0,0,0.06), 0 16px 32px rgba(0,0,0,0.08);
+  --shadow-deep: 0 8px 24px rgba(0,0,0,0.10), 0 32px 64px rgba(0,0,0,0.12);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-apple: cubic-bezier(0.42, 0, 0.18, 1);
+
+  /* 字体栈 — Apple System Fonts */
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, monospace;
+}
+
+/* ==========================================
+   Dark Mode — Apple iOS / macOS system dark
+   触发：data-theme="dark" 显式 / prefers-color-scheme: dark 跟随系统
+   ========================================== */
+:root[data-theme="dark"],
+:root[data-theme="dark"] body {
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] {
+  /* 文本（白系，分 4 档） */
+  --ink: rgba(255, 255, 255, 0.92);
+  --ink-soft: rgba(235, 235, 245, 0.60);
+  --ink-ghost: rgba(235, 235, 245, 0.40);
+  --ink-faint: rgba(235, 235, 245, 0.25);
+
+  /* 背景（黑系，分 4 档） */
+  --paper: #1c1c1e;            /* 主背景 */
+  --paper-deep: #2c2c2e;       /* 卡片/section 内嵌 */
+  --paper-warm: #242426;       /* box / KPI 底 */
+  --paper-card: #2c2c2e;
+
+  /* 分割线 */
+  --line: rgba(84, 84, 88, 0.65);
+  --line-soft: rgba(84, 84, 88, 0.35);
+  --line-hairline: rgba(255, 255, 255, 0.06);
+
+  /* 蓝 + 红 — dark mode 用 Apple iOS Dark 的更亮版本 */
+  --apple-blue: #0a84ff;
+  --apple-blue-dark: #409cff;
+  --apple-blue-hover: #5eb5fe;
+  --apple-blue-tint: rgba(10, 132, 255, 0.16);
+  --apple-blue-soft: rgba(10, 132, 255, 0.55);
+  --apple-red: #ff453a;
+  --apple-red-soft: rgba(255, 69, 58, 0.55);
+  --apple-green: var(--apple-blue);
+
+  /* 渐变 dark 版 */
+  --grad-blue: linear-gradient(135deg,
+    rgba(94, 181, 254, 0.95) 0%,
+    rgba(10, 132, 255, 0.95) 45%,
+    rgba(0, 88, 176, 0.95) 100%);
+  --grad-blue-soft: linear-gradient(135deg,
+    rgba(94, 181, 254, 0.85) 0%,
+    rgba(10, 132, 255, 0.85) 100%);
+
+  /* 阴影 dark 版（更深、对比更弱） */
+  --shadow: 0 1px 3px rgba(0,0,0,0.30), 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-lift: 0 4px 12px rgba(0,0,0,0.40), 0 16px 32px rgba(0,0,0,0.35);
+  --shadow-deep: 0 8px 24px rgba(0,0,0,0.50), 0 32px 64px rgba(0,0,0,0.45);
+
+  /* dark mode 专用 — nav 玻璃背景 */
+  --nav-bg: rgba(28, 28, 30, 0.78);
+}
+
+/* Hero 装饰背景 dark mode 下减弱（避免强光） */
+:root[data-theme="dark"] header.hero::before { opacity: 0.35; }
+:root[data-theme="dark"] header.hero { background: var(--paper); }
+
+/* footer dark mode — 取消硬编码浅蓝灰，统一用变量 */
+:root[data-theme="dark"] footer { background: #000 !important; color: var(--ink-soft) !important; }
+:root[data-theme="dark"] footer .meta { border-top-color: var(--line) !important; color: var(--ink-faint) !important; }
+:root[data-theme="dark"] footer h4 { color: var(--ink) !important; }
+
+/* 暗色下表格 inline 高亮行（Pum's Little Lipstick / Hyrox 等）换为蓝 tint */
+:root[data-theme="dark"] tr[style*="oklch(96% 0.05 50)"] { background: var(--apple-blue-tint) !important; }
+
+/* 暗色下 schedule hover */
+:root[data-theme="dark"] .schedule tr:hover td { background: var(--paper-warm) !important; }
+
+/* 暗色下链接下划线柔化 */
+:root[data-theme="dark"] a { text-decoration-color: var(--apple-blue-soft) !important; }
+
+/* prefers-color-scheme: dark，但用户未显式选 light 时跟随系统 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ink: rgba(255, 255, 255, 0.92);
+    --ink-soft: rgba(235, 235, 245, 0.60);
+    --ink-ghost: rgba(235, 235, 245, 0.40);
+    --ink-faint: rgba(235, 235, 245, 0.25);
+    --paper: #1c1c1e;
+    --paper-deep: #2c2c2e;
+    --paper-warm: #242426;
+    --paper-card: #2c2c2e;
+    --line: rgba(84, 84, 88, 0.65);
+    --line-soft: rgba(84, 84, 88, 0.35);
+    --line-hairline: rgba(255, 255, 255, 0.06);
+    --apple-blue: #0a84ff;
+    --apple-blue-dark: #409cff;
+    --apple-blue-hover: #5eb5fe;
+    --apple-blue-tint: rgba(10, 132, 255, 0.16);
+    --apple-blue-soft: rgba(10, 132, 255, 0.55);
+    --apple-red: #ff453a;
+    --apple-red-soft: rgba(255, 69, 58, 0.55);
+    --apple-green: var(--apple-blue);
+    --grad-blue: linear-gradient(135deg,
+      rgba(94, 181, 254, 0.95) 0%,
+      rgba(10, 132, 255, 0.95) 45%,
+      rgba(0, 88, 176, 0.95) 100%);
+    --grad-blue-soft: linear-gradient(135deg,
+      rgba(94, 181, 254, 0.85) 0%,
+      rgba(10, 132, 255, 0.85) 100%);
+    --shadow: 0 1px 3px rgba(0,0,0,0.30), 0 4px 12px rgba(0,0,0,0.25);
+    --shadow-lift: 0 4px 12px rgba(0,0,0,0.40), 0 16px 32px rgba(0,0,0,0.35);
+    --shadow-deep: 0 8px 24px rgba(0,0,0,0.50), 0 32px 64px rgba(0,0,0,0.45);
+    --nav-bg: rgba(28, 28, 30, 0.78);
+  }
+  :root:not([data-theme="light"]) header.hero::before { opacity: 0.35; }
+  :root:not([data-theme="light"]) header.hero { background: var(--paper); }
+  :root:not([data-theme="light"]) footer { background: #000 !important; color: var(--ink-soft) !important; }
+  :root:not([data-theme="light"]) footer .meta { border-top-color: var(--line) !important; color: var(--ink-faint) !important; }
+  :root:not([data-theme="light"]) footer h4 { color: var(--ink) !important; }
+  :root:not([data-theme="light"]) tr[style*="oklch(96% 0.05 50)"] { background: var(--apple-blue-tint) !important; }
+  :root:not([data-theme="light"]) .schedule tr:hover td { background: var(--paper-warm) !important; }
+  :root:not([data-theme="light"]) a { text-decoration-color: var(--apple-blue-soft) !important; }
+}
+
+/* 暗色下图片轻微降亮（避免亮屏刺眼） */
+:root[data-theme="dark"] img,
+:root[data-theme="dark"] figure img {
+  filter: brightness(0.88) contrast(1.02);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) img,
+  :root:not([data-theme="light"]) figure img {
+    filter: brightness(0.88) contrast(1.02);
+  }
+}
+
+/* ---------- Nav dropdown (分组下拉) ---------- */
+.nav-group { position: relative; display: inline-block; }
+.nav-group summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex; align-items: center;
+  gap: 0.25rem;
+  padding: inherit;
+  font: inherit;
+  color: inherit;
+}
+.nav-group summary::-webkit-details-marker { display: none; }
+.nav-group summary::marker { display: none; content: ''; }
+.nav-group .caret {
+  font-size: 0.7em; opacity: 0.55;
+  transition: transform 200ms var(--ease-apple);
+  display: inline-block;
+}
+.nav-group[open] .caret { transform: rotate(180deg); opacity: 0.85; }
+.nav-dropdown {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  min-width: 180px;
+  padding: 0.4rem;
+  background: var(--nav-bg, rgba(255, 255, 255, 0.92));
+  backdrop-filter: saturate(1.6) blur(20px);
+  -webkit-backdrop-filter: saturate(1.6) blur(20px);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift);
+  display: flex; flex-direction: column;
+  animation: dropdownIn 180ms var(--ease-apple);
+}
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.nav-dropdown a {
+  padding: 0.55rem 0.85rem !important;
+  border-radius: 8px !important;
+  font-size: 0.88rem !important;
+  white-space: nowrap;
+  display: block !important;
+  color: var(--ink) !important;
+  letter-spacing: -0.005em;
+}
+.nav-dropdown a:hover {
+  background: var(--apple-blue-tint) !important;
+  color: var(--apple-blue) !important;
+}
+.nav-dropdown a.active {
+  background: var(--apple-blue-tint) !important;
+  color: var(--apple-blue) !important;
+  font-weight: 600;
+}
+/* dropdown 在父组中有 active 子项时，把箭头按钮也高亮 */
+.nav-group.has-active > summary { color: var(--apple-blue); }
+
+/* 主题切换按钮 */
+.theme-toggle {
+  background: none; border: 1px solid var(--line);
+  color: var(--ink-soft);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  margin-left: 0.85rem;
+  transition: all 200ms var(--ease-apple);
+}
+.theme-toggle:hover {
+  background: var(--paper-deep);
+  color: var(--ink);
+  border-color: var(--ink-ghost);
+}
+.theme-toggle svg { width: 16px; height: 16px; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif {
+  font-family: "PingFang SC", "Songti SC", Georgia, "STSong", serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.mono { font-family: "SF Mono", "Menlo", "Courier New", monospace; font-size: var(--text-mono); }
+
+/* ---------- Layout ---------- */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+
+/* ---------- Nav ---------- */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: oklch(98% 0.008 90 / 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+nav .container { display: flex; align-items: center; gap: 2rem; padding-top: 0.85rem; padding-bottom: 0.85rem; overflow-x: auto; }
+nav .brand { font-weight: 600; letter-spacing: 0.02em; color: var(--ocean-deep); flex-shrink: 0; }
+nav a { color: var(--ink-soft); text-decoration: none; font-size: 0.88rem; white-space: nowrap; transition: color 150ms ease; }
+nav a:hover { color: var(--sunset); }
+
+/* ---------- Hero ---------- */
+header.hero {
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+  background:
+    radial-gradient(ellipse at top right, oklch(85% 0.08 210 / 0.4), transparent 60%),
+    radial-gradient(ellipse at bottom left, oklch(88% 0.04 80 / 0.5), transparent 55%),
+    var(--paper-warm);
+  overflow: hidden;
+}
+header.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(180deg, transparent 0%, transparent 92%, oklch(78% 0.08 210 / 0.15) 100%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sunset); font-weight: 600; margin-bottom: 1.25rem;
+}
+.hero-title {
+  font-size: var(--text-display); line-height: 1.05;
+  color: var(--ocean-deep); margin-bottom: 1.5rem;
+  font-family: "Songti SC", Georgia, "STSong", serif; font-weight: 600;
+}
+.hero-title em { font-style: normal; color: var(--sunset); }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-top: 2rem; }
+.hero-meta dt { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.3rem; }
+.hero-meta dd { font-size: 1.1rem; color: var(--ink); font-weight: 500; }
+
+/* ---------- Sections ---------- */
+section { padding: var(--space-section) 0; border-top: 1px solid var(--line); }
+section:first-of-type { border-top: none; }
+
+.section-marker {
+  font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sunset); font-weight: 600; margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: var(--text-h1); line-height: 1.15; color: var(--ocean-deep);
+  margin-bottom: clamp(2rem, 1.5rem + 1vw, 3rem);
+  font-family: "Songti SC", Georgia, serif; font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.section-lead { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 2.5rem; max-width: 65ch; line-height: 1.6; }
+
+h3 {
+  font-size: var(--text-h2); color: var(--ocean-deep);
+  margin-top: 2.5rem; margin-bottom: 1rem;
+  font-weight: 600; letter-spacing: -0.005em;
+}
+h4 {
+  font-size: 1rem; color: var(--ink); font-weight: 600;
+  margin-top: 1.5rem; margin-bottom: 0.5rem;
+}
+
+p { margin-bottom: 1rem; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--sunset); font-style: normal; font-weight: 500; }
+a { color: var(--ocean); text-decoration: underline; text-decoration-color: oklch(78% 0.08 210); text-underline-offset: 3px; }
+a:hover { color: var(--sunset); text-decoration-color: var(--sunset); }
+
+/* ---------- Day Cards ---------- */
+.day-card {
+  display: grid; grid-template-columns: 180px 1fr; gap: 2.5rem;
+  margin-bottom: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px dashed var(--line);
+}
+.day-card:last-of-type { border-bottom: none; }
+.day-marker {
+  position: sticky; top: 5rem; height: fit-content;
+}
+.day-num {
+  font-family: "Songti SC", Georgia, serif;
+  font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1; font-weight: 600;
+  color: var(--sunset); letter-spacing: -0.04em;
+}
+.day-date {
+  font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.5rem;
+  letter-spacing: 0.03em;
+}
+.day-tag {
+  display: inline-block; margin-top: 0.75rem; padding: 0.2rem 0.6rem;
+  background: var(--ocean-deep); color: var(--paper); font-size: 0.72rem;
+  letter-spacing: 0.08em; border-radius: 3px; font-weight: 500;
+}
+.day-content h3:first-child { margin-top: 0; }
+
+/* ---------- Schedule Table ---------- */
+table.schedule {
+  width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem;
+  font-size: 0.93rem;
+}
+.schedule th {
+  text-align: left; padding: 0.7rem 0.9rem; font-weight: 600;
+  font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1.5px solid var(--ink);
+  background: transparent;
+}
+.schedule td {
+  padding: 0.85rem 0.9rem; border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.schedule td:first-child { font-family: "SF Mono", Menlo, monospace; font-size: 0.85rem; color: var(--ocean-deep); font-weight: 500; white-space: nowrap; }
+.schedule td:nth-child(2) { font-weight: 500; }
+.schedule tr:hover td { background: oklch(96% 0.015 80); }
+
+/* ---------- Tags ---------- */
+.tag {
+  display: inline-block; padding: 0.15rem 0.55rem; border-radius: 3px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+  margin-right: 0.4rem;
+}
+/* tag 统一中性灰系，只 tag-cert 出证留蓝色强调 */
+.tag-dive,
+.tag-food,
+.tag-fit,
+.tag-rest,
+.tag-travel { background: var(--paper-deep); color: var(--ink-soft); }
+.tag-cert { background: var(--apple-blue); color: var(--paper); }
+
+/* ---------- Info Boxes ---------- */
+.box {
+  padding: 1.25rem 1.5rem; border-radius: var(--radius);
+  background: var(--paper-warm); border-left: 3px solid var(--ink-faint);
+  margin: 1.5rem 0;
+}
+.box.ocean { border-left-color: var(--apple-blue-soft); background: var(--apple-blue-tint); }
+.box.warn { border-left-color: var(--apple-red-soft); background: var(--paper-warm); }
+.box.success { border-left-color: var(--apple-blue-soft); background: var(--apple-blue-tint); }
+.box h4 { margin-top: 0; }
+.box p:last-child { margin-bottom: 0; }
+
+/* ---------- Cards Grid ---------- */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin: 1.5rem 0; }
+.card {
+  background: var(--paper); padding: 1.5rem; border-radius: var(--radius);
+  box-shadow: var(--shadow); transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+.card h4 { margin-top: 0; font-size: 0.95rem; }
+.card .price { color: var(--sunset); font-weight: 600; font-size: 0.95rem; margin-top: 0.5rem; }
+.card ul { margin-top: 0.75rem; padding-left: 1.1rem; font-size: 0.9rem; }
+.card li { margin-bottom: 0.3rem; }
+
+/* ---------- Budget Table ---------- */
+table.budget {
+  width: 100%; border-collapse: collapse; margin: 1.5rem 0;
+  font-size: 0.93rem;
+}
+.budget th, .budget td {
+  padding: 0.75rem 0.85rem; border-bottom: 1px solid var(--line);
+  text-align: left; vertical-align: top;
+}
+.budget th {
+  font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1.5px solid var(--ink);
+}
+.budget td.num { font-family: "SF Mono", Menlo, monospace; text-align: right; color: var(--ocean-deep); font-weight: 500; }
+.budget tr.total td { border-top: 1.5px solid var(--ink); border-bottom: none; padding-top: 1rem; font-weight: 600; font-size: 1.05rem; color: var(--sunset); }
+
+/* ---------- Checklist (真 checkbox + 苹果风) ---------- */
+ul.checklist { list-style: none; padding-left: 0; margin: 0; }
+ul.checklist li {
+  padding: 0; position: relative;
+  border-bottom: 1px solid var(--line-soft);
+}
+ul.checklist li:last-child { border-bottom: none; }
+ul.checklist li > label {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  padding: 0.85rem 0.25rem 0.85rem 0;
+  cursor: pointer; line-height: 1.5;
+  transition: opacity 220ms var(--ease-apple);
+}
+ul.checklist li > label:hover { opacity: 0.85; }
+ul.checklist input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  margin-top: 0.15rem;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 180ms var(--ease-apple), background 180ms var(--ease-apple);
+}
+ul.checklist input[type="checkbox"]:hover { border-color: var(--ink-soft); }
+ul.checklist input[type="checkbox"]:checked {
+  background: var(--grad-blue-soft);
+  border-color: transparent;
+}
+ul.checklist input[type="checkbox"]:checked::after {
+  content: ""; position: absolute;
+  left: 5px; top: 1px;
+  width: 6px; height: 11px;
+  border: solid var(--paper);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+ul.checklist input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--apple-blue);
+  outline-offset: 2px;
+}
+ul.checklist li > label > .item-body { flex: 1; }
+ul.checklist input[type="checkbox"]:checked + .item-body { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--ink-ghost); text-decoration-thickness: 1px; }
+ul.checklist input[type="checkbox"]:checked + .item-body strong,
+ul.checklist input[type="checkbox"]:checked + .item-body em { color: var(--ink-faint); }
+ul.checklist li.urgent .urgent-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--apple-red); margin-right: 0.5rem; vertical-align: middle; }
+
+/* 进度条 */
+.checklist-progress {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+  background: var(--paper-deep); border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+}
+.checklist-progress .progress-text {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-weight: 600; color: var(--ink);
+  flex-shrink: 0;
+}
+.checklist-progress .progress-count { color: var(--apple-blue); font-variant-numeric: tabular-nums; }
+.checklist-progress .progress-bar {
+  flex: 1; height: 6px; background: var(--line-soft); border-radius: 100px; overflow: hidden;
+}
+.checklist-progress .progress-fill {
+  height: 100%; width: 0;
+  background: var(--grad-blue-soft);
+  border-radius: 100px;
+  transition: width 400ms var(--ease-apple);
+}
+.checklist-progress .progress-reset {
+  flex-shrink: 0;
+  background: none; border: 1px solid var(--line);
+  color: var(--ink-soft); font-size: 0.85rem;
+  padding: 0.35rem 0.85rem; border-radius: 6px;
+  cursor: pointer; font-family: var(--font-body);
+  transition: all 180ms var(--ease-apple);
+}
+.checklist-progress .progress-reset:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ---------- Trip Timeline (overview) ---------- */
+ol.trip-timeline {
+  list-style: none; padding: 0; margin: 1.5rem 0;
+  background: var(--paper-deep);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line-soft);
+  overflow: hidden;
+}
+ol.trip-timeline li {
+  display: grid;
+  grid-template-columns: 56px 110px 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "day date  title"
+    "day date  meta";
+  align-items: center;
+  gap: 0 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background 200ms var(--ease-apple);
+}
+ol.trip-timeline li:last-child { border-bottom: none; }
+ol.trip-timeline li:hover { background: var(--paper); }
+ol.trip-timeline .t-day {
+  grid-area: day;
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 700;
+  background: var(--grad-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+  align-self: center;
+}
+ol.trip-timeline .t-date {
+  grid-area: date;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  align-self: center;
+  font-variant-numeric: tabular-nums;
+}
+ol.trip-timeline .t-title {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+ol.trip-timeline .t-meta {
+  grid-area: meta;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 720px) {
+  ol.trip-timeline li {
+    grid-template-columns: 48px 1fr;
+    grid-template-areas:
+      "day  date"
+      "day  title"
+      "day  meta";
+    padding: 1rem 1.25rem;
+    gap: 0 0.85rem;
+  }
+  ol.trip-timeline .t-day { font-size: 1.35rem; }
+}
+
+/* ---------- Weather Forecast ---------- */
+.weather-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  margin: 1.5rem 0;
+  background: var(--paper-deep);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.weather-day {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-right: 1px solid var(--line-soft);
+  transition: background 200ms var(--ease-apple);
+}
+.weather-day:last-child { border-right: none; }
+.weather-day:hover { background: var(--paper); }
+.weather-day-label { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.75rem; }
+.weather-day-label strong { color: var(--ink); font-size: 0.95rem; margin-right: 0.3rem; }
+.weather-icon { font-size: 2.4rem; line-height: 1; margin: 0.4rem 0 0.75rem; }
+.weather-temp { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.weather-temp .temp-high { color: var(--ink); }
+.weather-temp .temp-low { color: var(--ink-soft); font-weight: 400; }
+.weather-meta { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.5rem; line-height: 1.4; }
+.weather-desc { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4; }
+
+@media (max-width: 720px) {
+  .weather-grid { grid-template-columns: 1fr 1fr; }
+  .weather-day { border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .weather-day:nth-child(2n) { border-right: none; }
+  .weather-day:nth-child(5) { grid-column: 1 / -1; }
+}
+
+/* ---------- KPI / Stats ---------- */
+.kpi-row { display: flex; flex-wrap: wrap; gap: 0; margin: 2rem 0; border-radius: var(--radius); overflow: hidden; background: var(--paper-warm); }
+.kpi {
+  flex: 1; min-width: 140px; padding: 1.25rem 1.5rem;
+  border-right: 1px solid var(--line);
+}
+.kpi:last-child { border-right: none; }
+.kpi dt { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.35rem; }
+.kpi dd { font-size: 1.4rem; font-weight: 600; color: var(--ocean-deep); font-family: "Songti SC", Georgia, serif; }
+
+/* ---------- Photo Grid ---------- */
+.photo-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem; margin: 1.5rem 0;
+}
+.photo-grid figure {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  box-shadow: var(--shadow); aspect-ratio: 4/3;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+.photo-grid figure:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.photo-grid img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 600ms ease;
+}
+.photo-grid figure:hover img { transform: scale(1.05); }
+.photo-grid figcaption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, oklch(20% 0.04 240 / 0.85), transparent);
+  color: var(--paper); padding: 1rem 0.85rem 0.6rem;
+  font-size: 0.78rem; letter-spacing: 0.05em; font-weight: 500;
+}
+
+/* ---------- Placeholder Grid (for gyms without public photos) ---------- */
+.placeholder-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+.placeholder-card {
+  padding: 2rem 1.5rem; border-radius: var(--radius);
+  background: oklch(94% 0.02 220); border: 2px dashed oklch(80% 0.04 220);
+  text-align: center; color: var(--ink-soft);
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 160px;
+}
+.placeholder-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.placeholder-card p { margin-bottom: 0; }
+
+/* ---------- Emergency contacts ---------- */
+.emergency-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.emergency-item {
+  padding: 1rem 1.25rem; background: var(--paper-warm); border-radius: var(--radius);
+  border-left: 3px solid var(--coral);
+}
+.emergency-item .label { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 0.25rem; }
+.emergency-item .num { font-family: "SF Mono", Menlo, monospace; font-size: 1.05rem; font-weight: 600; color: var(--ocean-deep); }
+.emergency-item a { text-decoration: none; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 720px) {
+  .day-card { grid-template-columns: 1fr; gap: 1rem; }
+  .day-marker { position: relative; top: auto; }
+  .hero-meta { gap: 1.5rem; }
+  .schedule { font-size: 0.85rem; }
+  .schedule td:first-child { white-space: nowrap; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  nav { display: none; }
+  body { font-size: 10pt; }
+  section { page-break-inside: avoid; padding: 2rem 0; }
+  .day-card { page-break-inside: avoid; }
+  .card:hover { transform: none; box-shadow: var(--shadow); }
+  header.hero { padding: 2rem 0; background: var(--paper); }
+  .hero-title { font-size: 2rem; }
+  a { color: var(--ink); text-decoration: none; }
+}
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 3rem 0 4rem; background: var(--ocean-deep); color: oklch(85% 0.02 220);
+  margin-top: 4rem;
+}
+footer h4 { color: var(--paper); font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+footer .meta { grid-column: 1 / -1; border-top: 1px solid oklch(40% 0.05 220); padding-top: 1.5rem; margin-top: 1.5rem; font-size: 0.85rem; color: oklch(70% 0.03 220); }
+
+
+/* ════════════════════════════════════════════════════════════
+   ✦  APPLE STYLE LAYER  ✦
+   极简 · 精准 · SF Pro · 大圆角 · 克制
+   ════════════════════════════════════════════════════════════ */
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.47;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+.serif, .hero-title, .section-title, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  color: var(--ink);
+}
+
+.mono, code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  letter-spacing: 0;
+}
+
+/* ---------- HERO Apple ---------- */
+header.hero {
+  position: relative;
+  padding: clamp(7rem, 12vw, 12rem) 0 clamp(5rem, 8vw, 8rem);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line-hairline);
+}
+header.hero::before, header.hero::after { display: none; }
+
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--apple-blue);
+  text-transform: none;
+  margin-bottom: 1rem;
+  display: block;
+}
+.hero-eyebrow::before { display: none; }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-mega);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  max-width: 14ch;
+}
+.hero-title em {
+  font-style: normal;
+  font-weight: 700;
+  background: var(--grad-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header.hero > .container > p {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  letter-spacing: -0.015em;
+  max-width: 60ch;
+}
+
+.hero-meta {
+  gap: 3rem 4rem;
+  margin-top: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.hero-meta dt {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-transform: none;
+  margin-bottom: 0.4rem;
+}
+.hero-meta dd {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+/* ---------- SECTION Apple ---------- */
+section {
+  position: relative;
+  padding: var(--space-section) 0;
+  border-top: 1px solid var(--line-hairline);
+}
+section:first-of-type { border-top: none; }
+section[id]::before { display: none; }
+section .container { position: relative; z-index: 2; }
+
+.section-marker {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--apple-blue);
+  text-transform: none;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.section-marker::before { display: none; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  line-height: 1.05;
+  margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 3.5rem);
+}
+
+.section-lead {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 0.95rem + 0.4vw, 1.25rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  letter-spacing: -0.015em;
+  max-width: 65ch;
+  margin-bottom: 2.5rem;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.1rem + 0.7vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+h5 {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-transform: none;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+p { color: var(--ink); line-height: 1.55; margin-bottom: 1rem; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--apple-blue); font-style: normal; font-weight: 500; }
+
+/* ---------- DAY CARD Apple ---------- */
+.day-card {
+  border-bottom: none;
+  padding-bottom: clamp(3.5rem, 5vw, 5rem);
+  margin-bottom: clamp(3.5rem, 5vw, 5rem);
+  position: relative;
+}
+.day-card:not(:last-of-type)::after {
+  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: var(--line-soft);
+}
+
+.day-marker { gap: 0; }
+.day-num {
+  font-family: var(--font-display);
+  font-size: var(--text-day);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  line-height: 0.9;
+  background: none;
+  -webkit-text-fill-color: var(--ink);
+}
+
+.day-date {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-transform: none;
+  margin-top: 0.75rem;
+  padding-top: 0;
+  border-top: none;
+  max-width: 200px;
+}
+
+.day-tag {
+  font-family: var(--font-body);
+  font-size: var(--text-tiny);
+  font-weight: 600;
+  letter-spacing: 0;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  margin-top: 0.75rem;
+  text-transform: none;
+}
+
+.day-content h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  color: var(--ink);
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+.day-content h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  font-style: normal;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.day-content h4::before { display: none; }
+.day-content h5 {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-transform: none;
+}
+
+/* ---------- SCHEDULE Apple ---------- */
+table.schedule {
+  font-family: var(--font-body);
+  width: 100%;
+  border-collapse: collapse;
+}
+.schedule th {
+  font-family: var(--font-body);
+  font-size: var(--text-tiny);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-ghost);
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem 0.9rem;
+  text-align: left;
+}
+.schedule td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 0.9rem 0.9rem;
+  vertical-align: top;
+  color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.45;
+}
+.schedule td:first-child {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.schedule tr:hover td { background: var(--paper-warm); }
+
+/* ---------- CARD Apple ---------- */
+.card {
+  background: var(--paper-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  box-shadow: none;
+  transition: all 400ms var(--ease-apple);
+  position: relative;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+.card h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+}
+.card .price {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--apple-blue);
+  letter-spacing: -0.01em;
+}
+.card ul { font-size: 0.94rem; line-height: 1.55; }
+
+/* ---------- BOX Apple — 极克制 ---------- */
+.box {
+  border-left: 3px solid var(--line);
+  background: var(--paper-deep);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius);
+  position: relative;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+.box.ocean { border-left-color: var(--apple-blue); background: var(--paper-deep); }
+.box.warn { border-left-color: var(--apple-red); background: var(--paper-deep); }
+.box.success { border-left-color: var(--apple-green); background: var(--paper-deep); }
+.box h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-top: 0;
+  color: var(--ink);
+}
+
+/* ---------- TAG Apple pill — 统一中性灰，仅出证用蓝 ---------- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--text-tiny);
+  font-weight: 600;
+  letter-spacing: 0;
+  border-radius: 100px;
+  padding: 0.2rem 0.65rem;
+  text-transform: none;
+  margin-right: 0.4rem;
+}
+.tag-dive,
+.tag-food,
+.tag-fit,
+.tag-rest,
+.tag-travel { background: var(--paper-deep); color: var(--ink-soft); border: 1px solid var(--line-soft); }
+.tag-cert { background: var(--apple-blue-tint); color: var(--apple-blue-dark); border: 1px solid var(--apple-blue-soft); font-weight: 700; }
+
+/* ---------- KPI Apple ---------- */
+.kpi-row {
+  background: var(--paper-deep);
+  border: none;
+  border-radius: var(--radius-card);
+  padding: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+.kpi {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid var(--line-hairline);
+}
+.kpi dt {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-transform: none;
+  margin-bottom: 0.4rem;
+}
+.kpi dd {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+/* ---------- BUDGET TABLE Apple ---------- */
+.budget {
+  font-family: var(--font-body);
+  border-collapse: collapse;
+  width: 100%;
+}
+.budget th {
+  font-family: var(--font-body);
+  font-size: var(--text-tiny);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-ghost);
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem 0.9rem;
+  text-align: left;
+}
+.budget td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 0.85rem 0.9rem;
+  color: var(--ink);
+}
+.budget td.num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-align: right;
+}
+.budget tr.total td {
+  background: transparent;
+  border-top: 1px solid var(--ink);
+  border-bottom: none;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding-top: 1rem;
+}
+
+/* ---------- PHOTO GRID Apple ---------- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.photo-grid figure {
+  border-radius: var(--radius);
+  box-shadow: none;
+  transition: transform 500ms var(--ease-apple), box-shadow 500ms var(--ease-apple);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+.photo-grid figure:nth-child(5n+1) { aspect-ratio: auto; }
+.photo-grid figure:nth-child(7n+3) { aspect-ratio: auto; }
+.photo-grid figure:nth-child(11n+5) { aspect-ratio: auto; }
+.photo-grid figure:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+}
+.photo-grid img { transition: transform 600ms var(--ease-apple); }
+.photo-grid figure:hover img { transform: scale(1.03); }
+.photo-grid figcaption {
+  font-family: var(--font-body);
+  font-size: var(--text-tiny);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: white;
+  padding: 1.5rem 0.9rem 0.75rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+.placeholder-card {
+  background: var(--paper-deep);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+
+/* ---------- NAV Apple ---------- */
+nav {
+  background: var(--nav-bg, rgba(244, 247, 251, 0.78));
+  backdrop-filter: saturate(1.8) blur(20px);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  border-bottom: 1px solid var(--line-hairline);
+}
+nav .container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  overflow: visible;
+}
+nav .brand {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.4rem 0;
+  flex-shrink: 0;
+}
+nav .brand:hover { color: var(--apple-blue); text-decoration: none; }
+
+nav .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  flex: 1;
+  scrollbar-width: none;
+  justify-content: flex-end;
+}
+nav .nav-links::-webkit-scrollbar { display: none; }
+
+nav .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 200ms var(--ease-apple);
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+}
+nav .nav-links a:hover {
+  color: var(--ink);
+  background: var(--line-hairline);
+  text-decoration: none;
+}
+nav .nav-links a.active {
+  color: var(--ink);
+  background: var(--paper-deep);
+  font-weight: 600;
+}
+nav .nav-links a.active::after { display: none; }
+
+/* ---------- LINKS Apple ---------- */
+a {
+  color: var(--apple-blue);
+  text-decoration: none;
+  transition: color 150ms var(--ease-apple);
+}
+a:hover {
+  color: var(--apple-blue-hover);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- EMERGENCY Apple ---------- */
+.emergency-item {
+  background: var(--paper-card);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--apple-red);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  transition: all 250ms var(--ease-apple);
+}
+.emergency-item:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+  border-color: var(--line);
+  border-left-color: var(--apple-red);
+}
+.emergency-item .label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-transform: none;
+  margin-bottom: 0.25rem;
+}
+.emergency-item .num {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--apple-blue);
+}
+
+/* ---------- FOOTER Apple ---------- */
+footer {
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line-soft);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  margin-top: 0;
+  position: relative;
+}
+footer::before { display: none; }
+footer h4 {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-transform: none;
+  margin-bottom: 1rem;
+}
+footer p, footer .meta {
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+footer .meta {
+  border-top: 1px solid var(--line);
+  color: var(--ink-ghost);
+}
+
+/* ---------- HERO 入场动画 ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  header.hero .hero-eyebrow,
+  header.hero .hero-title,
+  header.hero > .container > p,
+  header.hero .hero-meta {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 1s var(--ease-apple) forwards;
+  }
+  header.hero .hero-eyebrow { animation-delay: 0.05s; }
+  header.hero .hero-title { animation-delay: 0.15s; }
+  header.hero > .container > p { animation-delay: 0.35s; }
+  header.hero .hero-meta { animation-delay: 0.55s; }
+
+  @keyframes heroIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---------- MOBILE 优化（≤ 720px） ---------- */
+@media (max-width: 720px) {
+  .day-card { grid-template-columns: 1fr; gap: 1.5rem; }
+  .day-card::after { display: none; }
+  .day-num { font-size: clamp(3rem, 14vw, 4.5rem); }
+  .hero-meta { gap: 1.5rem 2rem; }
+  .hero-title { max-width: 100%; }
+  nav .container { gap: 0.5rem; padding-right: 0.75rem; padding-left: 0.75rem; }
+  nav .brand { font-size: 0.78rem; flex-shrink: 0; }
+  /* nav 链接区域横向滚动，14 项装不下时可滑动 */
+  nav .nav-links {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex: 1;
+    gap: 0.15rem;
+    padding: 0.25rem 0;
+    mask-image: linear-gradient(to right, transparent 0, black 8px, black calc(100% - 16px), transparent 100%);
+  }
+  nav .nav-links::-webkit-scrollbar { display: none; }
+  nav .nav-links a { padding: 0.4rem 0.65rem; font-size: 0.82rem; flex-shrink: 0; white-space: nowrap; }
+  .theme-toggle { flex-shrink: 0; margin-left: 0.5rem; }
+
+  /* KPI 强制 2 列 */
+  .kpi { border-right: none; border-bottom: 1px solid var(--line-hairline); min-width: 0; flex: 0 0 50%; padding: 1rem 1.1rem; }
+  .kpi:nth-child(2n) { border-right: none; }
+  .kpi dd { font-size: 1.15rem; }
+  .kpi dt { font-size: 0.65rem; }
+}
+
+/* ---------- 中等屏 (≤ 720px) nav 展平：解构分组成扁平横滚条 ---------- */
+@media (max-width: 720px) {
+  /* 让分组消失结构 — summary 隐藏，所有 dropdown 内的 a 升到 nav-links 子节点位置 */
+  .nav-group { display: contents; }
+  .nav-group summary { display: none !important; }
+  .nav-dropdown {
+    display: contents !important;
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    backdrop-filter: none !important;
+    animation: none !important;
+  }
+  .nav-dropdown a {
+    padding: 0.4rem 0.65rem !important;
+    font-size: 0.82rem !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    color: var(--ink-soft) !important;
+  }
+  .nav-dropdown a:hover,
+  .nav-dropdown a.active {
+    background: transparent !important;
+    color: var(--apple-blue) !important;
+  }
+}
+
+/* ---------- iPhone（≤ 480px）极窄优化 ---------- */
+@media (max-width: 480px) {
+  /* 表格统一可横向滑动 + 视觉提示 */
+  section table.schedule,
+  section table.budget {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    background:
+      linear-gradient(to right, var(--paper) 30%, rgba(0,0,0,0)),
+      linear-gradient(to right, rgba(0,0,0,0), var(--paper) 70%) 100% 0,
+      linear-gradient(to right, rgba(0,0,0,0.06), rgba(0,0,0,0)),
+      linear-gradient(to left, rgba(0,0,0,0.06), rgba(0,0,0,0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+  section table.schedule td,
+  section table.schedule th { font-size: 0.82rem; padding: 0.6rem 0.7rem; }
+
+  /* 照片网格小屏 2 列、紧凑 */
+  .photo-grid { grid-template-columns: 1fr 1fr !important; gap: 0.5rem; }
+  .photo-grid figure { aspect-ratio: 4/3; box-shadow: var(--shadow); }
+  .photo-grid figcaption { font-size: 0.68rem; padding: 0.7rem 0.6rem 0.45rem; }
+
+  /* 卡片 grid 都改单列 */
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; gap: 0.85rem !important; }
+
+  /* section 上下 padding 收紧 */
+  section { padding: 3rem 0 2.5rem !important; }
+  .section-title { font-size: clamp(1.6rem, 7vw, 2rem) !important; margin-bottom: 1.5rem !important; }
+  .section-lead { font-size: 1rem !important; }
+
+  /* hero 收紧 */
+  header.hero { padding: 2.5rem 0 2rem !important; }
+  .hero-title { font-size: clamp(1.9rem, 9vw, 2.5rem) !important; }
+  .hero-meta { gap: 1rem 1.5rem; }
+  .hero-meta dd { font-size: 0.95rem; }
+
+  /* 时间轴小屏更紧凑 */
+  ol.trip-timeline li { padding: 0.85rem 1rem; }
+  ol.trip-timeline .t-day { font-size: 1.2rem; }
+  ol.trip-timeline .t-title { font-size: 0.9rem; }
+  ol.trip-timeline .t-meta { font-size: 0.78rem; }
+  ol.trip-timeline .t-date { font-size: 0.74rem; }
+
+  /* 天气卡片小屏 2 列 + 紧凑 */
+  .weather-grid { grid-template-columns: 1fr 1fr; }
+  .weather-day { padding: 1.1rem 0.6rem; }
+  .weather-icon { font-size: 2rem; margin: 0.3rem 0 0.5rem; }
+  .weather-temp { font-size: 0.95rem; }
+  .weather-meta, .weather-desc { font-size: 0.72rem; }
+
+  /* box 收紧 */
+  .box { padding: 1rem 1.1rem !important; }
+  .box h4 { font-size: 0.92rem !important; }
+  .box ul, .box ol { padding-left: 1.1rem !important; }
+  .box ul li, .box ol li { font-size: 0.88rem; }
+
+  /* 进度条手机紧凑布局 */
+  .checklist-progress { flex-wrap: wrap; padding: 0.85rem 1rem; gap: 0.6rem 1rem; }
+  .checklist-progress .progress-text { font-size: 0.88rem; flex: 1 0 auto; }
+  .checklist-progress .progress-bar { order: 3; flex: 1 0 100%; }
+  .checklist-progress .progress-reset { font-size: 0.78rem; padding: 0.3rem 0.65rem; }
+
+  /* checklist 文字字号 */
+  ul.checklist li > label { gap: 0.7rem; padding: 0.75rem 0.15rem; font-size: 0.92rem; line-height: 1.45; }
+
+  /* 嵌入式 emergency / placeholder grid */
+  .emergency-list { grid-template-columns: 1fr !important; }
+  .placeholder-grid { grid-template-columns: 1fr 1fr; }
+
+  /* section 大背景数字（如有）小屏隐藏，避免溢出 */
+  section[data-section-num]::before { display: none !important; }
+
+  /* footer 网格塌成单列 */
+  footer .container { display: block !important; }
+  footer > .container > div { margin-bottom: 1.5rem; }
+}
+
+/* ---------- iPhone safe-area（刘海 / Home indicator） ---------- */
+@supports (padding: max(0px)) {
+  nav .container {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+}
+
+/* ---------- 触摸设备：禁用 hover 动画（无悬停） ---------- */
+@media (hover: none) and (pointer: coarse) {
+  .photo-grid figure:hover { transform: none; box-shadow: var(--shadow); }
+  .photo-grid figure:hover img { transform: none; }
+  .weather-day:hover { background: transparent; }
+  ol.trip-timeline li:hover { background: transparent; }
+  ul.checklist li > label:hover { opacity: 1; }
+}
+
+/* ---------- PRINT ---------- */
+@media print {
+  header.hero { background: var(--paper); padding: 2rem 0; }
+  .hero-title { font-size: 2.5rem; }
+  .photo-grid figure, .card { box-shadow: none !important; border: 1px solid var(--line); }
+  section, .day-card { opacity: 1 !important; transform: none !important; }
+  nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="brand">Phuket · 06.18 — 06.22</a>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#weather">天气</a>
+      <a href="#schedule">行程</a>
+      <details class="nav-group" data-group="activities">
+        <summary>活动 <span class="caret" aria-hidden="true">▾</span></summary>
+        <div class="nav-dropdown">
+          <a href="#diving">🤿 潜水</a>
+          <a href="#efoil">🏄 冲浪</a>
+          <a href="#cooking">🍳 厨师课</a>
+          <a href="#gyms">💪 健身</a>
+          <a href="#motorbike">🛵 摩托车</a>
+        </div>
+      </details>
+      <details class="nav-group" data-group="logistics">
+        <summary>预订 <span class="caret" aria-hidden="true">▾</span></summary>
+        <div class="nav-dropdown">
+          <a href="#villa">🏠 住宿</a>
+          <a href="#booking">☑️ 预订清单</a>
+          <a href="#budget">💰 预算</a>
+        </div>
+      </details>
+      <details class="nav-group" data-group="info">
+        <summary>资讯 <span class="caret" aria-hidden="true">▾</span></summary>
+        <div class="nav-dropdown">
+          <a href="#prep">📋 行前准备</a>
+          <a href="#tips">💡 实用 Tips</a>
+          <a href="#emergency">🚨 紧急联系</a>
+        </div>
+      </details>
+      <button type="button" class="theme-toggle" aria-label="切换深色 / 浅色" title="切换主题">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">5 天 4 晚 · 6 人 · 潜水团</p>
+    <h1 class="hero-title">普吉 · <em>盛夏潜水</em><br>与 Hyrox 之旅</h1>
+    <p style="max-width: 60ch; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.6;">
+      OW × 3 + AOW × 3 + 健身一条街 Hyrox + 电动冲浪 + 厨师课 + 泰式按摩。两组潜水员同日出证，全员 D5 满档收尾，干净直飞回家。
+    </p>
+    <dl class="hero-meta">
+      <div><dt>OW 3 人 · 国泰 CX</dt><dd>06.18 10:50 抵 · 06.22 18:20 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">广州 → 香港转 → 普吉</span></dd></div>
+      <div><dt>AOW 3 人 · 国航 CA</dt><dd>06.18 17:45 抵 · 06.22 19:25 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">北京直飞普吉</span></dd></div>
+      <div><dt>住宿</dt><dd>Rawai 3BR 私泳池别墅</dd></div>
+      <div><dt>团费</dt><dd>~8-9k RMB / 人</dd></div>
+    </dl>
+  </div>
+</header>
+
+<!-- ============== 概览 ============== -->
+<section id="overview">
+  <div class="container">
+    <p class="section-marker">§01 · 概览</p>
+    <h2 class="section-title">行程一览</h2>
+
+    <dl class="kpi-row">
+      <div class="kpi"><dt>行程</dt><dd>5 天 4 晚</dd></div>
+      <div class="kpi"><dt>人数</dt><dd>6 人</dd></div>
+      <div class="kpi"><dt>主目标</dt><dd>OW × 3 · AOW × 3</dd></div>
+      <div class="kpi"><dt>人均</dt><dd>~7,000 RMB</dd></div>
+    </dl>
+
+    <h3>5 天一句话时间轴</h3>
+    <ol class="trip-timeline">
+      <li>
+        <span class="t-day">D1</span>
+        <span class="t-date">06.18 周四</span>
+        <span class="t-title">两批抵达 · 海鲜市场合体</span>
+        <span class="t-meta">OW 10:50 落 · AOW 17:45 落 · 20:30 全员晚餐</span>
+      </li>
+      <li>
+        <span class="t-day">D2</span>
+        <span class="t-date">06.19 周五</span>
+        <span class="t-title">OW 泳池 / AOW 自由 / 双线晚活动</span>
+        <span class="t-meta">OW 全天潜店 · AOW eFoil 试玩 · 晚 Hyrox 4 + 厨师课 2 分流</span>
+      </li>
+      <li>
+        <span class="t-day">D3</span>
+        <span class="t-date">06.20 周六</span>
+        <span class="t-title">双组出海 · 皇帝岛</span>
+        <span class="t-meta">OW 大小皇帝岛 2 潜 · AOW 皇帝岛 3 潜（深潜+导航+选修）</span>
+      </li>
+      <li>
+        <span class="t-day">D4</span>
+        <span class="t-date">06.21 周日</span>
+        <span class="t-title">双组同日出证 🎉 · 庆功晚餐</span>
+        <span class="t-meta">OW 大小皇帝岛 2 潜出证 · AOW 皮皮岛 2 潜出证 · 19:30 Kan Eang 海景庆功</span>
+      </li>
+      <li>
+        <span class="t-day">D5</span>
+        <span class="t-date">06.22 周一</span>
+        <span class="t-title">eFoil → Kong → 按摩 → 机场</span>
+        <span class="t-meta">08:00 全员 eFoil · 12:30 Kong 课 · 14:30 按摩 · 18:20/19:25 两批起飞</span>
+      </li>
+    </ol>
+
+    <h3 style="margin-top: 2rem;">人员构成 & 重叠</h3>
+    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 0.75rem;">总共 <strong>6 人</strong>，按潜水基础分两组，加项跨组重叠：</p>
+    <table class="schedule">
+      <thead><tr><th>组别</th><th>人</th><th>主活动</th><th>价位 / 人</th></tr></thead>
+      <tbody>
+        <tr><td><strong>OW 组</strong></td><td>3 人</td><td>D2 泳池 + D3-D4 大小皇帝岛 4 潜出证</td><td>14,220 THB（9 折）</td></tr>
+        <tr><td><strong>AOW 组</strong></td><td>3 人</td><td>D3 皇帝岛 3 潜 + D4 皮皮岛 2 潜出证</td><td>12,600 THB（9 折）</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ 厨师课加项</td><td>1 OW + 1 AOW</td><td>D2 晚 Pum Thai 1.5h 班</td><td>+1,400 THB</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ Hyrox 加项 D2</td><td>2 OW + 2 AOW</td><td>D2 晚 Unit 27 官方课</td><td>+600 THB</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ D5 全员活动</td><td>6 人全员</td><td>eFoil + Kong 课 + 按摩</td><td>+3,300 THB</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box ocean">
+      <h4>排期为什么这样</h4>
+      <ul style="margin: 0.5rem 0 0 1.2rem; line-height: 1.7;">
+        <li><strong>OW 三天 · AOW 两天</strong>：OW 多了 D2 泳池理论，所以 D2 AOW 全天空（潜店给的休整日），刚好让 2 个厨师课的人能晚去 Pum Thai</li>
+        <li><strong>同日 D4 出证</strong>：两组同时拿证，D4 晚一起庆功，节奏不脱节</li>
+        <li><strong>D5 禁飞窗口 ≥ 53h ✓</strong>：D4 最后一潜 ~14:00 → D5 最早起飞 18:20，远超 24h 安全线</li>
+        <li><strong>D5 全员满档不水下</strong>：eFoil 是水面活动 / Kong 是健身 / 按摩 — 都不触发禁飞规则，最后一天利用率最大</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 天气 ============== -->
+<section id="weather">
+  <div class="container">
+    <p class="section-marker">§02 · 天气</p>
+    <h2 class="section-title">5 天天气预报</h2>
+    <p class="section-lead">普吉 6 月是<strong>雨季初期</strong>（5-10 月雨季），降雨阵性、午后偏多，<strong>不影响潜水但能见度比旱季略低</strong>。距出发 ≤ 16 天会自动加载实时预报；当前显示 6 月历史均值。</p>
+
+    <dl class="kpi-row">
+      <div class="kpi"><dt>季节</dt><dd>雨季初期</dd></div>
+      <div class="kpi"><dt>水温</dt><dd>28-30°C</dd></div>
+      <div class="kpi"><dt>日照</dt><dd>06:00-18:30</dd></div>
+      <div class="kpi"><dt>状态</dt><dd id="weather-status">历史均值</dd></div>
+    </dl>
+
+    <div id="weather-grid" class="weather-grid">
+      <div class="weather-day" data-date="2026-06-18">
+        <div class="weather-day-label"><strong>D1</strong> <span>06.18 周四</span></div>
+        <div class="weather-icon">⛅</div>
+        <div class="weather-temp"><span class="temp-high">32°</span> / <span class="temp-low">26°</span></div>
+        <div class="weather-meta"><span class="rain">🌧 70%</span> · <span class="wind">SW 12km/h</span></div>
+        <div class="weather-desc">阵性雷雨 + 多云</div>
+      </div>
+      <div class="weather-day" data-date="2026-06-19">
+        <div class="weather-day-label"><strong>D2</strong> <span>06.19 周五</span></div>
+        <div class="weather-icon">🌦</div>
+        <div class="weather-temp"><span class="temp-high">31°</span> / <span class="temp-low">26°</span></div>
+        <div class="weather-meta"><span class="rain">🌧 75%</span> · <span class="wind">SW 14km/h</span></div>
+        <div class="weather-desc">多雨 + 短时阵雨</div>
+      </div>
+      <div class="weather-day" data-date="2026-06-20">
+        <div class="weather-day-label"><strong>D3</strong> <span>06.20 周六</span></div>
+        <div class="weather-icon">⛅</div>
+        <div class="weather-temp"><span class="temp-high">32°</span> / <span class="temp-low">27°</span></div>
+        <div class="weather-meta"><span class="rain">🌧 65%</span> · <span class="wind">SW 10km/h</span></div>
+        <div class="weather-desc">阵雨 + 间隙晴朗</div>
+      </div>
+      <div class="weather-day" data-date="2026-06-21">
+        <div class="weather-day-label"><strong>D4</strong> <span>06.21 周日</span></div>
+        <div class="weather-icon">⛅</div>
+        <div class="weather-temp"><span class="temp-high">32°</span> / <span class="temp-low">27°</span></div>
+        <div class="weather-meta"><span class="rain">🌧 70%</span> · <span class="wind">SW 11km/h</span></div>
+        <div class="weather-desc">多云 + 午后阵雨</div>
+      </div>
+      <div class="weather-day" data-date="2026-06-22">
+        <div class="weather-day-label"><strong>D5</strong> <span>06.22 周一</span></div>
+        <div class="weather-icon">🌦</div>
+        <div class="weather-temp"><span class="temp-high">31°</span> / <span class="temp-low">26°</span></div>
+        <div class="weather-meta"><span class="rain">🌧 75%</span> · <span class="wind">SW 13km/h</span></div>
+        <div class="weather-desc">阵雨 + 多云</div>
+      </div>
+    </div>
+
+    <div class="box ocean" style="margin-top: 1.5rem;">
+      <h4>🌊 6 月潜水视角</h4>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>水下能见度</strong>：15-25m（旱季 30m+，雨季略低但<strong>浮游生物增多 → 吸引鬼蝠魟、鲸鲨</strong>）</li>
+        <li><strong>海况</strong>：6 月安达曼海西南风季，但<strong>皇帝岛 / 皮皮岛背风面浪小</strong>，照常出海</li>
+        <li><strong>降雨</strong>：午后阵雨为主，<strong>船上有顶棚不影响潜水</strong>；建议船上加件防风外套</li>
+        <li><strong>水温</strong>：28-30°C 全年舒适，<strong>3mm 湿衣足够</strong>（潜店有提供）</li>
+      </ul>
+    </div>
+
+    <div class="box warn" style="margin-top: 1rem;">
+      <h4>⚠️ 雨季 4 个实战建议</h4>
+      <ol style="margin: 0.5rem 0 0 1.2rem;">
+        <li><strong>防水手机壳</strong>必带：阵雨说来就来，2 分钟就湿透</li>
+        <li><strong>速干衣</strong>多带 1 件：潜水回来或淋雨后可换</li>
+        <li><strong>摩托车慎租</strong>：雨季湿滑路面 + 路边沙石，事故率比旱季高 30%（见 §09）</li>
+        <li><strong>船晕</strong>更易发：浪比旱季稍大，<strong>晕船药出海前 30 min 服用</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Day-by-Day ============== -->
+<section id="schedule">
+  <div class="container">
+    <p class="section-marker">§03 · Day-by-Day</p>
+    <h2 class="section-title">五日行程</h2>
+
+    <!-- D1 -->
+    <article class="day-card">
+      <div class="day-marker">
+        <div class="day-num">D1</div>
+        <div class="day-date">06.18 · 周四</div>
+        <span class="day-tag">两批抵达</span>
+      </div>
+      <div class="day-content">
+        <h3>两组航班分开抵达 · 两批接送</h3>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">OW 比 AOW 早 ~7 小时到普吉，可以先入住别墅 + 探路 + 午餐；AOW 落地后直接 Rawai 海鲜市场晚餐合体。</p>
+
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--ocean);">
+            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人（先到 · 国泰 CX）</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>10:50</td><td>HKT 落地（国泰 CX771）</td></tr>
+                <tr><td>11:00-11:45</td><td>入境 + 提行李</td></tr>
+                <tr><td>12:00</td><td>包车 → 别墅（~50 min）</td></tr>
+                <tr><td>13:00</td><td>抵达别墅 + 入住</td></tr>
+                <tr><td>13:30-14:30</td><td>🍜 <strong>午餐 @ Kongharn Restaurant</strong><br><span style="font-size:0.82rem;color:var(--ink-soft)">Rawai 主街泰家族老店 · Pad Thai / 青咖喱 / Panang 招牌 · ~250 THB/人 · 不踩游客坑</span></td></tr>
+                <tr><td>14:30-17:30</td><td>📚 <strong>PADI eLearning 预习</strong>（别墅内）<br><span style="font-size:0.82rem;color:var(--ink-soft)">完成 5 章 Knowledge Review + 章末小测 · 提前掌握 D2 理论 → D2 泳池课能准时 16:00 收工 → 赶上 17:00 Unit 27 Hyrox</span></td></tr>
+                <tr><td>17:30</td><td>休整 → 等 AOW 抵达</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">💡 <strong>预习关键</strong>：潜店给 OW 的 eLearning 链接出发前就该激活。D1 下午集中刷完 5 章 ≈ 2-3h（视频+多选题）。次日潜店理论段可压缩，腾出时间练泳池技能。</p>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--sunset);">
+            <h4 style="color: var(--sunset);">🟠 AOW 3 人（晚到 · 国航 CA）</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>17:45</td><td>HKT 落地（国航 CA821 · 北京直飞）</td></tr>
+                <tr><td>18:00-18:30</td><td>入境 + 提行李</td></tr>
+                <tr><td>18:45</td><td>包车 → 别墅</td></tr>
+                <tr><td>19:30</td><td>抵达别墅 + 卸行李</td></tr>
+                <tr><td>20:30</td><td>🍽 <strong>全员合体晚餐 @ Rawai 海鲜市场 + Salaloy 加工</strong><br><span style="font-size:0.82rem;color:var(--ink-soft)">市场买海鲜 → Salaloy Seafood 加工（52/2 Wiset Rd · 海边户外座）· 第一晚最强普吉体验 · 人均 500-700 THB</span></td></tr>
+                <tr><td>22:00</td><td>休息（OW 次日 8:30 上课 / AOW 9:00 eFoil）</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">AOW 次日 D2 全天空 + 9:00 eFoil → 不用早起赶潜店</p>
+          </div>
+        </div>
+
+        <div class="box ocean">
+          <p><strong>包车订 2 趟接机</strong>：</p>
+          <ul style="margin: 0.5rem 0 0 1rem;">
+            <li>11:00 OW 接机（CX771 10:50 落） · minivan · ~1,500 THB</li>
+            <li>18:00 AOW 接机（CA821 17:45 落） · minivan · ~1,500 THB</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- D2 -->
+    <article class="day-card">
+      <div class="day-marker">
+        <div class="day-num">D2</div>
+        <div class="day-date">06.19 · 周五</div>
+        <span class="day-tag">分组日</span>
+      </div>
+      <div class="day-content">
+        <h3>OW 泳池 · AOW 自由 · 双线晚活动</h3>
+
+        <h4>白天 · 两组分头</h4>
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--ocean);">
+            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 全天潜店</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>07:30</td><td>早餐</td></tr>
+                <tr><td>08:30</td><td>潜店接 → 鲸嘻潜水中心</td></tr>
+                <tr><td>09:00-12:00</td><td><span class="tag tag-dive">理论</span> 5 模块理论课（视频 + 讲解 + 小测）</td></tr>
+                <tr><td>12:00-13:00</td><td>🍱 <strong>午餐</strong>（潜店一般包含·泰式简餐+水果）</td></tr>
+                <tr><td>13:00-16:00</td><td><span class="tag tag-dive">泳池</span> 24 项必备技能训练（面镜清水、悬浮、共生器等）</td></tr>
+                <tr><td>16:00</td><td>下课 → 回别墅 / 直接 Soi Ta-iad</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--sunset);">
+            <h4 style="color: var(--sunset);">🟠 AOW 3 人 · 自由日</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>08:30</td><td>早餐</td></tr>
+                <tr><td>09:00-10:30</td><td><span class="tag tag-fit">eFoil 试玩</span> <strong>Kata Surf Limited @ Kata Beach</strong> · 中文教练 · WeChat <code>jerryalex198275</code> · 1,700 THB/30min 含基础课 · D5 前预热熟练 → 全员场上手快 <a href="#efoil" style="color:var(--sunset)">↓ 详情</a></td></tr>
+                <tr><td>11:00</td><td>回别墅冲澡换装</td></tr>
+                <tr><td>12:00-13:30</td><td><span class="tag tag-food">午餐</span> 🥥 <strong>Atsumi Raw Cafe</strong>（Rawai · raw vegan / 健康融合 · 冷压果汁 + 芒果西番莲 smoothie · zucchini spaghetti + masaman 咖喱 · ~400 THB/人）</td></tr>
+                <tr><td>14:00-17:00</td><td><span class="tag tag-rest">下午自由</span> 别墅泳池 / Rawai 海滩 / 半日 SPA / Big Buddha + Wat Chalong</td></tr>
+                <tr><td>17:00</td><td>休整 → 准备晚活动</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem;">D2 晚上分两线</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.75rem;">人员分配：<strong>厨师课组 = 1 OW + 1 AOW</strong>；<strong>Hyrox 组 = 2 OW + 2 AOW</strong></p>
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--coral);">
+            <h4 style="color: var(--coral);">🍳 厨师课 2 人（1 OW + 1 AOW）</h4>
+            <table class="schedule" style="font-size: 0.85rem; margin-top: 0.5rem;">
+              <tbody>
+                <tr><td>16:00</td><td>OW 那位下泳池课，回别墅冲澡</td></tr>
+                <tr><td>17:30</td><td>Grab → Patong（~25min/250 THB）</td></tr>
+                <tr><td>18:00-21:00</td><td><strong>Pum Thai 晚班</strong>（市场参观 + 4-5 道菜 + 教师讲解 + 现做现吃）</td></tr>
+                <tr><td>21:15</td><td>Grab → 别墅</td></tr>
+                <tr><td>21:45</td><td>到家</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--jungle);">
+            <h4 style="color: var(--jungle);">💪 Hyrox 4 人 @ Unit 27（2 OW + 2 AOW）</h4>
+            <table class="schedule" style="font-size: 0.85rem; margin-top: 0.5rem;">
+              <tbody>
+                <tr><td>16:00</td><td>OW 2 人收工 + AOW 2 人从别墅集合</td></tr>
+                <tr><td>16:00-16:20</td><td>冲澡换装（OW 在潜店 / AOW 在别墅）</td></tr>
+                <tr><td>16:30</td><td>Grab → Soi Ta-iad（~10-15min/150 THB）</td></tr>
+                <tr><td>16:45</td><td>抵达 Unit 27 集合</td></tr>
+                <tr><td>17:00-18:00</td><td>🏆 <strong>Unit 27 官方 Hyrox 课 1h</strong>（教练带练，周一/三/五专属时段）</td></tr>
+                <tr><td>18:00-19:00</td><td>可选：留下来 Open Gym 1h 加练</td></tr>
+                <tr><td>19:30</td><td>🥗 <strong>The Shack @ Soi Ta-iad</strong>（22/8 Soi Ta-iad · 健身一条街上 walk distance · 蛋白餐 + 烤肉 + smoothie · ~400 THB/人）</td></tr>
+                <tr><td>21:00</td><td>回别墅</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="box success">
+          <h4>D2 晚双线一覆盖</h4>
+          <p>这样安排 D2 晚 = <strong>Unit 27 Open Gym</strong>（健身一条街 #1 老牌），D5 中 = <strong>Kong Strength</strong>（健身一条街 #2 新秀）。两家都打卡，中间留 3 天潜水恢复。万一 D5 Kong 没确认上周一中午班，D2 Unit 27 已经满足了"健身一条街"打卡需求。</p>
+        </div>
+
+        <div class="box success">
+          <p><strong>OW 16:00 提早收工 = 17:00 官方 Hyrox 课能赶上</strong>：原以为 OW 17:00 才结束，只能选 18:00 Open Gym。现在 OW 16:00 就下课，4 个人全部能赶上 17:00 Unit 27 的<strong>官方教练带练 Hyrox 课</strong>——这是 Soi Ta-iad 周一/三/五专属时段，体验比单纯 Open Gym 强很多。</p>
+        </div>
+
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 1.5rem;">📍 Pum Thai 课程详情、价目表、菜单、流程已抽到独立章节 → <a href="#cooking" style="color: var(--sunset); font-weight: 600;">§05 · 厨师课</a></p>
+
+        <div class="box ocean" style="margin-top: 1.5rem;">
+          <p><strong>D2 是 OW 那 2 人最累的一天</strong>：8:30 泳池 → 16:00 下课 → 17:00 Hyrox 课。建议这两位上完课后早点回，不要在 Soi Ta-iad 街边吃宵夜拖太晚（D3 早 7 点要被接走出海）。</p>
+        </div>
+
+        <div class="box success" style="margin-top: 1.5rem;">
+          <p><strong>AOW 组 D2 全天空的价值</strong>：潜店给的休整日。2 个 AOW 的人晚上一个去 Pum Thai、一个去 Unit 27，刚好分流。</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- D3 -->
+    <article class="day-card">
+      <div class="day-marker">
+        <div class="day-num">D3</div>
+        <div class="day-date">06.20 · 周六</div>
+        <span class="day-tag">双组出海</span>
+      </div>
+      <div class="day-content">
+        <h3>潜水 Day 1 · 双组同时出海</h3>
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--ocean);">
+            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 大小皇帝岛</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>07:00-07:40</td><td>司机接 → 码头</td></tr>
+                <tr><td>08:00-08:50</td><td>早餐 + 签到</td></tr>
+                <tr><td>09:30-09:50</td><td>船上简报</td></tr>
+                <tr><td>11:00-12:00</td><td>🌊 <strong>OW dive 1</strong>（首次开放水域）</td></tr>
+                <tr><td>12:30-13:00</td><td>船上午餐</td></tr>
+                <tr><td>13:00-13:30</td><td>表面间隔</td></tr>
+                <tr><td>14:00-14:50</td><td>🌊 <strong>OW dive 2</strong></td></tr>
+                <tr><td>16:00-17:00</td><td>返航 → 别墅</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--sunset);">
+            <h4 style="color: var(--sunset);">🟠 AOW 3 人 · 皇帝岛</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>07:00-07:40</td><td>司机接 → 码头</td></tr>
+                <tr><td>08:00-08:50</td><td>早餐 + 签到</td></tr>
+                <tr><td>09:30-09:50</td><td>船上简报 · 今日 Adventure Dive</td></tr>
+                <tr><td>11:00-12:00</td><td>🌊 <strong>深潜</strong>（18-30m · 必修）</td></tr>
+                <tr><td>12:00-12:40</td><td>船上午餐</td></tr>
+                <tr><td>12:40-13:20</td><td>表面间隔</td></tr>
+                <tr><td>13:20-14:00</td><td>🌊 <strong>导航</strong>（必修）</td></tr>
+                <tr><td>14:30-15:00</td><td>表面间隔</td></tr>
+                <tr><td>15:00-15:50</td><td>🌊 <strong>选修 1</strong>（如夜潜准备/PPB/放流）</td></tr>
+                <tr><td>16:00-17:00</td><td>返航 → 别墅</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.95rem;"><span class="tag tag-food">全体晚餐</span> 🌿 <strong>19:30 Mor Mu Dong @ Chalong</strong>（米其林必比登 Bib Gourmand 2026 · 红树林包围老建筑 · 100-200 THB/道 · 9/4 Moo 3 Pa-Lai 路 · 离别墅 ~10 min 车）</p>
+      </div>
+    </article>
+
+    <!-- D4 -->
+    <article class="day-card">
+      <div class="day-marker">
+        <div class="day-num">D4</div>
+        <div class="day-date">06.21 · 周日</div>
+        <span class="day-tag">出证日</span>
+      </div>
+      <div class="day-content">
+        <h3>双组出证 🎉 · 庆祝晚餐</h3>
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--ocean);">
+            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 大小皇帝岛 → 出证</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>07:00-07:40</td><td>司机接 → 码头</td></tr>
+                <tr><td>08:00-08:50</td><td>早餐 + 签到</td></tr>
+                <tr><td>09:30-09:50</td><td>船上简报</td></tr>
+                <tr><td>11:00-12:00</td><td>🌊 <strong>OW dive 3</strong>（导航 / 深潜 / 中性浮力）</td></tr>
+                <tr><td>12:30-13:00</td><td>船上午餐</td></tr>
+                <tr><td>13:00-13:30</td><td>表面间隔</td></tr>
+                <tr><td>14:00-14:50</td><td>🌊 <strong>OW dive 4</strong> → <span class="tag tag-cert">OW 出证</span> 🎉</td></tr>
+                <tr><td>16:00-17:00</td><td>返航 → 别墅</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--sunset);">
+            <h4 style="color: var(--sunset);">🟠 AOW 3 人 · 皮皮岛 → 出证</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>07:00-07:40</td><td>司机接 → 码头（船开 ~1.5h 远点）</td></tr>
+                <tr><td>08:00-08:50</td><td>早餐 + 签到</td></tr>
+                <tr><td>09:30-09:50</td><td>船上简报</td></tr>
+                <tr><td>11:00-12:00</td><td>🌊 <strong>选修 2</strong>（如沉船/夜潜/水下摄影）</td></tr>
+                <tr><td>12:00-12:40</td><td>船上午餐</td></tr>
+                <tr><td>12:40-13:20</td><td>表面间隔</td></tr>
+                <tr><td>13:20-14:00</td><td>🌊 <strong>选修 3</strong> → <span class="tag tag-cert">AOW 出证</span> 🎉</td></tr>
+                <tr><td>16:00-17:00</td><td>返航 → 别墅</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.95rem;"><span class="tag tag-food">庆祝晚餐</span> 🎉 <strong>19:30 Kan Eang @ Pier · Chalong Bay 海景</strong>（50 年泰国海鲜老店 · Thai Select 认证 · 招牌 Phuket Lobster / Hormok Talay / 椰子海鲜咖喱 · 300-500 THB/道 · 离别墅 10 min 车 · 出证日在 Chalong Pier 庆功圆满收尾）</p>
+      </div>
+    </article>
+
+    <!-- D5 -->
+    <article class="day-card">
+      <div class="day-marker">
+        <div class="day-num">D5</div>
+        <div class="day-date">06.22 · 周一</div>
+        <span class="day-tag">满档收尾</span>
+      </div>
+      <div class="day-content">
+        <h3>电动冲浪 → Lactic Jungle → 按摩 → 两批走机场</h3>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">AOW 比 OW 早 1 小时去机场。前半天全员一起，按摩开始分开节奏。</p>
+
+        <h4 style="margin-top: 1rem;">早上 - 中午 · 全员一起</h4>
+        <table class="schedule">
+          <thead><tr><th>时间</th><th>安排</th></tr></thead>
+          <tbody>
+            <tr><td>06:30-07:30</td><td>早餐 + 退房 + 行李寄存别墅</td></tr>
+            <tr><td>07:30</td><td>出发去 Kata Beach（~20 min）</td></tr>
+            <tr><td>08:00-10:30</td><td><span class="tag tag-fit">eFoil</span> 全体电动冲浪 @ Kata Beach — OW 首次（教练带），AOW 二刷</td></tr>
+            <tr><td>11:00</td><td>从 Kata 回别墅冲澡换装（~20 min）</td></tr>
+            <tr><td>12:00</td><td>出发去 Soi Ta-iad（~15 min）</td></tr>
+            <tr><td>12:30-13:30</td><td><span class="tag tag-fit">Kong</span> <strong>Kong Lactic Jungle 团课</strong>（Hyrox 风格 · 1h 教练带练）</td></tr>
+            <tr><td>13:30-14:30</td><td><span class="tag tag-food">Kong Kafé</span> 全员午餐在 Kong 内的 Kafé（Acai + 轻食 · 省外出）</td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="margin-top: 2rem;">下午 · 全员一起去机场</h4>
+        <table class="schedule">
+          <thead><tr><th>时间</th><th>安排</th></tr></thead>
+          <tbody>
+            <tr><td>14:30-15:30</td><td><span class="tag tag-rest">按摩</span> 全员 60 min 泰式按摩</td></tr>
+            <tr><td>15:30</td><td>回别墅取行李</td></tr>
+            <tr><td>16:00</td><td>🚐 <strong>全员同车包车 → HKT</strong>（6 人 minivan）</td></tr>
+            <tr><td>16:50</td><td>抵达 HKT / 各组分别 Check-in</td></tr>
+            <tr><td>17:00-18:15</td><td>OW 候机 + AOW 在机场吃东西 / 免税逛</td></tr>
+            <tr><td><strong>18:20</strong></td><td>🔵 OW 起飞 HKT → HKG（CX778）→ 22:00-01:15 香港转机 → 02:20(D6) 抵 CAN</td></tr>
+            <tr><td><strong>19:25</strong></td><td>🟠 AOW 起飞 HKT → PEK（CA822 直飞）→ 02:25(D6) 抵 PEK</td></tr>
+          </tbody>
+        </table>
+
+        <div class="box success">
+          <h4>✅ 一起走的好处</h4>
+          <ul style="margin: 0.5rem 0 0 1rem;">
+            <li>包车只需 <strong>1 趟</strong>（省 ~1,500 THB + 调度简单）</li>
+            <li>全员按摩同样 60 min（不用 OW 缩短 / AOW 拉长）</li>
+            <li>AOW 多在机场等 1h，正好慢慢吃餐 + 逛免税</li>
+            <li>OW 国际航班提前 1h30min 抵机场，时间充裕</li>
+            <li>D5 节奏对全员都更轻松</li>
+          </ul>
+        </div>
+
+        <div class="box warn">
+          <h4>⚠️ OW 香港转机注意</h4>
+          <p>OW 18:20 起飞 → 23:15 抵港 → 01:15(06.23) HKG → CAN → 02:20 抵广州。香港中转 2h，中国护照通常 International Direct Transit 免签。</p>
+          <p style="margin-top: 0.5rem;"><strong>预订时跟国泰确认</strong>：行李从 HKT 是否直挂到 CAN（如果直挂就不用过签 + 不用重新 check-in）。23:15 抵港时部分餐饮已关门，建议在 HKT 候机时吃饱。</p>
+        </div>
+
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 1.5rem;">📍 电动冲浪运营商详情、价格对比、D2/D5 两场场次安排已抽到独立章节 → <a href="#efoil" style="color: var(--sunset); font-weight: 600;">§04 · 冲浪</a></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============== 潜水细节 ============== -->
+<section id="diving">
+  <div class="container">
+    <p class="section-marker">§04 · 潜水</p>
+    <h2 class="section-title">潜水课程详解</h2>
+    <p class="section-lead">潜店：<strong>普吉鲸嘻潜水中心</strong>（已订定，9 折成交）。PADI / SSI 国际认证体系。OW 出证后可独立下潜至 18m；AOW 出证后可下潜至 30m，并解锁深潜 / 夜潜 / 沉船等专长。本团两组同期开班，D4 同日出证。</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>OW 课程 · Open Water Diver</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">入门级 · 国际终身有效 · 解锁 18m 深度</p>
+        <p class="price">原价 15,800 → <strong>9 折后 14,220 THB / 人</strong></p>
+        <ul>
+          <li><strong>D2 周五</strong>：理论 + 泳池训练（全天）</li>
+          <li><strong>D3 周六</strong>：大小皇帝岛 · 2 潜（OW dive 1-2）</li>
+          <li><strong>D4 周日</strong>：大小皇帝岛 · 2 潜（OW dive 3-4）→ 出证</li>
+        </ul>
+        <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--ink-soft);">共 4 次开放水域潜水，第二天同一潜点二次刷新熟悉度，更利于通过考核。</p>
+      </div>
+      <div class="card">
+        <h4>AOW 课程 · Advanced Open Water</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">进阶级 · 解锁 30m 深度 · 5 个 Adventure Dive</p>
+        <p class="price">原价 14,000 → <strong>9 折后 12,600 THB / 人</strong></p>
+        <ul>
+          <li><strong>D2 周五</strong>：全天自由（潜店给的 buffer 日）</li>
+          <li><strong>D3 周六</strong>：皇帝岛 · 出海（深潜 + 导航 + 1 选修）</li>
+          <li><strong>D4 周日</strong>：皮皮岛 · 出海（2 选修）→ 出证</li>
+        </ul>
+        <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--ink-soft);">5 潜里 <strong>深潜</strong> + <strong>导航</strong> 是必修，其他 3 个从 15 种 Adventure Dive 中选，例如：放流、夜潜、沉船、水下摄影、PPB 中性浮力。</p>
+      </div>
+    </div>
+
+    <h3>出海日逐时段安排</h3>
+    <p style="color: var(--ink-soft); margin-bottom: 1rem;">两组的出海日时间表结构相同。下表是潜店给出的标准班表。</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--ocean);">
+        <h4 style="color: var(--ocean-deep);">OW 出海日（D3 / D4）</h4>
+        <table class="schedule" style="margin-top: 0.75rem; font-size: 0.88rem;">
+          <tbody>
+            <tr><td>07:00-07:40</td><td>司机到别墅接 → 码头</td></tr>
+            <tr><td>08:00-08:50</td><td>早餐 + 集合签到</td></tr>
+            <tr><td>09:30-09:50</td><td>船上简报：当日潜点 + 安全规则</td></tr>
+            <tr><td>11:00-12:00</td><td>🌊 <strong>第一潜</strong>（OW dive 1 / 3）</td></tr>
+            <tr><td>12:30-13:00</td><td>船上午餐</td></tr>
+            <tr><td>13:00-13:30</td><td>表面间隔休息（surface interval）</td></tr>
+            <tr><td>14:00-14:50</td><td>🌊 <strong>第二潜</strong>（OW dive 2 / 4）</td></tr>
+            <tr><td>16:00-17:00</td><td>返航 + 送回别墅</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--sunset);">
+        <h4 style="color: var(--sunset);">AOW 出海日（D3 / D4）</h4>
+        <table class="schedule" style="margin-top: 0.75rem; font-size: 0.88rem;">
+          <tbody>
+            <tr><td>07:00-07:40</td><td>司机到别墅接 → 码头</td></tr>
+            <tr><td>08:00-08:50</td><td>早餐 + 集合签到</td></tr>
+            <tr><td>09:30-09:50</td><td>船上简报：当日 Adventure Dive</td></tr>
+            <tr><td>11:00-12:00</td><td>🌊 <strong>第一潜</strong>（D3 深潜 / D4 选修 1）</td></tr>
+            <tr><td>12:00-12:40</td><td>船上午餐</td></tr>
+            <tr><td>12:40-13:20</td><td>表面间隔休息</td></tr>
+            <tr><td>13:20-14:00</td><td>🌊 <strong>第二潜</strong>（D3 导航 / D4 选修 2）</td></tr>
+            <tr><td>14:30-15:00</td><td>表面间隔</td></tr>
+            <tr><td>15:00-15:50</td><td>🌊 <strong>第三潜</strong>（D3 选修 · 仅第一天）</td></tr>
+            <tr><td>16:00-17:00</td><td>返航 + 送回别墅</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 0.5rem; font-size: 0.82rem; color: var(--ink-soft);">D3 共 3 潜（含深潜 + 导航 + 1 选修），D4 共 2 潜（2 选修），总计 5 潜符合 AOW 出证要求。</p>
+      </div>
+    </div>
+
+    <h3>潜点深度介绍</h3>
+    <p class="section-lead" style="font-size: 1rem; margin-bottom: 1.5rem;">6 月是安达曼海雨季初期，所以能见度比 11-4 月旱季略低，但<strong>海里的浮游生物增多反而吸引大型海洋生物（鬼蝠魟、鲸鲨）</strong>。下面是我们要去的 2 大潜点详细介绍 + 实拍照片。</p>
+
+    <h4>🏝 Racha Islands · 皇帝岛群（OW D3+D4 / AOW D3）</h4>
+    <div class="grid-2" style="margin: 1rem 0 1.5rem;">
+      <div>
+        <table class="schedule" style="font-size: 0.88rem;">
+          <tbody>
+            <tr><td>距 Chalong</td><td>~1h 船程</td></tr>
+            <tr><td>6 月能见度</td><td>15-25m（旱季可达 30m）</td></tr>
+            <tr><td>水温</td><td>28-30°C 全年（无需厚潜服）</td></tr>
+            <tr><td>深度范围</td><td>5-30m（Yai 浅 · Noi 深）</td></tr>
+            <tr><td>海底地形</td><td>白沙海床 + 软硬珊瑚 + 石礁巨石</td></tr>
+            <tr><td>难度</td><td>新手友好（Yai）· AOW 深潜（Noi）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="font-size: 0.92rem;"><strong>6 月看点海洋生物</strong>：</p>
+        <ul style="font-size: 0.88rem; padding-left: 1.1rem;">
+          <li><strong>豹纹鲨（Leopard Shark）</strong>· Racha Noi 出没（旱季更多但 6 月仍可见）</li>
+          <li><strong>鬼蝠魟（Manta Ray）</strong>· 全普吉 99% 的 Manta 都在 Racha 海域</li>
+          <li><strong>鹰鳐（Eagle Ray）</strong>· 整年常见</li>
+          <li><strong>海龟</strong>· Lucy's Reef 必见</li>
+          <li>玳瑁海龟、章鱼、墨鱼、海鳗（黑斑/蛇鳗）</li>
+          <li>小丑鱼（尼莫）、蓝带石斑、隆头鱼、神仙鱼</li>
+          <li>梭鱼群、玻璃鱼群（Banana Bay 浅滩）</li>
+          <li>蝙蝠鱼、扳机鱼、海蛇</li>
+        </ul>
+      </div>
+    </div>
+
+    <h5 style="margin-top: 0.5rem;">著名子潜点</h5>
+    <table class="schedule" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+      <thead><tr><th>潜点</th><th>所在</th><th>深度</th><th>看点</th></tr></thead>
+      <tbody>
+        <tr><td>Bungalow Bay (Bay 1)</td><td>Racha Yai 西北</td><td>5-20m</td><td>白沙湾 · 新手首选 · 平缓</td></tr>
+        <tr><td>Lucy's Reef (Bay 3 ext)</td><td>Racha Yai 东南</td><td>10-25m</td><td>石礁 + 海葵 + 黄尾梭鱼群 + 海龟</td></tr>
+        <tr><td>Staghorn Reef</td><td>Racha Yai 东</td><td>10-20m</td><td>大片鹿角珊瑚 + 鱼群</td></tr>
+        <tr><td>Banana Bay</td><td>Racha Yai 北</td><td>5-15m</td><td>浅滩玻璃鱼群（招牌画面）</td></tr>
+        <tr><td>Marina Bay / Banana Rock</td><td>Racha Noi 北</td><td>15-30m</td><td>巨石 + 穿梭洞 + 鹰鳐</td></tr>
+        <tr><td>South Tip / Marita's Rock</td><td>Racha Noi 南</td><td>18-35m</td><td>豹纹鲨 + Manta（运气好）</td></tr>
+      </tbody>
+    </table>
+
+    <div class="photo-grid">
+      <figure><img src="./images/dive-sites/racha/friendly-eagle-ray-at-racha-noi.jpg" alt="Eagle Ray at Racha Noi"><figcaption>🪽 鹰鳐 · Racha Noi 常见</figcaption></figure>
+      <figure><img src="./images/dive-sites/racha/staghorn-coral-at-banana-rock.jpg" alt="Staghorn Coral"><figcaption>🪸 鹿角珊瑚 · Banana Rock</figcaption></figure>
+      <figure><img src="./images/dive-sites/racha/glassfish-in-the-shallows-at-banana-bay.jpg" alt="Glassfish at Banana Bay"><figcaption>🐟 玻璃鱼群 · Banana Bay 浅滩招牌画面</figcaption></figure>
+      <figure><img src="./images/dive-sites/racha/healthy-coral-gardens-at-racha-noi.jpg" alt="Coral Gardens"><figcaption>🪸 健康珊瑚花园 · Racha Noi</figcaption></figure>
+      <figure><img src="./images/dive-sites/racha/reef-octopus-on-the-racha-yai-and-racha-noi-scuba-diving-tour.jpg" alt="Reef Octopus"><figcaption>🐙 礁石章鱼 · Racha 通见</figcaption></figure>
+      <figure><img src="./images/dive-sites/racha/giant-frogfish-love-racha-noi.jpg" alt="Giant Frogfish"><figcaption>🐸 巨型蟾鱼 · Racha Noi 罕见物种</figcaption></figure>
+      <figure><img src="./images/dive-sites/racha/racha-yai-has-a-few-coral-bommies-left.jpg" alt="Coral Bommies"><figcaption>🪸 珊瑚礁石 · Racha Yai</figcaption></figure>
+    </div>
+
+    <h4 style="margin-top: 3rem;">🐠 Phi Phi Islands · 皮皮岛（AOW D4）</h4>
+    <div class="grid-2" style="margin: 1rem 0 1.5rem;">
+      <div>
+        <table class="schedule" style="font-size: 0.88rem;">
+          <tbody>
+            <tr><td>距 Chalong</td><td>~1.5-2h 船程</td></tr>
+            <tr><td>6 月能见度</td><td>10-20m（低季节，浮游生物多）</td></tr>
+            <tr><td>水温</td><td>28-30°C 全年</td></tr>
+            <tr><td>深度范围</td><td>5-30m（Bida 群岛壁潜）</td></tr>
+            <tr><td>海底地形</td><td>石灰岩水下峭壁 + 洞穴 + 软珊瑚墙 + 海扇</td></tr>
+            <tr><td>难度</td><td>AOW · 略有水流</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="font-size: 0.92rem;"><strong>6 月看点海洋生物</strong>：</p>
+        <ul style="font-size: 0.88rem; padding-left: 1.1rem;">
+          <li><strong>黑鳍礁鲨（Blacktip Reef Shark）</strong>· Shark Point / Koh Bida 几乎必见 · 0.5-2m 长，胆小不主动攻击</li>
+          <li><strong>玳瑁海龟（Hawksbill Turtle）</strong>· 常停在珊瑚上"晒太阳"</li>
+          <li><strong>鲸鲨（Whale Shark）</strong>· 6 月雨季最有可能（plankton 多）</li>
+          <li><strong>Manta Ray</strong>· 偶现</li>
+          <li>梭鱼风暴（Chevron Barracuda 阵列）</li>
+          <li>海狼鱼、海蛇、鲷鱼群（Snapper school）</li>
+          <li>多种海鳗（蓝带、巨型、网纹）</li>
+          <li>虎尾海马 · 罕见但 Shark Point 偶见</li>
+          <li>蝠鲼（Cuhl's Stingray）、燕鳐</li>
+        </ul>
+      </div>
+    </div>
+
+    <h5 style="margin-top: 0.5rem;">著名子潜点</h5>
+    <table class="schedule" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+      <thead><tr><th>潜点</th><th>深度</th><th>看点</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Shark Point（鲨鱼洞）</strong></td><td>5-20m</td><td>黑鳍礁鲨集中地 · 早晨人少时最佳</td></tr>
+        <tr><td>Koh Bida Nok</td><td>10-25m</td><td>下水 5min 内见鲨 · 一群可达十几只</td></tr>
+        <tr><td>Koh Bida Nai</td><td>10-25m</td><td>姊妹岛 · 与 Nok 串潜</td></tr>
+        <tr><td>Palong Wall</td><td>5-25m</td><td>"Blacktip Reef Shark heaven" · 壁潜</td></tr>
+        <tr><td>Anemone Reef</td><td>10-30m</td><td>大面积海葵地毯 · 小丑鱼之家</td></tr>
+        <tr><td>Hin Daeng / Hin Muang</td><td>20-50m</td><td>南向远场（不在常规 day trip）· 鲸鲨经典点</td></tr>
+        <tr><td>Maya Bay</td><td>水面</td><td>电影《海滩》取景地 · 出水可游览</td></tr>
+      </tbody>
+    </table>
+
+    <div class="photo-grid">
+      <figure><img src="./images/dive-sites/phiphi/blacktip-reef-sharks-are-virtually-gauranteed-at-the-phi-phi-islands.jpg" alt="Blacktip Reef Shark"><figcaption>🦈 <strong>黑鳍礁鲨 · 招牌画面 · Bida 必见</strong></figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/hawksbill-turtle-on-a-phi-phi-scuba-diving-tour.jpg" alt="Hawksbill Turtle"><figcaption>🐢 玳瑁海龟 · Phi Phi 常驻</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/hawksbill-turtle-chilling-out-amonst-the-coral-at-koh-bida-nok.jpg" alt="Turtle on coral"><figcaption>🐢 龟在珊瑚上休息 · Koh Bida Nok</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/chevron-barracuda-at-phi-phi.jpg" alt="Chevron Barracuda"><figcaption>🐟 V 字梭鱼风暴 · Phi Phi 招牌</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/schools-of-snapper-at-phi-phi.jpg" alt="Snapper school"><figcaption>🐟 鲷鱼鱼群</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/leopard-sharks-are-not-so-common-nowadays.jpg" alt="Leopard Shark"><figcaption>🦈 豹纹鲨 · 近年较少但偶遇</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/many-species-of-moray-eel-can-be-found-around-phi-phi.jpg" alt="Moray Eel"><figcaption>🐍 海鳗 · 多个品种</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/tigertail-seahorses-can-be-found-at-phi-phi-and-shark-point.jpg" alt="Tigertail Seahorse"><figcaption>🐴 虎尾海马 · 罕见</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/lots-of-caves-and-crevices-to-be-explored-around-phi-phi.jpg" alt="Caves and crevices"><figcaption>🏔 石灰岩洞穴 + 缝隙</figcaption></figure>
+      <figure><img src="./images/dive-sites/phiphi/turtle-rock-also-has-fish.jpg" alt="Turtle Rock"><figcaption>🪨 Turtle Rock 潜点</figcaption></figure>
+    </div>
+
+    <div class="box ocean" style="margin-top: 2rem;">
+      <h4>📅 6 月潜水期的特殊看点</h4>
+      <p><strong>6 月浮游生物 = 大型海洋生物的盛宴</strong>。能见度从 25m 降到 15m 是代价，但换来的是：</p>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li>🐋 <strong>鲸鲨</strong> 出现概率比旱季高 2-3 倍（最大可达 10m+）</li>
+        <li>🪽 <strong>鬼蝠魟</strong> 6 月仍能遇到（旱季更多但 6 月仍可见）</li>
+        <li>🐢 海龟反而更活跃</li>
+        <li>🦈 鲨鱼活动正常（黑鳍礁鲨整年都在）</li>
+      </ul>
+      <p style="margin-top: 0.75rem;">缺点：海况偶有不稳，潜店可能临时改潜点避大浪 — 不影响整体行程，只是可能某天去 Yai 而不是 Noi 之类的调整。</p>
+    </div>
+
+    <h3>课程费用包含 / 不包含</h3>
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--jungle);">
+        <h4 style="color: var(--jungle);">✓ 9 折价已包含</h4>
+        <ul>
+          <li>PADI / SSI 教材（电子版 + 部分纸质）</li>
+          <li>全套装备：BCD / 调节器 / 脚蹼 / 面镜 / 湿衣 / 气瓶 / 配重</li>
+          <li>中文教练（1 教 4 学员上限）</li>
+          <li>别墅 ↔ 码头 全程司机接送</li>
+          <li>出海日船上午餐 + 饮用水 + 水果</li>
+          <li>港口费 + 国家公园门票</li>
+          <li>出证费 + 国际电子证书制作</li>
+          <li>保险（基础水上活动险，建议自行补强）</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--coral);">
+        <h4 style="color: var(--coral);">✗ 不包含 / 需自费</h4>
+        <ul>
+          <li>晕船药（建议自备 / 711 有卖 30 THB）</li>
+          <li>水下相机 / GoPro 租赁（300-500 THB / 天）</li>
+          <li>纸质教材实体本（如需邮寄）</li>
+          <li>个人潜水保险升级（DAN 会员等）</li>
+          <li>潜水照片 / 视频拍摄服务（教练拍摄 1,000-2,000 THB）</li>
+          <li>额外 Fun Dive（出证后想加，3,000 THB / 潜）</li>
+          <li>体检阳性项的医生证明（中国当地办）</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>补课 / 补考规则</h3>
+    <div class="box warn">
+      <p>如果当天某项技能未通过 / 因身体原因下不了水：</p>
+      <table class="schedule" style="margin-top: 0.75rem;">
+        <thead><tr><th>类型</th><th>费用</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>出海潜水补课</td><td><strong>3,000 THB / 天</strong></td><td>跟船出海 + 教练时间</td></tr>
+          <tr><td>开放水域补课</td><td><strong>3,500 THB / 天</strong></td><td>含船 + 教练 + 装备 + 出证流程</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 0.75rem; font-size: 0.9rem;">本行程 D5 不能下水（24h 禁飞规则），所以如果 D4 出证失败，本次没机会补考，需另定时间回来 — 体检和心理准备一定要前置做好。</p>
+    </div>
+
+    <h3>体检与禁潜情况</h3>
+    <p>PADI / SSI 体检表会问 12-15 项病史，<strong>任何一项勾"是"就需要医生证明</strong>。常见拦路虎：</p>
+    <ul style="padding-left: 1.5rem;">
+      <li>哮喘 / 慢性呼吸道病（高频拦路虎，水下气压 → 肺超扩张风险）</li>
+      <li>癫痫 / 痉挛史（绝对禁潜）</li>
+      <li>心血管病 / 高血压未控制（深潜风险）</li>
+      <li>糖尿病（需控制良好 + 医生评估）</li>
+      <li>耳膜穿孔 / 中耳炎反复</li>
+      <li>怀孕（绝对禁潜，连陪同游泳也不建议）</li>
+      <li>感冒鼻塞期（无法平衡耳压，需痊愈后再潜）</li>
+    </ul>
+    <p style="margin-top: 0.5rem;">建议每人出发<strong>提前 2 周</strong>预读 PADI 体检表，有阳性项立刻找医生开证明，否则到普吉再办来不及。</p>
+
+    <h3>潜水安全要点（每个人都要看）</h3>
+    <div class="box warn">
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>禁飞 24h</strong>：D4 最后一潜 ~14:00 结束 → 起飞 D5 19:25，≥53h ✓</li>
+        <li><strong>D5 全天严禁下水</strong>（eFoil 算水面活动，可以做）</li>
+        <li><strong>潜水当天不喝酒</strong>（晚上小酌 OK，但出海前夜别喝多）</li>
+        <li><strong>防晒霜必须 reef-safe</strong>（不含 oxybenzone / octinoxate）</li>
+        <li>不触摸珊瑚 / 海洋生物 / 不喂鱼 / 不抓海龟</li>
+        <li>出水后不立刻洗冷水澡（避免减压病诱发）</li>
+        <li>船上多喝水，少咖啡可乐（脱水加重减压病风险）</li>
+        <li>感觉耳痛 / 不适立即停止下潜，告诉教练</li>
+        <li>失散两人对望 30 秒，找不到 → 安全速率上升到水面集合</li>
+      </ul>
+    </div>
+
+    <h3>潜水意外应急</h3>
+    <div class="box">
+      <p><strong>DAN（Divers Alert Network）亚太热线</strong>：<a href="tel:+61882129242">+61 8-8212-9242</a>（24h 英语）</p>
+      <p style="margin-top: 0.5rem;">普吉<strong>减压舱</strong>设在 Patong Hospital。出海前向 dive master 确认船上有氧气瓶 + 减压舱位置。任何疑似减压病症状（出水后头晕、关节痛、呼吸不畅、皮肤瘙痒）—— 不要扛，立即报告 DM。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 电动冲浪 ============== -->
+<section id="efoil">
+  <div class="container">
+    <p class="section-marker">§05 · 冲浪</p>
+    <h2 class="section-title">电动冲浪 eFoil</h2>
+    <p class="section-lead">D2 上午 AOW 3 人先去 Kata Beach 试玩 30 min 找手感，D5 上午全员 6 人正式上板。<strong>主推 Kata Surf Limited</strong>（有中文教练、微信预订、官方价目表）。<strong>注意：eFoil 在 Kata Beach，不在 Rawai/Chalong</strong>，每次从别墅去要 20-25 min 车程。</p>
+
+    <dl class="kpi-row">
+      <div class="kpi"><dt>D2 试玩</dt><dd>3 AOW · 09:00-10:30</dd></div>
+      <div class="kpi"><dt>D5 全员</dt><dd>6 人 · 08:00-10:30</dd></div>
+      <div class="kpi"><dt>单价</dt><dd>1,700 THB / 30min</dd></div>
+      <div class="kpi"><dt>团费合计</dt><dd>15,300 THB（含包车）</dd></div>
+    </dl>
+
+    <h3>两场场次对比</h3>
+    <table class="schedule">
+      <thead><tr><th>场次</th><th>D2 试玩</th><th>D5 全员</th></tr></thead>
+      <tbody>
+        <tr><td>日期</td><td>06.19 周五</td><td>06.22 周一</td></tr>
+        <tr><td>人数</td><td>3 人（AOW 组）</td><td>6 人（OW + AOW 全员）</td></tr>
+        <tr><td>时段</td><td>09:00-10:30</td><td>08:00-10:30</td></tr>
+        <tr><td>用意</td><td>AOW D2 全天空 · 提前熟悉</td><td>D5 主活动 · OW 首次上板（教练带），AOW 二刷</td></tr>
+        <tr><td>设备要求</td><td>1 块板足够（3 人轮换）</td><td>至少 2 块板 + 2 教练</td></tr>
+        <tr><td>来回路线</td><td>08:30 出发 → 11:00 回别墅</td><td>07:30 出发 → 11:00 回别墅 → 12:00 转 Soi Ta-iad</td></tr>
+        <tr><td>预算</td><td>3 × 1,700 = <strong>5,100 THB</strong></td><td>6 × 1,700 = <strong>10,200 THB</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 2rem;">运营商详情</h3>
+
+    <div class="photo-grid">
+      <figure><img src="./images/efoil/waydoo-ocean-riding-1.jpg" alt="eFoil 海面飞行"><figcaption>Waydoo Flyer One · 海面飞行（板下水翼让人脱离水面）</figcaption></figure>
+      <figure><img src="./images/efoil/waydoo-solo-riding-04.jpg" alt="单人 eFoil"><figcaption>独自驾驶 · 25mph 极速 · 120min 续航</figcaption></figure>
+      <figure><img src="./images/efoil/waydoo-solo-riding-05.jpg" alt="eFoil 板特写"><figcaption>电控板 · 手持遥控加减速 · 入门 30min</figcaption></figure>
+      <figure><img src="./images/efoil/waydoo-ocean-riding-2.jpg" alt="海上飞行"><figcaption>悬浮感 · 无引擎噪音 · 环保</figcaption></figure>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--ocean);">
+        <h4 style="color: var(--ocean-deep);">⭐ Kata Surf Limited（推荐）</h4>
+        <ul style="font-size: 0.88rem;">
+          <li><strong>地址</strong>：186/6 Kata Road, Karon, Phuket 83100（<strong>Kata Beach</strong> 沙滩边）</li>
+          <li><strong>从别墅</strong>：Rawai → Kata 约 20 min / 250 THB Grab</li>
+          <li><strong>设备</strong>：Waydoo Flyer One（业内主流）</li>
+          <li><strong>价格</strong>：
+            <br>· 30 min 租赁含基础课：<strong>1,700 THB</strong>
+            <br>· 1h 租赁含基础课：3,000 THB
+            <br>· 30 min 正式教练课：2,000 THB
+            <br>· 1h 正式教练课：3,500 THB
+          </li>
+          <li><strong>联系</strong>：
+            <br>· 英/泰：+66 836-401-761
+            <br>· <strong>中文 / English</strong>：+66 828-092-699 ⭐
+            <br>· WeChat：<code>jerryalex198275</code>
+            <br>· WhatsApp：+66 836-401-761
+            <br>· Email：info@katasurflimited.com
+          </li>
+          <li><strong>预订</strong>：建议 WeChat 加 jerryalex198275 直谈，团购 6 人位提前 1 周</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>EasyFlyFoil（备选）</h4>
+        <ul style="font-size: 0.88rem;">
+          <li><strong>地址</strong>：186 Koktanod Rd, Karon（Kata Beach 北段）</li>
+          <li><strong>价格</strong>：~3,000 THB / 30 min（未列价目表）</li>
+          <li><strong>联系</strong>：+66 62-015-1052 / Easyflyfoil22@gmail.com</li>
+          <li><strong>预订</strong>：建议提前 1 天</li>
+          <li>同时在 Koh Phangan 有店</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box success" style="margin-top: 1.5rem;">
+      <h4>💰 选 Kata Surf 总省 11,700 THB</h4>
+      <p>用 Kata Surf 的 30min 租赁含基础课（1,700 THB）替代原估的 3,000 THB：</p>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li>D2 试玩：3 × 1,700 = <strong>5,100 THB</strong>（原估 9,000，省 3,900）</li>
+        <li>D5 全员：6 × 1,700 = <strong>10,200 THB</strong>（原估 18,000，省 7,800）</li>
+        <li>加上 Rawai ↔ Kata 包车 2 次 ≈ 1,000 THB，<strong>净省 10,700 THB</strong></li>
+      </ul>
+    </div>
+
+    <div class="box warn" style="margin-top: 1.5rem;">
+      <h4>⚠️ 预订前必确认 3 项</h4>
+      <ol style="margin: 0.5rem 0 0 1.2rem;">
+        <li><strong>D5 板数</strong>：6 人 2.5h 必须 ≥ 2 块板 + 2 名教练，否则轮换吃不下</li>
+        <li><strong>团购价</strong>：6 人位提早 1 周报，问能否砍到 1,500 THB / 30min 或赠送 GoPro 拍摄</li>
+        <li><strong>D5 时段</strong>：08:00 起 — 早班是否开门？周一早场是否要提早 30 min 到</li>
+      </ol>
+    </div>
+
+    <div class="box ocean" style="margin-top: 1.5rem;">
+      <h4>🧭 D5 严禁下水 ≠ 严禁 eFoil</h4>
+      <p>潜水后 24h 禁飞 / 禁下水的规则针对的是<strong>水下活动</strong>（残留氮气经压力变化释放）。<strong>eFoil 是水面活动</strong>（板浮于水面之上，无气压变化），且最后一潜 D4 ~14:00 → D5 08:00 已隔 ≈ 18h，安全可玩。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 厨师课 ============== -->
+<section id="cooking">
+  <div class="container">
+    <p class="section-marker">§06 · 厨师课</p>
+    <h2 class="section-title">Pum Thai 厨师课</h2>
+    <p class="section-lead">D2 周五晚上 18:00-19:30，2 人去 Kathu 区的 Pum Thai。原以为是 3h 长课，抓官方课表才发现是 <strong>6pm 班 1.5-2h 的快节奏短课</strong>，时长刚好能在 21:00 前回别墅、不影响 D3 早 7 点出海。</p>
+
+    <dl class="kpi-row">
+      <div class="kpi"><dt>时间</dt><dd>D2 · 18:00-19:30</dd></div>
+      <div class="kpi"><dt>人数</dt><dd>2 人（1 OW + 1 AOW）</dd></div>
+      <div class="kpi"><dt>推荐班</dt><dd>Little Lipstick ⭐</dd></div>
+      <div class="kpi"><dt>团费</dt><dd>2,800 THB（2 × 1,400）</dd></div>
+    </dl>
+
+    <div class="photo-grid">
+      <figure><img src="./images/pumthai/Pum-Thai-Restaurant-Cooking-Classes-1024x724.jpg" alt="Pum Thai 课程价目表"><figcaption>课程价目表 · 6 pm 班 1.5-2h</figcaption></figure>
+      <figure><img src="./images/pumthai/cooking.jpg" alt="厨房教学"><figcaption>厨房教学 · 学员动手</figcaption></figure>
+      <figure><img src="./images/pumthai/Pum-Thai-Restaurant-Vegan-Class-1024x720.jpg" alt="素食班"><figcaption>素食班可选</figcaption></figure>
+      <figure><img src="./images/pumthai/Pum-Thai-Restaurant-Vegan-Set-Menu-1024x710.jpg" alt="6 套素食菜单"><figcaption>6 套素食菜单可挑</figcaption></figure>
+      <figure><img src="./images/pumthai/Private-Party-1.jpg" alt="私人课氛围"><figcaption>课堂氛围 1</figcaption></figure>
+      <figure><img src="./images/pumthai/Private-Party-4.jpg" alt="私人课氛围"><figcaption>课堂氛围 2</figcaption></figure>
+    </div>
+
+    <h3 style="margin-top: 2rem;">6pm 班可选课程</h3>
+    <table class="schedule" style="font-size: 0.9rem;">
+      <thead><tr><th>课程</th><th>时长</th><th>道数</th><th>价格</th><th>含</th></tr></thead>
+      <tbody>
+        <tr><td>Pum's Mini-Me 1</td><td>30 min</td><td>1 道</td><td>700 THB</td><td>食谱书</td></tr>
+        <tr><td>Pum's Mini-Me 2</td><td>45 min</td><td>2 道</td><td>900 THB</td><td>食谱书</td></tr>
+        <tr style="background: oklch(96% 0.05 50);"><td><strong>Pum's Little Lipstick ⭐</strong></td><td><strong>1.5 hrs</strong></td><td><strong>3 道</strong></td><td><strong>1,400 THB</strong></td><td>食谱书</td></tr>
+        <tr><td>Pum's 25th Anniversary</td><td>2 hrs</td><td>3 道 + 蛋糕</td><td>1,599 THB</td><td>限定菜 + 周年纪念</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.9rem; margin-top: 0.5rem;"><strong>推荐选 Little Lipstick ⭐</strong>：1.5h / 3 道菜 / 1,400 THB · 18:00-19:30 · 含 Pum 第一本食谱书 · 官方标语「为饥饿没耐心的人设计的快节奏班」。</p>
+
+    <h3 style="margin-top: 2rem;">菜品选择（6 套素食菜单 · 荤食类似）</h3>
+    <table class="schedule" style="font-size: 0.88rem;">
+      <thead><tr><th>菜单</th><th>3 道菜</th></tr></thead>
+      <tbody>
+        <tr><td>素 1</td><td>素炒饭 + Panaeng 咖喱 + 香蕉椰奶汤</td></tr>
+        <tr><td>素 2</td><td>素 Pad Thai + 泰式青咖喱 + 芒果糯米饭 🥭</td></tr>
+        <tr><td>素 3</td><td>素 Tom Yum + 腰果素菜 + 香蕉椰奶汤</td></tr>
+        <tr><td>素 4</td><td>素青咖喱 + 糖醋素菜 + 芒果糯米饭 🥭</td></tr>
+        <tr><td>素 5</td><td>什锦素菜 + Phad Thai 素菜 + 香蕉椰奶汤</td></tr>
+        <tr><td>素 6</td><td>素炒饭 + Tom Kha 素菜 + 芒果糯米饭 🥭</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.5rem;">荤食版有 Tom Yum 虾汤 / Pad Thai 鸡虾 / Panaeng 牛肉咖喱 / Massaman 等。报名时邮件确认菜单偏好。</p>
+
+    <h3 style="margin-top: 2rem;">课程流程</h3>
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--coral);">
+        <h4 style="color: var(--coral);">⏱ 时间轴</h4>
+        <ol style="padding-left: 1.2rem; font-size: 0.92rem;">
+          <li><strong>17:30</strong> Grab 出发别墅 → Kathu（~25-30 min / 250 THB）</li>
+          <li><strong>18:00</strong> 抵达店内</li>
+          <li><strong>18:00-18:15</strong> 教师讲解今日 3 道菜 + 关键食材 / 香料 / 酱料</li>
+          <li><strong>18:15-18:40</strong> 动手做第 1 道 → 试吃</li>
+          <li><strong>18:40-19:05</strong> 动手做第 2 道 → 试吃</li>
+          <li><strong>19:05-19:30</strong> 动手做第 3 道（甜品多在这一道）→ 试吃</li>
+          <li><strong>19:30</strong> 领纪念食谱书 + 合影 + 散场</li>
+          <li><strong>19:35</strong> Grab 回别墅（~25 min / 250 THB）</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h4>📍 位置与联系</h4>
+        <ul style="font-size: 0.9rem;">
+          <li><strong>地址</strong>：17/111 Praphuketkaew Road, Kathu, Phuket（<strong>Kathu 区</strong> · 不是 Patong 市中心，而是 Patong-Phuket Town 路上）</li>
+          <li><strong>从别墅</strong>：Rawai → Kathu 约 25-30 min / 250 THB Grab</li>
+          <li><strong>电话</strong>：+66 81-240-8924</li>
+          <li><strong>邮箱</strong>：Bookings@pumthaifoodchain.com</li>
+          <li><strong>官网</strong>：pumthaifoodchain.co.th</li>
+          <li><strong>预订必告知</strong>：D2 周五 18:00 班 · 2 人 · 选 Little Lipstick · 是否有素食/过敏</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box warn" style="margin-top: 1.5rem;">
+      <h4>⚠️ 预订前必确认 3 项</h4>
+      <ol style="margin: 0.5rem 0 0 1.2rem;">
+        <li><strong>D2 18:00 班是否开课</strong>：6pm 班需要凑人，先邮件 Bookings@ 确认这天有班 + 报名截止时间</li>
+        <li><strong>菜单偏好</strong>：6 套素食 + 荤食版各几道菜，提早告知（避免现场临时改课）</li>
+        <li><strong>过敏 / 忌口</strong>：海鲜过敏、虾敏、辣度耐受 — 邮件里写清楚</li>
+      </ol>
+    </div>
+
+    <div class="box success" style="margin-top: 1.5rem;">
+      <h4>✅ 时间设计的好处</h4>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>1.5h 短课</strong>选对了 — 21:00 前回别墅，不影响 D3 早 7 点出海</li>
+        <li><strong>AOW 组 D2 全天空</strong>，所以厨师课 2 人里建议安排 1 个 AOW（更轻松），另 1 个 OW 早 16:00 收工赶得上</li>
+        <li>厨师课 vs Hyrox 分流：2 OW + 2 AOW 去 Unit 27，剩下 1 OW + 1 AOW 去 Pum Thai，分组干净不撞车</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 健身房 ============== -->
+<section id="gyms">
+  <div class="container">
+    <p class="section-marker">§07 · 健身房</p>
+    <h2 class="section-title">Soi Ta-iad · 健身一条街双打卡</h2>
+    <p class="section-lead">普吉"健身一条街"= Soi Ta-iad（位于 Chalong），全长约 1 公里，密集分布 20+ 健身房、泰拳馆、健康餐厅、恢复中心。我们打卡两家最有名的：<strong>Unit 27</strong>（D2 晚教练带练）+ <strong>Kong Strength</strong>（D5 中午官方 Hyrox 课）。</p>
+
+    <h3>两家对比</h3>
+    <table class="schedule">
+      <thead><tr><th>项</th><th>Unit 27</th><th>Kong Strength</th></tr></thead>
+      <tbody>
+        <tr><td>定位</td><td>老牌 · "Soi 引擎" · 父子军营风格</td><td>新秀 · 现代摩登 · 含恢复中心 + 咖啡 + 瑜伽馆</td></tr>
+        <tr><td>特色</td><td>CrossFit + Hyrox + 桑拿冰桶</td><td>Hyrox 专长 + 力量 + 原始功能 + Spa</td></tr>
+        <tr><td>地址</td><td>9/49 Soi Ta-iad, Chalong</td><td>10/129 Soi Ta-iad, Chalong</td></tr>
+        <tr><td>电话</td><td><a href="mailto:info@unit-27.com">info@unit-27.com</a></td><td><a href="tel:+66924525172">+66 92-452-5172</a></td></tr>
+        <tr><td>我们的时段</td><td><span class="tag tag-cert">D2 周五 17:00 Hyrox 课</span></td><td><span class="tag tag-cert">D5 周一 12:30 待确认</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- Unit 27 -->
+    <h3 style="margin-top: 3.5rem;">🏆 Unit 27 · 我们 D2 晚去的健身房</h3>
+    <p style="color: var(--ink-soft); margin-bottom: 1.5rem;">普吉首家 CrossFit 注册馆，"Soi Ta-iad 的引擎"。父子军营风格，强调 grit + discipline + no-excuses。设施含 sauna、ice bath、open gym 区。</p>
+
+    <div class="photo-grid">
+      <figure><img src="./images/unit27/Unit-27-CrossFit-1.jpg" alt="Unit 27 主训练厅"><figcaption>主训练厅 · "GO HARD OR GO HOME" · CrossFit Rig + 草皮跑道</figcaption></figure>
+      <figure><img src="./images/unit27/DSC02336.jpeg" alt="Unit 27 团课进行中"><figcaption>团课进行中 · 杠铃片仰卧起坐 + 健身车</figcaption></figure>
+      <figure><img src="./images/unit27/Unit-27-CrossFit-2.jpg" alt="Concept2 划船机"><figcaption>Concept2 划船机区 · Hyrox 标配</figcaption></figure>
+      <figure><img src="./images/unit27/DSC05760.jpg" alt="杠铃片墙"><figcaption>杠铃片墙 · 多色橡胶片配齐</figcaption></figure>
+      <figure><img src="./images/unit27/DSC02120.jpg" alt="Unit 27 教练 Stav"><figcaption>教练 Stav · 训练厅内</figcaption></figure>
+      <figure><img src="./images/unit27/DSC02128.jpg" alt="Unit 27 中文教练 Mr.Oh"><figcaption>中文教练 Mr.Oh · 计时器 + UNIT 涂鸦背景</figcaption></figure>
+    </div>
+
+    <h4 style="margin-top: 2rem;">Unit 27 完整周课表（官网抓取）</h4>
+    <p style="font-size: 0.9rem; color: var(--ink-soft);">⭐ = <strong>我们 D2 周五 17:00 要去的 Hyrox 课</strong></p>
+    <table class="schedule" style="font-size: 0.85rem;">
+      <thead>
+        <tr><th>时间</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>08:00</td><td>Morning Glory</td><td>Tour De Unit</td><td>Morning Glory</td><td>Tour De Unit</td><td>Morning Glory</td><td>Morning Glory</td><td>—</td></tr>
+        <tr><td>09:00</td><td>The Punisher</td><td>Kalorie Killa</td><td>She Squats</td><td>Sink Oar Swim</td><td>Kalorie Killa</td><td>Death Row</td><td>Partner Drill / Kalorie Killa</td></tr>
+        <tr><td>10:00</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>—</td><td>—</td></tr>
+        <tr><td>11:00</td><td>CrossFit</td><td>CrossFit</td><td>CrossFit</td><td>CrossFit</td><td>CrossFit</td><td>CF Partner Chipper</td><td>—</td></tr>
+        <tr><td>12:00</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Sauna + Ice</td><td>—</td></tr>
+        <tr><td>14:00</td><td>Vanguard 上肢</td><td>Vanguard 推</td><td>Vanguard 表现</td><td>Vanguard 拉</td><td>Vanguard 上肢</td><td>—</td><td>—</td></tr>
+        <tr><td>16:00</td><td>Sauna + Ice</td><td>Sauna + Ice</td><td>Sauna + Ice</td><td>Sauna + Ice</td><td>Sauna + Ice</td><td>—</td><td>—</td></tr>
+        <tr style="background: oklch(96% 0.05 50);"><td><strong>17:00</strong></td><td><strong>Hyrox</strong></td><td>Nemesis</td><td><strong>Hyrox</strong></td><td>Nemesis</td><td>⭐ <strong>Hyrox</strong></td><td>—</td><td>—</td></tr>
+        <tr><td>18:00</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top: 2rem;">Unit 27 课程速查</h4>
+    <div class="grid-3">
+      <div class="card"><h4>Hyrox</h4><p style="font-size: 0.88rem;">官方 Hyrox 备赛课 · 周一/三/五 17:00 · 1h · 教练带练</p></div>
+      <div class="card"><h4>The Punisher</h4><p style="font-size: 0.88rem;">高强度 circuit · 招牌课</p></div>
+      <div class="card"><h4>Kalorie Killa</h4><p style="font-size: 0.88rem;">燃脂导向 · 大量 cardio</p></div>
+      <div class="card"><h4>Morning Glory</h4><p style="font-size: 0.88rem;">早 8 点起床式 conditioning</p></div>
+      <div class="card"><h4>CrossFit</h4><p style="font-size: 0.88rem;">标准 CrossFit WOD · 每天 11:00</p></div>
+      <div class="card"><h4>Sauna + Ice Bath</h4><p style="font-size: 0.88rem;">恢复 · 周一-周五 16:00 / 周六 12:00</p></div>
+    </div>
+
+    <!-- Kong -->
+    <h3 style="margin-top: 3.5rem;">🦍 Kong Strength · 我们 D5 中午去的健身房</h3>
+    <p style="color: var(--ink-soft); margin-bottom: 1.5rem;">Soi Ta-iad 新秀，2024 开业，主打 <strong>Hyrox 备赛</strong> + 力量 + 原始功能 + 恢复。设施含日式恢复区、Spa、瑜伽馆、咖啡馆。地址 10/129 Soi Ta-iad，离 Unit 27 步行 5 分钟。</p>
+
+    <div class="photo-grid">
+      <figure><img src="./images/kong/kong-wellness-phuket-official-hyrox-1300x650.jpg" alt="Kong 官方 Hyrox 训练区"><figcaption>官方 Hyrox 训练区 · 比赛专项备战场</figcaption></figure>
+      <figure><img src="./images/kong/kong-strength-conditioning-phuket-thailand-650x650.jpg" alt="Kong 力量训练区"><figcaption>力量训练区 · 哑铃 + Rig + Concept2 行车</figcaption></figure>
+      <figure><img src="./images/kong/open-gym-kong-wellness-phuket-thailand-650x650.jpg" alt="Open Gym 自由训练区"><figcaption>Open Gym 自由训练区</figcaption></figure>
+      <figure><img src="./images/kong/Metabolic-Conditioning-Kettlebells-Kong-Wellness-Phuket-1300x650.jpg" alt="壶铃代谢训练"><figcaption>壶铃代谢训练区 · Metabolic Conditioning</figcaption></figure>
+      <figure><img src="./images/kong/kong-wellness-abs-booty-made-in-the-jungle-650x650.jpg" alt="附属训练区"><figcaption>附属训练区 · "Made in the Jungle"</figcaption></figure>
+      <figure><img src="./images/kong/not-here-to-be-tamed-recovery-mobility-650x650.jpg" alt="恢复 + 灵活性区"><figcaption>恢复 + 灵活性区 · Primal Mobility</figcaption></figure>
+      <figure><img src="./images/kong/kong-infrared-sauna-swedish-wellness-phuket.jpg" alt="红外桑拿"><figcaption>红外桑拿 · 瑞典风格 wellness</figcaption></figure>
+      <figure><img src="./images/kong/KONG-Wellness-recovery-normantech-phuket-chalong.jpg" alt="Normatec 恢复"><figcaption>Normatec 加压恢复 · 顶级运动员同款</figcaption></figure>
+      <figure><img src="./images/kong/Kong-Cafe-Featuring-Juma-Acai-Phuket-Fitness-street.jpg" alt="Kong Kafé 咖啡馆"><figcaption>Kong Kafé · 室内丛林 + Acai 健康碗</figcaption></figure>
+    </div>
+
+    <div class="box ocean">
+      <p>从官方图看 Kong 走的是 <strong>"健身房 + Spa + 咖啡馆"复合型 lifestyle 路线</strong>，跟 Unit 27 的纯军营硬核风形成强烈对比。D5 中午去既能练 Hyrox，又能顺便用恢复设备 + Kafé 喝杯 Acai bowl 当午餐——直接省下 §02 表里的"全体午餐"环节。</p>
+    </div>
+
+    <div class="box success">
+      <h4>✅ Kong 完整周课表已找到</h4>
+      <p>通过抓 kongwellness.com 的 wp-sitemap 找到隐藏的 <a href="http://kongwellness.com/class-timetable/" target="_blank">/class-timetable/</a> 页面（官网导航没直链）。</p>
+    </div>
+
+    <h4 style="margin-top: 1.5rem;">Kong 完整周课表（官网抓取）</h4>
+    <p style="font-size: 0.9rem; color: var(--ink-soft);">⭐ = <strong>我们 D5 周一 12:30 要去的 Lactic Jungle 课</strong></p>
+    <table class="schedule" style="font-size: 0.82rem;">
+      <thead>
+        <tr><th>时间</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>08:00-09:00</td><td>Primal Mobility</td><td>Yoga</td><td>Primal Mobility</td><td>Yoga</td><td>Primal Mobility</td></tr>
+        <tr><td>09:30-10:30</td><td>HYROX Benchmark</td><td>HYROX Performance</td><td>HYROX Mini Sim</td><td>HYROX Circuit</td><td>HYROX Performance</td></tr>
+        <tr><td>11:00-12:00</td><td>Primal Play 力量</td><td>Primal Play 力量</td><td>Primal Play 壶铃</td><td>Primal Play 耐力</td><td>Primal Play 灵活</td></tr>
+        <tr style="background: oklch(96% 0.05 50);"><td><strong>12:30-13:30</strong></td><td>⭐ <strong>Lactic Jungle</strong></td><td>Abs & Booty</td><td>Lactic Jungle</td><td>Abs & Booty</td><td>Lactic Jungle</td></tr>
+        <tr><td>14:00-15:30</td><td>Primal 深蹲</td><td>Jungle Assault</td><td>Primal 推</td><td>Jungle Assault</td><td>Primal 拉</td></tr>
+        <tr><td>16:00-17:00</td><td>HYROX S&E</td><td>HYROX Circuit</td><td>HYROX Performance</td><td>HYROX Benchmark</td><td>HYROX S&E</td></tr>
+        <tr><td>17:00-22:00</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td><td>Open Gym</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;"><strong>周六</strong>：09:30 Jumanji · 11:00 HYROX Mini Sim · 12:00-20:00 Open Gym &nbsp;|&nbsp; <strong>周日</strong>：08:00 Yoga · 09:30 Ape Shit · 11:00 Calisthenics · 12:00-20:00 Open Gym</p>
+
+    <div class="box ocean">
+      <h4>🎯 D5 周一 12:30 我们上的 Lactic Jungle 是什么</h4>
+      <p><strong>Lactic Jungle</strong> = "乳酸丛林"。Kong 的高强度代谢训练课，动态全身循环 + 高乳酸输出（即"练到酸爽"），跟 Hyrox 风格非常接近但不是官方 Hyrox。1h 团课。</p>
+      <p style="margin-top: 0.75rem;"><strong>原计划的"上 Hyrox 课"调整</strong>：周一中午并没有官方 Hyrox 课（早 9:30 是 Benchmark / 下午 16:00 是 S&E），但 12:30 的 Lactic Jungle 强度风格接近，且时间正好卡在 eFoil → 按摩 → 机场的窗口。</p>
+      <p style="margin-top: 0.75rem;"><strong>替代方案</strong>：</p>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>方案 1</strong>（推荐）：维持现行 — 12:30 Lactic Jungle，等于上了"准 Hyrox"</li>
+        <li><strong>方案 2</strong>：要正宗 HYROX Benchmark → 改 D5 早 09:30 Kong，但 eFoil 砍掉或移到 D2 早全员（OW 难赶）</li>
+        <li><strong>方案 3</strong>：Lactic Jungle 不上 → Open Gym 自由用所有设备 + 多用 Normatec / 红外桑拿恢复 + Kafé 早午餐</li>
+      </ul>
+    </div>
+
+    <h4 style="margin-top: 2rem;">Kong 课程详解（官网描述）</h4>
+    <div class="grid-2">
+      <div class="card">
+        <h4>HYROX 系列（5 种）</h4>
+        <ul style="font-size: 0.88rem;">
+          <li><strong>Benchmark</strong>：长时间稳态输出 · 建有氧 + 工作能力</li>
+          <li><strong>Performance</strong>：进阶 · 速度 + 效率 + 比赛峰值</li>
+          <li><strong>Circuit</strong>：高强度循环 · 疲劳下动作质量</li>
+          <li><strong>Mini Sim</strong>：缩短的比赛模拟 · 配速 + 转换</li>
+          <li><strong>S&E（Strength & Endurance）</strong>：负重力量 + 持续输出</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>非 HYROX 招牌课</h4>
+        <ul style="font-size: 0.88rem;">
+          <li><strong>Lactic Jungle</strong> ⭐：动态高乳酸 · 我们 D5 12:30 上的</li>
+          <li><strong>Jungle Assault</strong>：不可预测高输出功能训练</li>
+          <li><strong>Jumanji</strong>：冒险风格 · 团队 + 强度</li>
+          <li><strong>Ape Shit</strong>：原始高强度 · 推 engine 推 grit</li>
+          <li><strong>Primal Strength</strong>：深蹲/推/拉 基础力量分日训</li>
+          <li><strong>Primal Play</strong>：自然动作模式 · 力量/壶铃/耐力/灵活轮换</li>
+          <li><strong>Abs & Booty</strong>：核心 + 臀部专项</li>
+          <li><strong>Open Gym</strong>：17:00-22:00 自由训练</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 3rem;">为什么打卡两家</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>D2 晚 Unit 27</h4>
+        <ul>
+          <li>OW 16:00 收工后第一个团体活动</li>
+          <li>周五 17:00 是 Unit 27 当周最后一节 Hyrox 课</li>
+          <li>有教练带练（vs 单纯 Open Gym）</li>
+          <li>体验"老牌引擎"的氛围</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>D5 中 Kong</h4>
+        <p>对比 Unit 27 的军营风格，Kong 走<strong>现代摩登</strong>路线。D5 也是最后一天，去 Kong 体验现代健身房 + 拍照打卡，然后转到按摩 → 机场。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 别墅 ============== -->
+<section id="villa">
+  <div class="container">
+    <p class="section-marker">§08 · 住宿</p>
+    <h2 class="section-title">别墅选址</h2>
+
+    <p class="section-lead">中档 25-35k THB/晚，3BR 私泳池别墅，定位在 Rawai 北部 / Chalong 南部三角内 — 离 Chalong Pier（潜水船）、Soi Ta-iad（Kong 健身一条街）、Rawai Beach（eFoil + 海鲜市场）都在 10 分钟车程内。</p>
+
+    <h3>价位重新校准（实地行情）</h3>
+    <div class="box ocean">
+      <p>我之前估的"中档 25-35k THB/晚"在 Rawai 实际是<strong>偏豪华</strong>档。深挖后真实分布：</p>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>经济档 8-15k THB/晚</strong>（4 晚 32-60k）— 3BR 私泳池 + 基本厨房，够住够用</li>
+        <li><strong>中档 15-25k THB/晚</strong>（4 晚 60-100k）— 加管家 / 早餐 / 大花园 / 设计感</li>
+        <li><strong>高端 25-35k+ THB/晚</strong>（4 晚 100-140k+）— Boutique 别墅区 / 海景 / 全套服务</li>
+      </ul>
+      <p style="margin-top: 0.75rem;"><strong>建议</strong>：你们时间大头在潜水+健身（不在别墅），别墅主要是泳池 + 晚上聚会用，<strong>中档 15-25k 已经很舒服</strong>，省下的钱可加 D4 fun dive / 升级 Kan Eang Phuket Lobster 套餐 / 高端 SPA。</p>
+    </div>
+
+    <h3 style="margin-top: 2rem;">3 档具体房源 + 预订直链</h3>
+
+    <h4 style="margin-top: 1rem;">🟢 经济档（8-15k THB/晚）· 4 晚 32-60k THB ≈ 6,400-12,000 RMB</h4>
+    <div class="grid-3">
+      <div class="card">
+        <h4>Lady Naya Villas</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">Soi Naya, Rawai · 3BR 私泳池 + ensuite 卫</p>
+        <p class="price">~8,750 THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/ladynayavillas.html" target="_blank">📎 Booking.com 直链</a></p>
+      </div>
+      <div class="card">
+        <h4>3BR Pool Villa F10</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">250m 到 Rawai Beach · 每房带空调+厨房+按摩浴缸 · 8.5/10</p>
+        <p class="price">~10-13k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/three-bedroom-pool-villa-only-250m-from-the-beach.html" target="_blank">📎 Booking.com 直链</a><br>⚠️ 入住时需现金保证金 2,000 THB</p>
+      </div>
+      <div class="card">
+        <h4>Private Pool Villa Rawai Beach</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai Beach 步行 16 min · 3BR/3BA · 全套厨房 + BBQ + 洗衣机</p>
+        <p class="price">~9-14k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/private-pool-villa-rawai-beach.html" target="_blank">📎 Booking.com 直链</a></p>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 1.5rem;">🟡 中档（15-25k THB/晚）· 4 晚 60-100k THB ≈ 12,000-20,000 RMB <span class="tag tag-cert">推荐</span></h4>
+    <div class="grid-3">
+      <div class="card" style="border-left: 3px solid var(--sunset);">
+        <h4>⭐ Rawai Private Villas - Pools and Garden</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">8 套 3BR villa 集中管理 · 每房 ensuite · 0.6mi 到 Rawai Beach · <strong>9.0/10 评分</strong></p>
+        <p class="price">~15-22k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/rawai-private-villas-pools-and-garden.html" target="_blank">📎 Booking.com 直链</a><br>⚠️ 入住时押金 10,000 THB 现金 · 退房返还</p>
+      </div>
+      <div class="card">
+        <h4>Thames Tara Private Pool Villa</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai · 3BR · 现代设计 · Klook 平台优惠多</p>
+        <p class="price">~18-25k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.klook.com/en-US/hotels/detail/968524-thames-tara-private-pool-villa-rawai-phuket/" target="_blank">📎 Klook 直链</a></p>
+      </div>
+      <div class="card">
+        <h4>Prima Villa by Rents</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai · 3BR + 户外泳池 + WiFi + 自助停车</p>
+        <p class="price">~15-20k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.hotels.com/ho1143661984/prima-villa-by-rents-in-phuket-rawai-thailand/" target="_blank">📎 Hotels.com 直链</a></p>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 1.5rem;">🔴 高端档（25-35k+ THB/晚）· 4 晚 100-140k+ THB ≈ 20,000-28,000+ RMB</h4>
+    <div class="grid-3">
+      <div class="card">
+        <h4>Saiyuan Villas（boutique 区）</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">7-villa 精品社区 · 3-4BR + ensuite · Rawai/Nai Harn 之间绿心 · 高端设施</p>
+        <p class="price">~25-35k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://molokophuket.com/1667-saiyuan-villas-premium-pool-villa-project-in-the-green-heart-of-rawai-phuket" target="_blank">📎 项目介绍页</a><br>需直接联系运营方订位</p>
+      </div>
+      <div class="card">
+        <h4>Luxury 3BR Tropical Garden（1200m²）</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">VRBO · 1200m² 大花园 + 私泳池 + 设计感 · 适合摆拍</p>
+        <p class="price">~28-35k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.vrbo.com/1545789a" target="_blank">📎 VRBO 直链</a></p>
+      </div>
+      <div class="card">
+        <h4>Beachfront Pool Villa Rawai</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">海滨别墅 · 直面 Rawai 海湾 · 早餐+管家+司机</p>
+        <p class="price">~30-40k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.expedia.com/Phuket-Hotels-Beachfront-Pool-Villa-Rawai-Phuket.h65723352.Hotel-Information" target="_blank">📎 Expedia 直链</a></p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 2.5rem;">搜索关键词（自己再淘）</h3>
+    <ul style="padding-left: 1.5rem;">
+      <li><strong>Airbnb</strong>：<a href="https://www.airbnb.com/s/Rawai--Thailand/homes?adults=6&room_types[]=Entire+home%2Fapt&amenities[]=7" target="_blank"><code class="mono">Rawai 3 bedroom pool villa</code> 直搜</a> · 筛选「整套住宿 + 6 客人 + 私人泳池」</li>
+      <li><strong>Booking.com</strong>：<a href="https://www.booking.com/villas/city/th/ban-ra-wai.html" target="_blank"><code class="mono">Rawai villas</code> 直搜</a> · 筛选「整套别墅 + 6 客 + 泳池」</li>
+      <li><strong>Agoda</strong>：搜「Rawai pool villa」中文界面对中国卡更友好</li>
+      <li><strong>FazWaz</strong>：<a href="https://www.fazwaz.com/villa-for-rent/thailand/phuket/phuket-town/rawai" target="_blank">长租房源</a> · 月租比短租日均便宜 30%</li>
+    </ul>
+
+    <div class="box warn">
+      <h4>避坑 + 订位 tips</h4>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>别选 Patong / Kata</strong> — 潜店每天接送多 25 分钟</li>
+        <li><strong>别选 Cape Panwa / Cape Yamu</strong> — 高端但太远，潜水接送会被拖</li>
+        <li>看清是否含<strong>早餐 + 司机服务</strong>（中档有些含，有些不含，价差很大）</li>
+        <li>多家直接平台<strong>比 OTA 平台便宜 10-15%</strong>，但订位保障弱 — 大额订单仍走 Booking/Airbnb</li>
+        <li>6 月是<strong>淡季初期</strong>（雨季），价格通常比 11-3 月旺季便宜 20-30%</li>
+        <li>3BR 别墅 6 月一般<strong>提前 1-2 周</strong>订就有位（不像 12 月旺季要提前 2 个月）</li>
+        <li>入住时多数要押金（2,000-10,000 THB 现金，退房返还），<strong>预留充足现金</strong></li>
+      </ul>
+    </div>
+
+    <div class="box ocean" style="margin-top: 1.5rem;">
+      <h4>💡 我的建议</h4>
+      <p>看完所有档位后，我推荐 <strong>中档（15-25k THB/晚）的 Rawai Private Villas - Pools and Garden</strong>，理由：</p>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li>9.0/10 评分 · 8 个 3BR villa 集中管理（专业运营，房况稳定）</li>
+        <li>距 Rawai Beach 0.6mi 步行可达 · 离 Soi Ta-iad + Chalong Pier 都很近</li>
+        <li>每房 ensuite 卫生间 + 私泳池 + 厨房 · 6 人住绰绰有余</li>
+        <li>价格 15-22k THB/晚 × 4 = ~60-88k THB ≈ 12,000-17,600 RMB · 人均 2,000-2,900 RMB 住宿</li>
+        <li>比 25-35k 高端档<strong>省 40-60k THB</strong>，省下来够全员加 D4 Fun Dive + 升级按摩 + 多吃一顿米其林</li>
+      </ul>
+      <p style="margin-top: 0.75rem;"><strong>如果坚持 25-35k 高端档</strong>，推荐 Saiyuan Villas（boutique 7-villa 区，最有"度假感"）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 摩托车 ============== -->
+<section id="motorbike">
+  <div class="container">
+    <p class="section-marker">§09 · 摩托车</p>
+    <h2 class="section-title">摩托车租赁比价</h2>
+    <p class="section-lead">普吉本地交通最灵活的是摩托车，<strong>Honda Click 125</strong> 是最常见的入门款。4 晚 5 天用量大概 800-1,500 THB/人。<strong>但雨季事故率高、中国驾照不被认可、保险常不赔无证驾驶</strong> — 请先看完底部「⚠️ 关键风险」再决定是否租。</p>
+
+    <dl class="kpi-row">
+      <div class="kpi"><dt>最热车型</dt><dd>Honda Click 125i</dd></div>
+      <div class="kpi"><dt>价格区间</dt><dd>200-500 THB/天</dd></div>
+      <div class="kpi"><dt>押金</dt><dd>2,000-5,000 THB</dd></div>
+      <div class="kpi"><dt>必备证件</dt><dd>IDP 国际驾照</dd></div>
+    </dl>
+
+    <h3>4 家供应商对比（含别墅自营）</h3>
+    <table class="schedule">
+      <thead><tr><th>供应商</th><th>Click 125</th><th>Aerox 155</th><th>PCX 160</th><th>押金</th><th>送车上门</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Cool Bikes Phuket</strong><br><span style="font-size: 0.8rem; color: var(--ink-soft);">Rawai · 老牌连锁</span></td>
+          <td><strong>250 THB</strong></td>
+          <td>400 THB</td>
+          <td>500 THB</td>
+          <td>2,000 THB（押 ID 替代）</td>
+          <td>✅ 免费</td>
+        </tr>
+        <tr>
+          <td><strong>Phuket Bike Rent</strong><br><span style="font-size: 0.8rem; color: var(--ink-soft);">Chalong · 中文客服</span></td>
+          <td>280 THB</td>
+          <td>450 THB</td>
+          <td>550 THB</td>
+          <td>3,000 THB</td>
+          <td>✅ 免费 Rawai/Chalong</td>
+        </tr>
+        <tr>
+          <td><strong>Bikago</strong><br><span style="font-size: 0.8rem; color: var(--ink-soft);">在线平台 · 信用卡押金</span></td>
+          <td>320 THB</td>
+          <td>480 THB</td>
+          <td>600 THB</td>
+          <td>信用卡冻结 5,000 THB</td>
+          <td>✅ 免费 + 含保险</td>
+        </tr>
+        <tr>
+          <td><strong>别墅自营 / 街边小店</strong><br><span style="font-size: 0.8rem; color: var(--ink-soft);">Soi Saiyuan / Wiset Rd</span></td>
+          <td><strong>200 THB ⭐</strong></td>
+          <td>350 THB</td>
+          <td>—</td>
+          <td>1,000-2,000 THB</td>
+          <td>—（自取）</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.5rem;">⭐ 街边小店最便宜，但<strong>不含保险</strong>、押金小、车况差异大。看车再付。</p>
+
+    <h3 style="margin-top: 2rem;">车型对比（普吉适配度）</h3>
+    <div class="grid-3">
+      <div class="card">
+        <h4>Honda Click 125i</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">入门 · 最热</p>
+        <ul style="font-size: 0.88rem;">
+          <li>排量 124cc · 自动挡（无离合）</li>
+          <li>1 人骑舒适 / 2 人偏挤</li>
+          <li>邮箱容量 5.5L · 100km/L</li>
+          <li>限速 80 km/h（够用）</li>
+          <li><strong>普吉 70% 租车都是它</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Yamaha Aerox 155</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">运动 · 中阶</p>
+        <ul style="font-size: 0.88rem;">
+          <li>排量 155cc · 自动挡</li>
+          <li>动力比 Click 强 30%</li>
+          <li>2 人骑也轻松</li>
+          <li>外形更运动 · 储物少</li>
+          <li><strong>适合上高速去 Patong</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Honda PCX 160</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">舒适 · 高阶</p>
+        <ul style="font-size: 0.88rem;">
+          <li>排量 156cc · 大踏板</li>
+          <li>座椅厚 + 减震好</li>
+          <li>2 人长途最舒适</li>
+          <li>储物箱大（戴 1 个全盔）</li>
+          <li><strong>适合海岛环岛跑</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 2rem;">使用场景建议</h3>
+    <table class="schedule">
+      <thead><tr><th>路线</th><th>距离</th><th>推荐</th></tr></thead>
+      <tbody>
+        <tr><td>Rawai 别墅 ↔ Soi Ta-iad（Kong 健身）</td><td>3 km / 8 min</td><td>Click 足够 · Grab 150 THB 也行</td></tr>
+        <tr><td>Rawai 别墅 ↔ Chalong Pier（潜店）</td><td>5 km / 12 min</td><td>潜店免费包接送 · 不用租</td></tr>
+        <tr><td>Rawai 别墅 ↔ Kata Beach（eFoil）</td><td>15 km / 25 min</td><td>Aerox / PCX · Grab 250 THB 也行</td></tr>
+        <tr><td>Rawai 别墅 ↔ Patong（夜市 / 厨师课）</td><td>20 km / 35 min · 山路</td><td><strong>不推荐摩托</strong> · 山路湾多 · 用 Grab 300 THB</td></tr>
+        <tr><td>Rawai 别墅 ↔ Big Buddha / Wat Chalong</td><td>10 km / 20 min</td><td>Aerox · 看景观最方便</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box warn" style="margin-top: 1.5rem;">
+      <h4>⚠️ 关键风险（先看再决定）</h4>
+      <ol style="margin: 0.5rem 0 0 1.2rem; line-height: 1.7;">
+        <li><strong>中国驾照不被泰国警察认可</strong>。普吉无证驾驶被拦下罚款 1,000 THB，部分警察会勒索更多。<strong>必须办 IDP 国际驾照</strong>（公安局/12123 app 申请，免费办，含泰文页面）。</li>
+        <li><strong>保险普遍不赔无证驾驶</strong>。即使租车含保险（如 Bikago），无 IDP 出事故照样自掏腰包。修车 + 第三方伤亡轻则上万 RMB。</li>
+        <li><strong>6 月雨季路面湿滑</strong>，事故率比旱季高 30%。沙石 + 油渍 + 沙土路混合，新手非常容易侧滑。</li>
+        <li><strong>头盔必须戴</strong>，泰国法律 + 押金扣 1,000 THB 起。租车默认给的头盔常常不合格 — 推荐自备 / 找全盔的店。</li>
+        <li><strong>潜水当天禁骑</strong>：脱水 + 疲劳 + 残留氮气会影响判断力。早出海日（D3 D4）当晚都不骑。</li>
+        <li><strong>买商旅保险时确认含「电动二轮 + 摩托车」</strong>，美亚/平安默认含但 125cc+ 要看条款，安联高级版无忧。</li>
+      </ol>
+    </div>
+
+    <div class="box success" style="margin-top: 1rem;">
+      <h4>✅ 如果决定租，推荐组合</h4>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>1 辆 Click 125</strong>（D2 AOW 自由日 / D5 早起备用）<strong>· Cool Bikes 250 THB/天 × 4 天 = 1,000 THB</strong></li>
+        <li>骑车人 1 名（最有经验的那位）· 带 IDP + 中国驾照原件</li>
+        <li>路线限于 Rawai-Chalong 三角内 + 白天骑 + 不上山路</li>
+        <li>其他通勤全部 Grab，省心、保险全</li>
+      </ul>
+    </div>
+
+    <div class="box ocean" style="margin-top: 1rem;">
+      <h4>🚗 替代方案：Grab 价格快查</h4>
+      <table class="schedule" style="font-size: 0.88rem; margin-top: 0.5rem;">
+        <thead><tr><th>路段</th><th>Grab 单程</th></tr></thead>
+        <tbody>
+          <tr><td>Rawai → Soi Ta-iad</td><td>150 THB</td></tr>
+          <tr><td>Rawai → Chalong Pier</td><td>120 THB</td></tr>
+          <tr><td>Rawai → Kata Beach</td><td>250 THB</td></tr>
+          <tr><td>Rawai → Patong</td><td>300 THB</td></tr>
+          <tr><td>Rawai → 普吉机场 HKT</td><td>800 THB</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 0.5rem; font-size: 0.88rem;">6 人团 5 天 Grab 总额预算 ~3,000-4,000 THB，比 1 辆摩托车便宜 + 安全。<strong>除非有 IDP 老手 + 想体验，否则建议放弃摩托。</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 预订清单 ============== -->
+<section id="booking">
+  <div class="container">
+    <p class="section-marker">§10 · 预订</p>
+    <h2 class="section-title">预订清单</h2>
+    <p class="section-lead">按紧急程度排序。Kong Hyrox 和 Pum Thai 因为周一/周五的特殊班次需先邮件/电话确认，比订其他都急。</p>
+
+    <div class="checklist-progress">
+      <span class="progress-text">已完成 <span class="progress-count">0 / 11</span></span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <button type="button" class="progress-reset">重置</button>
+    </div>
+
+    <ul class="checklist">
+      <li class="urgent"><label><input type="checkbox" data-key="kong"><span class="item-body"><span class="urgent-dot"></span><strong>Kong Strength（Hyrox 课）</strong> · D5 周一 12:30 班 · 电话 +66 92-452-5172 · 邮箱 admin@kongchalong.com · <em>必须提前 1 周确认有此课</em></span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="pumthai"><span class="item-body"><span class="urgent-dot"></span><strong>Pum Thai（厨师课）</strong> · D2 周五 18:00 班 · 电话 +66 81-240-8924 · 邮箱 Bookings@pumthaifoodchain.com · 2 人位</span></label></li>
+      <li><label><input type="checkbox" data-key="villa"><span class="item-body"><strong>别墅 4 晚</strong> · Rawai 区 3BR 私泳池 · 06.18-06.22 · <strong>推荐 Rawai Private Villas - Pools and Garden（中档 15-22k/晚 · 9.0/10）</strong> · <a href="https://www.booking.com/hotel/th/rawai-private-villas-pools-and-garden.html" target="_blank">📎 Booking 链接</a></span></label></li>
+      <li><label><input type="checkbox" data-key="diving-deposit"><span class="item-body"><strong>潜水课程定金</strong> · OW × 3 + AOW × 3（9 折） · 发护照 + PADI 体检表</span></label></li>
+      <li><label><input type="checkbox" data-key="efoil"><span class="item-body"><strong>电动冲浪 eFoil</strong> · D5 周一 08:00-10:30 · 6 人轮换需 2 块板 + 2 教练</span></label></li>
+      <li><label><input type="checkbox" data-key="massage"><span class="item-body"><strong>泰式按摩</strong> · D5 周一 15:00-16:30 · 90 min · 6 人</span></label></li>
+      <li><label><input type="checkbox" data-key="pickup-ow"><span class="item-body"><strong>机场接机 #1</strong> · D1 周四 11:00 HKT 接 OW 3 人（国泰 CX771 10:50 落）</span></label></li>
+      <li><label><input type="checkbox" data-key="pickup-aow"><span class="item-body"><strong>机场接机 #2</strong> · D1 周四 18:00 HKT 接 AOW 3 人（国航 CA821 17:45 落）</span></label></li>
+      <li><label><input type="checkbox" data-key="dropoff"><span class="item-body"><strong>机场送机</strong> · D5 周一 16:00 别墅 → HKT · <strong>全员同车 6 人</strong>（OW 18:20 / AOW 19:25 各自登机）</span></label></li>
+      <li><label><input type="checkbox" data-key="flights"><span class="item-body"><strong>国际机票</strong> · 提前 2 个月订更省</span></label></li>
+      <li><label><input type="checkbox" data-key="insurance"><span class="item-body"><strong>旅行保险</strong> · 必须含水上活动 + 潜水（美亚/平安/安联）</span></label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============== 预算 ============== -->
+<section id="budget">
+  <div class="container">
+    <p class="section-marker">§11 · 预算</p>
+    <h2 class="section-title">预算明细</h2>
+    <p class="section-lead">单位 THB。汇率参考 1 RMB ≈ 5 THB。</p>
+
+    <h3>团费汇总（6 人 · 不含住宿 / 机票）</h3>
+    <table class="budget">
+      <thead><tr><th>项目</th><th>明细</th><th style="text-align: right;">金额 THB</th></tr></thead>
+      <tbody>
+        <tr><td>潜水课程（9 折）</td><td>3 × 14,220 + 3 × 12,600</td><td class="num">80,460</td></tr>
+        <tr><td>电动冲浪 D2 试玩（Kata Surf）</td><td>3 AOW × 1,700</td><td class="num">5,100</td></tr>
+        <tr><td>电动冲浪 D5 全员（Kata Surf）</td><td>6 人 × 1,700</td><td class="num">10,200</td></tr>
+        <tr><td>Rawai ↔ Kata 包车（2 趟）</td><td>500 × 2</td><td class="num">1,000</td></tr>
+        <tr><td>Unit 27（D2 晚 Hyrox 课）</td><td>4 人 × 600</td><td class="num">2,400</td></tr>
+        <tr><td>Kong Hyrox（D5 中）</td><td>6 人 × 800</td><td class="num">4,800</td></tr>
+        <tr><td>Pum Thai 厨师课</td><td>2 人 × 2,000</td><td class="num">4,000</td></tr>
+        <tr><td>泰式按摩 90min</td><td>6 人 × 800</td><td class="num">4,800</td></tr>
+        <tr><td>餐饮（5 天）</td><td>6 人 × 3,500</td><td class="num">21,000</td></tr>
+        <tr><td>机场接送 3 段</td><td>1,500 × 3（2 接 + 1 全员送）</td><td class="num">4,500</td></tr>
+        <tr><td>市内包车 + 杂费</td><td>6 人 × 500</td><td class="num">3,000</td></tr>
+        <tr class="total"><td colspan="2">活动 + 餐饮小计</td><td class="num">139,860</td></tr>
+        <tr><td>别墅 4 晚 · 经济档</td><td>~10k × 4 晚（Lady Naya / F10）</td><td class="num">~40,000</td></tr>
+        <tr><td>别墅 4 晚 · <strong>中档（推荐）</strong></td><td>~18k × 4 晚（Rawai Private Villas）</td><td class="num"><strong>~72,000</strong></td></tr>
+        <tr><td>别墅 4 晚 · 高端</td><td>~30k × 4 晚（Saiyuan / VRBO 1200m²）</td><td class="num">~120,000</td></tr>
+        <tr class="total"><td colspan="2"><strong>含住宿合计 · 中档推荐</strong>（不含机票）</td><td class="num"><strong>~211,860</strong></td></tr>
+        <tr><td colspan="2" style="font-size:0.85rem;color:var(--ink-soft)">经济档 ~180k / 高端档 ~260k 各档总价对比</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="kpi-row">
+      <div class="kpi"><dt>团费 / 人（中档推荐）</dt><dd>~35,300 THB</dd></div>
+      <div class="kpi"><dt>团费 / 人 RMB</dt><dd>~7,000-7,500</dd></div>
+      <div class="kpi"><dt>潜店 9 折省</dt><dd>8,940 THB</dd></div>
+      <div class="kpi"><dt>不含项</dt><dd>机票 / 个人消费</dd></div>
+    </div>
+
+    <h3>省钱建议</h3>
+    <ul style="padding-left: 1.5rem;">
+      <li><strong>eFoil 团购</strong>：6 人一起谈，单价能砍到 2,500 THB / 30min</li>
+      <li><strong>按摩选街边正规店</strong>：连锁贵 50%，街边正规 90min 油按 ~600 THB</li>
+      <li><strong>餐饮</strong>：早餐别墅自做（用厨房）→ 午餐路边摊 → 晚餐稍好</li>
+      <li><strong>机票</strong>：提前 2 个月订 / 选转机便宜 30-50%</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============== 行前准备 ============== -->
+<section id="prep">
+  <div class="container">
+    <p class="section-marker">§12 · 行前准备</p>
+    <h2 class="section-title">行前准备</h2>
+
+    <h3>签证 / 入境</h3>
+    <div class="box success">
+      <p><strong>✓ 中国护照泰国免签</strong>（2024-09-25 起永久免签，最长停留 60 天）</p>
+      <p style="margin-top: 0.75rem;"><strong>落地材料</strong>：护照（剩余有效期 ≥ 6 个月）+ 回程机票 + 住宿证明（别墅订单截图）</p>
+      <p style="margin-top: 0.75rem;"><strong>禁带</strong>：电子烟（罚款最高 30,000 THB / 监禁）、大麻制品、超 20,000 USD 现金需申报</p>
+    </div>
+
+    <h3>保险（必备）</h3>
+    <p>⚠️ <strong>必须含水上活动 + 潜水</strong>。普通旅游险不赔潜水意外。</p>
+    <div class="grid-3">
+      <div class="card">
+        <h4>美亚旅游险</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">畅游万里 / 万国游踪 · 含 PADI 潜水</p>
+        <p class="price">300-500 RMB / 人</p>
+      </div>
+      <div class="card">
+        <h4>平安环球游</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">需选「专项运动」附加险</p>
+        <p class="price">250-400 RMB / 人</p>
+      </div>
+      <div class="card">
+        <h4>安联畅游全球</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">国际公司 · 海外救援响应快</p>
+        <p class="price">400-600 RMB / 人</p>
+      </div>
+    </div>
+    <p>保留保单 PDF + 24h 客服电话到手机。</p>
+
+    <h3>健康 / 体检</h3>
+    <ul style="padding-left: 1.5rem;">
+      <li><strong>PADI 体检表</strong>：可现场填，但心血管/哮喘/糖尿病等阳性项需医生证明</li>
+      <li><strong>防蚊</strong>：DEET 喷雾（普吉有登革热、寨卡）</li>
+      <li><strong>防晒</strong>：SPF50+ reef-safe（不含 oxybenzone / octinoxate）</li>
+      <li><strong>必备药</strong>：晕船药（出海前 30min）、止泻药、退烧药、止痛药、创可贴、个人慢性药</li>
+      <li><strong>个人</strong>：女性带卫生用品（泰国款式选择少）</li>
+    </ul>
+
+    <h3>货币 / 支付</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>现金</h4>
+        <ul>
+          <li>每人 3,000-5,000 THB（小费、市场、街边摊）</li>
+          <li>换汇：<strong>到普吉用 Super Rich Thailand</strong>（汇率最好）</li>
+          <li>避免：机场换汇（最差）、中国银行 → THB 路径（汇率一般）</li>
+          <li>银联 ATM 可直接取 THB，每笔手续费 ~220 THB</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>无现金</h4>
+        <ul>
+          <li>支付宝 / 微信：大商场和部分餐厅接受，街边小店仍以现金为主</li>
+          <li>VISA / Master 信用卡：普及度高，建议带 1 张</li>
+          <li>提前致电银行开通海外消费 + 提高临时额度</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>通讯 / 网络</h3>
+    <div class="grid-3">
+      <div class="card">
+        <h4>机场 Tourist SIM</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">AIS / DTAC / TrueMove 三家任选 · 落地买</p>
+        <p class="price">299-399 THB / 7 天 / 15GB</p>
+      </div>
+      <div class="card">
+        <h4>eSIM（推荐）</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">Airalo / Ubigi 提前国内激活，落地秒上网</p>
+        <p class="price">~10 USD / 7 天</p>
+      </div>
+      <div class="card">
+        <h4>国内运营商漫游</h4>
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">省事但贵，每天 25-50 RMB</p>
+        <p class="price">175-350 RMB / 5 天</p>
+      </div>
+    </div>
+
+    <h3>机票（已订定）</h3>
+
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--ocean);">
+        <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 国泰 CX</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">智行机票</p>
+        <h5>去程 06.18 广州 → 香港转 → 普吉（6h 50min）</h5>
+        <table class="schedule" style="font-size: 0.85rem;">
+          <tbody>
+            <tr><td>05:00</td><td>CAN 广州白云 T3 出发</td></tr>
+            <tr><td>06:25</td><td>HKG 香港 T1 抵达 · CX953 · 1h 25min</td></tr>
+            <tr><td>06:25-08:05</td><td>转机 1h 40min · 行李直挂</td></tr>
+            <tr><td>08:05</td><td>HKG T1 出发</td></tr>
+            <tr><td><strong>10:50</strong></td><td><strong>HKT 普吉抵达</strong> · CX771 · 3h 45min</td></tr>
+          </tbody>
+        </table>
+
+        <h5 style="margin-top: 1rem;">返程 06.22 普吉 → 香港转 → 广州（7h ⚠️ 跨天）</h5>
+        <table class="schedule" style="font-size: 0.85rem;">
+          <tbody>
+            <tr><td><strong>18:20</strong></td><td><strong>HKT 普吉出发</strong></td></tr>
+            <tr><td>23:15</td><td>HKG T1 抵达 · CX778 · 3h 55min</td></tr>
+            <tr><td>23:15-01:15</td><td>转机 2h · ⚠️ <strong>跨天 · 国泰确认行李是否直挂</strong></td></tr>
+            <tr><td>01:15 (06.23)</td><td>HKG T1 出发</td></tr>
+            <tr><td>02:20 (06.23)</td><td>CAN 广州白云 T3 抵达 · CX950 · 1h 5min</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--sunset);">
+        <h4 style="color: var(--sunset);">🟠 AOW 3 人 · 国航 CA</h4>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 0.5rem;">携程预订</p>
+        <h5>去程 06.18 北京 → 普吉（直飞 6h）</h5>
+        <table class="schedule" style="font-size: 0.85rem;">
+          <tbody>
+            <tr><td>12:45</td><td>PEK 北京首都 T3 出发</td></tr>
+            <tr><td><strong>17:45</strong></td><td><strong>HKT 普吉抵达</strong> · CA821 · 6h · 波音 737MAX8 · 经济舱有餐食</td></tr>
+          </tbody>
+        </table>
+
+        <h5 style="margin-top: 1rem;">返程 06.22 普吉 → 北京（直飞 7h ⚠️ 跨天）</h5>
+        <table class="schedule" style="font-size: 0.85rem;">
+          <tbody>
+            <tr><td><strong>19:25</strong></td><td><strong>HKT 普吉出发</strong></td></tr>
+            <tr><td>02:25 (06.23)</td><td>PEK 北京首都 T3 抵达 · CA822</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="box ocean">
+      <h4>📋 关于 OW 香港转机</h4>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>过境签</strong>：中国护照在香港转机有 7 天免签的国际直接转机（International Direct Transit）权限。但条件是：
+          <ul style="margin-top: 0.3rem;">
+            <li>不出香港 24h 国际旅客转机区</li>
+            <li>有联程机票 + 行李直挂</li>
+            <li>有去第三地（这里是普吉/广州）的有效机票</li>
+          </ul>
+        </li>
+        <li><strong>预订时必问国泰</strong>：行李是否从 CAN 直挂到 HKT（去程）和 HKT 直挂到 CAN（回程）—— 如果直挂就不用过签</li>
+        <li><strong>跨天转机</strong>：23:15 抵港 → 01:15 飞广州。香港机场 24h 开放，但夜里部分餐饮关门，提前在普吉机场吃饱</li>
+        <li><strong>万一不直挂行李</strong>：23:15 出关 → 1 楼办过境签 → 重新 Check-in → 上机。2h 紧但够用</li>
+      </ul>
+    </div>
+
+    <h4 style="margin-top: 2rem;">机场接送 · 两批拆开</h4>
+    <table class="schedule" style="font-size: 0.88rem;">
+      <thead><tr><th>段次</th><th>时间</th><th>方向</th><th>人数</th></tr></thead>
+      <tbody>
+        <tr><td>D1 接机 #1</td><td>11:00</td><td>HKT → Rawai 别墅</td><td>3 人 OW（CX771 10:50 落）</td></tr>
+        <tr><td>D1 接机 #2</td><td>18:00</td><td>HKT → Rawai 别墅</td><td>3 人 AOW（CA821 17:45 落）</td></tr>
+        <tr><td>D5 送机</td><td>16:00</td><td>Rawai 别墅 → HKT</td><td>6 人全员 · 同车</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.88rem; margin-top: 0.5rem;">3 段单价 ~1,500 THB / 段 = <strong>~4,500 THB 总</strong>（D5 全员同车省 1,500）。建议跟一家运营商打包谈，能再砍 300-500 THB。</p>
+
+    <h3>天气 / 服装（6 月）</h3>
+    <div class="box ocean">
+      <p><strong>普吉雨季初期（5-10 月）</strong>。6 月平均温度 27-32°C，午后多阵雨。海况：安达曼海一般稳定，偶有大浪影响出海（潜店会决定是否取消）。</p>
+    </div>
+    <h4>必带衣物</h4>
+    <ul style="padding-left: 1.5rem;">
+      <li>泳衣 / 速干衣 ×2（潜水后另一套穿）</li>
+      <li>速干 T 恤 + 短裤 ×3-4</li>
+      <li>1 件薄长袖（船上风大、空调房）</li>
+      <li>拖鞋 + 运动鞋（Kong 课要）</li>
+      <li>轻便雨衣 或 7-Eleven 现买（10 THB / 件）</li>
+      <li>防水手机壳 / GoPro</li>
+      <li>太阳镜 + 帽子</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============== 实用 Tips ============== -->
+<section id="tips">
+  <div class="container">
+    <p class="section-marker">§13 · 实用 Tips</p>
+    <h2 class="section-title">在地实用 Tips</h2>
+
+    <h3>交通</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Grab / Bolt</h4>
+        <p style="font-size: 0.9rem;">叫车必备 app（出国前下载注册好）</p>
+        <ul>
+          <li>HKT 机场 → Rawai：600-800 THB / 50 min</li>
+          <li>Rawai → Patong：250-350 THB</li>
+          <li>Rawai → Soi Ta-iad：100-150 THB</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>双条车 / Tuk-tuk</h4>
+        <p style="font-size: 0.9rem;">短距离 + 体验感</p>
+        <ul>
+          <li>双条车（red truck）：景点间穿梭，先讲价</li>
+          <li>Tuk-tuk：普吉比曼谷贵很多，谨慎</li>
+          <li><strong>不推荐摩托车</strong>：事故率高，保险通常不赔无证驾驶</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>餐饮</h3>
+    <h4>必吃菜单</h4>
+    <div class="grid-3">
+      <div class="card"><h4>Tom Yum Goong</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">冬阴功 · 酸辣虾汤</p></div>
+      <div class="card"><h4>Pad Thai</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">泰式炒河粉</p></div>
+      <div class="card"><h4>Massaman Curry</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">马沙文咖喱 · 不辣偏甜</p></div>
+      <div class="card"><h4>Som Tam</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">青木瓜沙拉</p></div>
+      <div class="card"><h4>芒果糯米饭</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">Mango Sticky Rice</p></div>
+      <div class="card"><h4>Khao Soi</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">北部咖喱面 · 普吉少见</p></div>
+    </div>
+
+    <h4>本团 5 天餐厅速查（按天匹配）</h4>
+    <table class="schedule" style="font-size: 0.88rem;">
+      <thead><tr><th>时段</th><th>人</th><th>餐厅 / 地点</th><th>类型</th><th>人均 THB</th></tr></thead>
+      <tbody>
+        <tr><td><strong>D1 13:30</strong></td><td>OW 3</td><td><strong>Kongharn Restaurant</strong> · Rawai 主街</td><td>泰家族老店</td><td>~250</td></tr>
+        <tr><td><strong>D1 20:30</strong></td><td>全员 6</td><td><strong>Rawai 海鲜市场 + Salaloy 加工</strong> · 52/2 Wiset Rd</td><td>海鲜（市场买 + 邻店煮）</td><td>500-700</td></tr>
+        <tr><td><strong>D2 12:00</strong></td><td>OW 3</td><td>潜店包餐</td><td>船上泰式简餐</td><td>含</td></tr>
+        <tr><td><strong>D2 12:30</strong></td><td>AOW 3</td><td><strong>Atsumi Raw Cafe</strong> · Rawai</td><td>raw vegan + 健康融合</td><td>~400</td></tr>
+        <tr><td><strong>D2 18:00</strong></td><td>厨师课 2</td><td><strong>Pum Thai</strong>（课内含菜品试吃）</td><td>泰菜亲手做</td><td>含课费</td></tr>
+        <tr><td><strong>D2 19:30</strong></td><td>Hyrox 4</td><td><strong>The Shack</strong> · 22/8 Soi Ta-iad（健身一条街上）</td><td>蛋白餐 + 烤肉 + smoothie</td><td>~400</td></tr>
+        <tr><td><strong>D3 12:30</strong></td><td>全员 6</td><td>船上午餐（潜店包）</td><td>泰式简餐</td><td>含</td></tr>
+        <tr><td><strong>D3 19:30</strong></td><td>全员 6</td><td>🌿 <strong>Mor Mu Dong</strong> · Chalong（米其林必比登 2026）</td><td>红树林老建筑泰菜</td><td>300-400</td></tr>
+        <tr><td><strong>D4 12:30</strong></td><td>全员 6</td><td>船上午餐（潜店包）</td><td>泰式简餐</td><td>含</td></tr>
+        <tr><td><strong>D4 19:30</strong></td><td>全员 6</td><td>🎉 <strong>Kan Eang @ Pier</strong> · Chalong Bay 海景</td><td>50 年泰国海鲜老店</td><td>300-500/道</td></tr>
+        <tr><td><strong>D5 06:30</strong></td><td>全员 6</td><td>别墅自做早餐 / 7-Eleven grab</td><td>简餐</td><td>~100</td></tr>
+        <tr><td><strong>D5 13:30</strong></td><td>全员 6</td><td>🥥 <strong>Kong Kafé</strong>（在 Kong 健身房内 · Acai bowl + 健康轻食）</td><td>健身后餐</td><td>~300</td></tr>
+        <tr><td><strong>D5 17:00+</strong></td><td>全员 6</td><td>HKT 机场候机餐 / 免税店买零食</td><td>自由</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top: 1.5rem;">餐厅选择理由</h4>
+    <div class="grid-2">
+      <div class="card">
+        <h4>D1 晚 · Salaloy Seafood @ Rawai 海鲜市场</h4>
+        <p style="font-size: 0.88rem;">普吉第一晚必须打卡的体验：先在海鲜市场对岸的店里逛挑（虾蟹鱼贝活蹦乱跳，按斤称重），过马路到 Salaloy 加工——海边户外座位，吹海风吃刚捞的。AOW 落地直接合体不用赶。</p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft);">地址 52/2 Wiset Rd · 11:30-21:00（周四休）· +66 65-395-4253</p>
+      </div>
+      <div class="card">
+        <h4>D3 晚 · Mor Mu Dong @ Chalong（米其林）</h4>
+        <p style="font-size: 0.88rem;">2026 米其林必比登 Bib Gourmand 推介。位于 Mu Dong Canal 旁的红树林里，木建筑+水景。本地老店 30 年。性价比超高（100-200 THB/道），但味道是一线水准。文化体验 + 美食 + 离别墅 10 min 车，三全。</p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft);">地址 9/4 Moo 3, Pa-Lai, Chao Fa Rd, Chalong · 10:00-21:30 · 建议提前 1 天电话留位</p>
+      </div>
+      <div class="card">
+        <h4>D4 晚 · Kan Eang @ Pier @ Chalong Bay（出证庆功）</h4>
+        <p style="font-size: 0.88rem;">1973 年开业 50 年老店，Thai Select 认证。位于 Chalong Pier 旁，大树+海景+泥窗户。招牌 Phuket Lobster / Hormok Talay 椰青咖喱海鲜 / Blue Crab。两组都在 Chalong 出证 + 庆功，离别墅 10 min 车，最对题。</p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft);">地址 Chalong Bay shoreline · 300-500 THB/道 · 官网 kaneang-pier.com · 提前 1-2 天订位</p>
+      </div>
+      <div class="card">
+        <h4>D2 晚 · The Shack @ Soi Ta-iad（健身餐）</h4>
+        <p style="font-size: 0.88rem;">就在健身一条街上（22/8 Soi Ta-iad），Hyrox 4 人 Unit 27 课后走 2 分钟就到。烤肉 + 蛋白沙拉 + smoothie，配运动员餐。环境放松，价格友好。</p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft);">营业时间需查 IG（健身一条街多家轮值休）</p>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 2.5rem;">📸 三家头牌餐厅画廊</h4>
+
+    <h5 style="margin-top: 1.5rem;">🌅 Salaloy Seafood @ Rawai（D1 晚 · 全员合体晚餐）</h5>
+    <div class="photo-grid">
+      <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Phuket.jpg" alt="Salaloy 招牌菜"><figcaption>Miang Kham（叶包香料）+ 烤虾 + 切片墨鱼</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Restaurant-Phuket.jpg" alt="Salaloy 餐厅外观"><figcaption>海边户外座 · 蓝白花砖桌</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Miang-Kham-at-Sala-Loy-Seafood-Phuket.jpg" alt="Miang Kham"><figcaption><strong>招牌 Miang Kham</strong>（花生 + 干虾 + 青柠 + 椰肉 + 红葱 + 香料包槟榔叶）</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Phuket-3.jpg" alt="烧烤海鲜"><figcaption>炭烤大虾 Goong Pao</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Phuket-4.jpg" alt="海鲜大餐"><figcaption>蕨菜海鲜沙拉 Yum Pak Kood</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Phuket-5.jpg" alt="海鲜餐桌"><figcaption>满桌新鲜海产</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Restaurant-3.jpg" alt="餐厅环境"><figcaption>沿街半露天座位</figcaption></figure>
+      <figure><img src="./images/restaurants/salaloy/Miang-Kham-at-Sala-Loy-Seafood-Phuket-6.jpg" alt="Miang Kham 特写"><figcaption>Miang Kham 入口仪式</figcaption></figure>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--ink-soft);"><strong>必点 6 道</strong>：Miang Kham · Yum Pak Kood Talay 蕨菜海鲜沙拉 · Moo Sam Chan Yang 烤五花肉 · Goong Pao 炭烤大虾 · Pla Muek Yang 烤墨鱼 · Pak Miang Pad Goong Siab 干虾炒野菜</p>
+
+    <h5 style="margin-top: 2rem;">🌿 Mor Mu Dong @ Chalong（D3 晚 · 米其林必比登 2026）</h5>
+    <div class="photo-grid">
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-scaled.jpg" alt="Mor Mu Dong 招牌菜"><figcaption>红树林木建筑里的招牌菜阵</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-12-4K.jpg" alt="Mor Mu Dong 红树林环境"><figcaption>红树林包围的木亭餐厅</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-phuket-4-X5.jpg" alt="Mor Mu Dong 木亭内景"><figcaption>木亭内景 · 看水看潮汐</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-6-4K.jpg" alt="酿鲭鱼"><figcaption><strong>酿鲭鱼 Stuffed Mackerel</strong>（鱼肉剔出剁碎+香料回填）</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-5-4K.jpg" alt="贝类沙拉"><figcaption>蛤蜊沙拉 + 海葡萄</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-7-4K.jpg" alt="黑墨鱼"><figcaption>墨鱼黑墨汁汤 Squid Black Ink</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-11-4K.jpg" alt="鱼干辣酱"><figcaption>鱼干辣椒蘸酱 Nam Prik</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-2-5K.jpg" alt="海螺咖喱"><figcaption>海螺咖喱叶 Snail Curry</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-13-4K.jpg" alt="香蕉花沙拉"><figcaption>香蕉花沙拉 Banana Blossom</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-09-4K.jpg" alt="野菜炒蛋"><figcaption>野菜叶炒蛋 Melinjo Leaves with Egg</figcaption></figure>
+      <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-15-4K.jpg" alt="咖喱炒茄子"><figcaption>咖喱炒茄子 Curry Fried Eggplant</figcaption></figure>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--ink-soft);"><strong>必点 10 道</strong>（点 6-8 道 6 人吃刚好，每道 100-200 THB）：酿鲭鱼 · 蛤蜊海葡萄 · 黑墨汁墨鱼 · 鱼干辣酱 · 海螺咖喱叶 · 蕨菜沙拉 · 酸咖喱 · 香蕉花 · 野菜炒蛋 · 咖喱茄子</p>
+
+    <h5 style="margin-top: 2rem;">🦞 Kan Eang @ Pier @ Chalong Bay（D4 晚 · 出证庆功 · 50 年老店）</h5>
+    <div class="photo-grid">
+      <figure><img src="./images/restaurants/kaneang/kaneang-pier-view.jpg" alt="Kan Eang 海景"><figcaption>Chalong Pier 旁 · 海景大树下用餐</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-bay-view.jpg" alt="海湾景"><figcaption>Chalong Bay 全景</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-interior.jpg" alt="餐厅内景"><figcaption>室内 + 户外双区</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-lobster.jpg" alt="Phuket Lobster"><figcaption><strong>招牌 Phuket Lobster</strong>（清蒸 + 青柠 + 辣椒蘸料）</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-mud-crab.jpg" alt="蟹咖喱"><figcaption>泥蟹咖喱 Mud Crab Curry</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-tiger-prawns.jpg" alt="老虎虾"><figcaption>老虎虾</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-thai-cuisine.jpg" alt="泰菜系列"><figcaption>南泰风味菜系</figcaption></figure>
+      <figure><img src="./images/restaurants/kaneang/kaneang-fresh-seafood.jpg" alt="新鲜海产"><figcaption>每日新鲜海产</figcaption></figure>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--ink-soft);"><strong>必点 5 道</strong>：Phuket Lobster 清蒸 · Hormok Talay（椰子壳里蒸的海鲜咖喱）· 芒果沙拉烤海鲈 · 烟熏椰青咖喱海鲜 · 油炸河边野菜（Deep-fried Freshwater Weed）+ 蓝蟹</p>
+
+    <h4 style="margin-top: 1.5rem;">备选餐厅（万一改主意）</h4>
+    <table class="schedule" style="font-size: 0.85rem;">
+      <thead><tr><th>餐厅</th><th>位置</th><th>替换谁</th></tr></thead>
+      <tbody>
+        <tr><td>Kan Eang @ Pier</td><td>Chalong Pier</td><td>D1 晚 / D3 晚 海景泰菜</td></tr>
+        <tr><td>Tu Kab Khao</td><td>Phuket Town（25 min 车）</td><td>D4 晚 国王御膳风格替换 Kan Eang</td></tr>
+        <tr><td>Bampot</td><td>Cherng Talay（远 45 min）</td><td>D4 晚 现代欧菜替换 Kan Eang</td></tr>
+        <tr><td>Mama's Cafe</td><td>Soi Ta-iad</td><td>D2 晚 健身餐替换 The Shack</td></tr>
+        <tr><td>Boutique Eatery</td><td>Rawai</td><td>D2 AOW 午餐替换 Atsumi（如果想吃熟食而非 raw vegan）</td></tr>
+        <tr><td>Aek Rawai Seafood</td><td>Rawai</td><td>D1 晚 海鲜市场替换（更隐蔽 local）</td></tr>
+      </tbody>
+    </table>
+
+    <h3>小费 / 礼仪</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>小费标准</h4>
+        <ul>
+          <li>按摩：50-100 THB</li>
+          <li>餐厅：10%（已含 service charge 就不用再给）</li>
+          <li>Grab：找零留下整数</li>
+          <li>行李员：20-50 THB / 件</li>
+          <li>导游 / Dive master：200-500 THB / 天</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>礼仪禁忌</h4>
+        <ul>
+          <li>不要摸他人头（视为不敬）</li>
+          <li>进寺庙：脱鞋、长袖长裤、不指佛像</li>
+          <li>国王 / 王室相关物品不可踩、坐</li>
+          <li>公共场合不大声、不冲动</li>
+          <li>「Sawadee Krap/Ka」（合十礼）会被欣赏</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>必装 App</h3>
+    <div class="grid-3">
+      <div class="card"><h4>Grab</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">叫车 + 外卖</p></div>
+      <div class="card"><h4>Google Maps</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">导航 · 离线下载普吉地图</p></div>
+      <div class="card"><h4>Google Translate</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">下载离线泰语包</p></div>
+      <div class="card"><h4>Klook</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">活动预订 + 优惠券</p></div>
+      <div class="card"><h4>XE Currency</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">汇率换算</p></div>
+      <div class="card"><h4>高德 / 百度地图</h4><p style="font-size: 0.88rem; color: var(--ink-soft);">境外可用，中国人地图</p></div>
+    </div>
+
+    <h3>7-Eleven 必逛清单</h3>
+    <ul style="padding-left: 1.5rem;">
+      <li>椰子水（10-15 THB） · 解渴神器</li>
+      <li>泰式奶茶罐 / 即饮拿铁</li>
+      <li>Mama / Yum Yum 方便面（潜水回来宵夜）</li>
+      <li>一次性雨衣（10 THB，雨季必备）</li>
+      <li>泰国本地零食（虾片、海苔、芒果干）伴手礼</li>
+    </ul>
+
+    <h3>购物</h3>
+    <ul style="padding-left: 1.5rem;">
+      <li><strong>Central Phuket</strong>（Phuket Town）：高端商场，免税店、Boots、Watsons</li>
+      <li><strong>Banzaan Market</strong>（Patong）：海鲜 + 二楼美食广场</li>
+      <li><strong>Naka Weekend Market</strong>（Phuket Town，仅周末）：地摊大集</li>
+      <li><strong>Rawai 海鲜市场</strong>：日常吃海鲜 + 看本地市集</li>
+    </ul>
+
+    <h3>雨季注意（6 月）</h3>
+    <div class="box warn">
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li>午后阵雨可能 30-60 分钟，备一次性雨衣即可</li>
+        <li>出海日早上看 <a href="https://www.windy.com" target="_blank">windy.com</a> 普吉海况，浪 > 1.5m 潜店可能取消</li>
+        <li>取消后潜店通常顺延到下一天，但可能挤压行程，做好心理准备</li>
+        <li>雨季航班延误概率略高，预留 buffer 时间</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 紧急联系 ============== -->
+<section id="emergency">
+  <div class="container">
+    <p class="section-marker">§14 · 紧急</p>
+    <h2 class="section-title">紧急联系</h2>
+    <p class="section-lead">出发前截图保存到手机 + 别墅前台 + 同行人各一份。</p>
+
+    <h3>泰国官方</h3>
+    <div class="emergency-list">
+      <div class="emergency-item">
+        <div class="label">紧急救援（警察）</div>
+        <a href="tel:191" class="num">191</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">救护车</div>
+        <a href="tel:1669" class="num">1669</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">旅游警察（24h 英语）</div>
+        <a href="tel:1155" class="num">1155</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">HKT 机场询问</div>
+        <a href="tel:+66763511122" class="num">+66 76-351-122</a>
+      </div>
+    </div>
+
+    <h3>中国驻泰国</h3>
+    <div class="emergency-list">
+      <div class="emergency-item">
+        <div class="label">驻泰大使馆领事保护</div>
+        <a href="tel:+6622451589" class="num">+66 2-2451-589</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">驻宋卡总领馆（普吉归属）</div>
+        <a href="tel:+6674322034" class="num">+66 74-322-034</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">外交部全球热线</div>
+        <a href="tel:+861012308" class="num">+86 10-12308</a>
+      </div>
+    </div>
+
+    <h3>医院</h3>
+    <div class="emergency-list">
+      <div class="emergency-item">
+        <div class="label">Bangkok Hospital Phuket（首选）</div>
+        <a href="tel:+66762541425" class="num">+66 76-254-425</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">Mission Hospital Phuket</div>
+        <a href="tel:+66762373377" class="num">+66 76-237-3377</a>
+      </div>
+      <div class="emergency-item">
+        <div class="label">普吉国际医院</div>
+        <a href="tel:+66762491649" class="num">+66 76-249-1649</a>
+      </div>
+    </div>
+
+    <h3>本行程服务商</h3>
+    <div class="emergency-list">
+      <div class="emergency-item" style="border-left-color: var(--ocean);">
+        <div class="label">Kong Strength（健身）</div>
+        <a href="tel:+66924525172" class="num">+66 92-452-5172</a>
+      </div>
+      <div class="emergency-item" style="border-left-color: var(--ocean);">
+        <div class="label">Pum Thai（厨师课）</div>
+        <a href="tel:+66812408924" class="num">+66 81-240-8924</a>
+      </div>
+      <div class="emergency-item" style="border-left-color: var(--ocean);">
+        <div class="label">普吉鲸嘻潜水中心</div>
+        <span class="num" style="color: var(--ink-soft);">联系方式待填</span>
+      </div>
+      <div class="emergency-item" style="border-left-color: var(--ocean);">
+        <div class="label">别墅前台 / 房东</div>
+        <span class="num" style="color: var(--ink-soft);">待填</span>
+      </div>
+    </div>
+
+    <div class="box warn" style="margin-top: 2rem;">
+      <h4>潜水意外应急</h4>
+      <p><strong>DAN（Divers Alert Network）亚太热线</strong>：+61 8-8212-9242（24h，英语）</p>
+      <p style="margin-top: 0.5rem;">普吉<strong>减压舱（hyperbaric chamber）</strong>设在 Patong Hospital。出海前向 dive master 确认最近减压舱位置。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>行程信息</h4>
+      <p style="font-size: 0.85rem;">普吉 · 2026.06.18-22<br>6 人 · OW × 3 + AOW × 3<br>5 天 4 晚</p>
+    </div>
+    <div>
+      <h4>文档</h4>
+      <p style="font-size: 0.85rem;">本页是单文件 HTML 行程书。<br>含完整行程 + 9 大类旅行问题。<br>可打印、可离线、可手机查看。</p>
+    </div>
+    <div>
+      <h4>提醒</h4>
+      <p style="font-size: 0.85rem;">出发前打印一份 / 截图保存。<br>紧急联系电话务必到手机。<br>所有预订 PDF 存离线邮箱。</p>
+    </div>
+    <div class="meta">
+      生成于 2026-05-26 · 6 人普吉团 · Vacation Project · Phuket-2026-06
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 给每个 section 注入大背景数字（按 §0X 提取）
+  document.querySelectorAll('section[id]').forEach(sec => {
+    const marker = sec.querySelector('.section-marker');
+    if (!marker) return;
+    const match = marker.textContent.match(/§\s*(\d+)/);
+    if (match) sec.setAttribute('data-section-num', match[1].padStart(2, '0'));
+  });
+
+  // Scroll spy: 高亮当前 section 对应的 nav 项
+  const navLinks = document.querySelectorAll('nav .nav-links a');
+  const navMap = new Map();
+  navLinks.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    if (id) navMap.set(id, a);
+  });
+
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const id = e.target.id;
+      const link = navMap.get(id);
+      if (!link) return;
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+        // 同步分组父级 has-active 状态
+        document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('has-active'));
+        const parentGroup = link.closest('.nav-group');
+        if (parentGroup) parentGroup.classList.add('has-active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  document.querySelectorAll('section[id]').forEach(sec => spy.observe(sec));
+
+  // nav 分组下拉：点子项 / 点外部 / ESC 自动关闭
+  (function initNavDropdowns() {
+    const groups = document.querySelectorAll('.nav-group');
+    if (!groups.length) return;
+    // 点击 dropdown 内任一链接后关闭
+    groups.forEach(g => {
+      g.querySelectorAll('.nav-dropdown a').forEach(a => {
+        a.addEventListener('click', () => { g.open = false; });
+      });
+    });
+    // 点击 nav 外部关闭所有 open 的下拉
+    document.addEventListener('click', (e) => {
+      groups.forEach(g => {
+        if (g.open && !g.contains(e.target)) g.open = false;
+      });
+    });
+    // ESC 关闭
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') groups.forEach(g => { g.open = false; });
+    });
+    // 同时只允许一个 dropdown 打开
+    groups.forEach(g => {
+      g.addEventListener('toggle', () => {
+        if (g.open) {
+          groups.forEach(other => { if (other !== g) other.open = false; });
+        }
+      });
+    });
+  })();
+
+  // 预订清单 checkbox：localStorage 持久化 + 进度条
+  (function initChecklist() {
+    const STORAGE_KEY = 'phuket-2026-06-booking';
+    const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"][data-key]');
+    if (!checkboxes.length) return;
+    const countEl = document.querySelector('.checklist-progress .progress-count');
+    const fillEl = document.querySelector('.checklist-progress .progress-fill');
+    const resetEl = document.querySelector('.checklist-progress .progress-reset');
+
+    const loadState = () => {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+      catch { return {}; }
+    };
+    const saveState = (state) => {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+    };
+
+    const updateProgress = () => {
+      const total = checkboxes.length;
+      const done = Array.from(checkboxes).filter(c => c.checked).length;
+      if (countEl) countEl.textContent = `${done} / ${total}`;
+      if (fillEl) fillEl.style.width = (done / total * 100) + '%';
+    };
+
+    // restore
+    const state = loadState();
+    checkboxes.forEach(cb => {
+      const key = cb.dataset.key;
+      if (state[key]) cb.checked = true;
+    });
+    updateProgress();
+
+    // listen
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        const next = loadState();
+        next[cb.dataset.key] = cb.checked;
+        saveState(next);
+        updateProgress();
+      });
+    });
+
+    // reset
+    if (resetEl) {
+      resetEl.addEventListener('click', () => {
+        if (!confirm('清空所有预订勾选状态？')) return;
+        checkboxes.forEach(cb => { cb.checked = false; });
+        saveState({});
+        updateProgress();
+      });
+    }
+  })();
+
+  // 主题切换 (light / dark) + localStorage 持久化
+  (function initTheme() {
+    const STORAGE_KEY = 'phuket-2026-06-theme';
+    const root = document.documentElement;
+    const btn = document.querySelector('.theme-toggle');
+    if (!btn) return;
+    const sunSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+    const moonSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+    const getEffective = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const updateBtn = () => { btn.innerHTML = getEffective() === 'dark' ? sunSvg : moonSvg; };
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+    } catch {}
+    updateBtn();
+
+    btn.addEventListener('click', () => {
+      const next = getEffective() === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem(STORAGE_KEY, next); } catch {}
+      updateBtn();
+    });
+
+    // 跟随系统 prefers-color-scheme 变化（仅在未显式设置时）
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      let saved = null;
+      try { saved = localStorage.getItem(STORAGE_KEY); } catch {}
+      if (!saved) updateBtn();
+    });
+  })();
+
+  // 实时天气：距 D1 ≤ 16 天时通过 Open-Meteo 覆盖历史均值
+  (function initWeather() {
+    const TRIP_START = new Date('2026-06-18T00:00:00+07:00');
+    const TRIP_END = new Date('2026-06-22T23:59:59+07:00');
+    const DAYS_AHEAD_LIMIT = 16;
+    const statusEl = document.getElementById('weather-status');
+    const days = document.querySelectorAll('.weather-day[data-date]');
+    if (!days.length) return;
+
+    const now = new Date();
+    const daysToStart = Math.ceil((TRIP_START - now) / 86400000);
+    if (daysToStart > DAYS_AHEAD_LIMIT || daysToStart < -5) {
+      if (statusEl) {
+        statusEl.textContent = daysToStart > DAYS_AHEAD_LIMIT
+          ? `${daysToStart - DAYS_AHEAD_LIMIT}天后启用`
+          : '行程已结束';
+      }
+      return;
+    }
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=7.88&longitude=98.39&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=Asia/Bangkok&start_date=2026-06-18&end_date=2026-06-22`;
+
+    fetch(url).then(r => r.json()).then(data => {
+      if (!data.daily) throw new Error('no data');
+      const t = data.daily;
+      const codeToIcon = (c) => {
+        if (c === 0) return '☀️';
+        if (c <= 2) return '🌤';
+        if (c === 3) return '⛅';
+        if (c >= 45 && c <= 48) return '🌫';
+        if (c >= 51 && c <= 67) return '🌦';
+        if (c >= 71 && c <= 77) return '❄️';
+        if (c >= 80 && c <= 82) return '🌧';
+        if (c >= 95) return '⛈';
+        return '⛅';
+      };
+      const codeToDesc = (c) => {
+        if (c === 0) return '晴朗';
+        if (c <= 2) return '少云';
+        if (c === 3) return '多云';
+        if (c >= 45 && c <= 48) return '雾';
+        if (c >= 51 && c <= 57) return '毛毛雨';
+        if (c >= 61 && c <= 67) return '降雨';
+        if (c >= 80 && c <= 82) return '阵雨';
+        if (c >= 95) return '雷雨';
+        return '多云';
+      };
+      const dirToCompass = (deg) => {
+        const dirs = ['N','NE','E','SE','S','SW','W','NW'];
+        return dirs[Math.round(((deg % 360) / 45)) % 8];
+      };
+      days.forEach((dayEl, i) => {
+        if (i >= t.time.length) return;
+        const code = t.weather_code[i];
+        dayEl.querySelector('.weather-icon').textContent = codeToIcon(code);
+        dayEl.querySelector('.temp-high').textContent = Math.round(t.temperature_2m_max[i]) + '°';
+        dayEl.querySelector('.temp-low').textContent = Math.round(t.temperature_2m_min[i]) + '°';
+        const rainP = t.precipitation_probability_max[i] ?? '—';
+        const wind = Math.round(t.wind_speed_10m_max[i]);
+        const dir = dirToCompass(t.wind_direction_10m_dominant[i]);
+        dayEl.querySelector('.weather-meta').innerHTML = `<span class="rain">🌧 ${rainP}%</span> · <span class="wind">${dir} ${wind}km/h</span>`;
+        dayEl.querySelector('.weather-desc').textContent = codeToDesc(code);
+      });
+      if (statusEl) statusEl.textContent = '实时 · Open-Meteo';
+    }).catch(() => {
+      if (statusEl) statusEl.textContent = '加载失败 · 用均值';
+    });
+  })();
+</script>
+</body>
+</html>
