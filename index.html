@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phuket · 6 人潜水团 · 2026.06.18 — 22</title>
+<title>Phuket · 8 人潜水+休闲 · 2026.06.18 — 22</title>
 <style>
 :root {
   /* 冷调灰阶系统 — 偏蓝、钢、雾 */
@@ -291,6 +291,57 @@
   border-color: var(--ink-ghost);
 }
 .theme-toggle svg { width: 16px; height: 16px; }
+
+/* 汉堡按钮 — 桌面默认隐藏，仅 ≤ 720px 显示 */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  width: 38px; height: 32px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-left: 0.5rem;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 200ms var(--ease-apple);
+}
+.nav-hamburger:hover { background: var(--paper-deep); border-color: var(--ink-ghost); }
+.nav-hamburger span {
+  display: block;
+  width: 18px; height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: all 200ms var(--ease-apple);
+  transform-origin: center;
+}
+/* nav 全屏遮罩 — drawer 打开时显示 */
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--ease-apple);
+  z-index: 90;
+}
+nav.nav-open .nav-scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+nav.nav-open .nav-hamburger { background: var(--paper-deep); }
+nav.nav-open .nav-hamburger span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+nav.nav-open .nav-hamburger span:nth-child(2) {
+  opacity: 0;
+}
+nav.nav-open .nav-hamburger span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1416,57 +1467,131 @@ footer .meta {
   .day-num { font-size: clamp(3rem, 14vw, 4.5rem); }
   .hero-meta { gap: 1.5rem 2rem; }
   .hero-title { max-width: 100%; }
-  nav .container { gap: 0.5rem; padding-right: 0.75rem; padding-left: 0.75rem; }
-  nav .brand { font-size: 0.78rem; flex-shrink: 0; }
-  /* nav 链接区域横向滚动，14 项装不下时可滑动 */
-  nav .nav-links {
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    flex: 1;
-    gap: 0.15rem;
-    padding: 0.25rem 0;
-    mask-image: linear-gradient(to right, transparent 0, black 8px, black calc(100% - 16px), transparent 100%);
+
+  /* nav 顶栏：brand 左 · theme + hamburger 右；nav-links 收成 drawer */
+  nav { position: relative; z-index: 100; }
+  nav .container {
+    gap: 0.5rem;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    flex-wrap: nowrap;
+    justify-content: space-between;
   }
-  nav .nav-links::-webkit-scrollbar { display: none; }
-  nav .nav-links a { padding: 0.4rem 0.65rem; font-size: 0.82rem; flex-shrink: 0; white-space: nowrap; }
-  .theme-toggle { flex-shrink: 0; margin-left: 0.5rem; }
+  nav .brand { font-size: 0.85rem; flex-shrink: 0; }
+  .nav-hamburger { display: inline-flex !important; }
+  .theme-toggle { margin-left: auto; }
+
+  /* drawer 默认折叠（关闭状态彻底隐藏） */
+  nav .nav-links {
+    display: none !important;
+  }
+
+  /* drawer 打开：固定在 nav 下方，全宽、全高，纵向排列 */
+  nav.nav-open .nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    position: fixed;
+    top: var(--nav-h, 54px);
+    left: 0; right: 0; bottom: 0;
+    background: var(--paper);
+    padding: 1.25rem 1.25rem 2.5rem;
+    gap: 0.15rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 100;
+    border-top: 1px solid var(--line-soft);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    animation: drawerSlideDown 220ms var(--ease-apple);
+  }
+  @keyframes drawerSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 顶级直链（概览/天气/行程）在 drawer 内：大字、左对齐 */
+  nav.nav-open .nav-links > a {
+    display: block;
+    padding: 0.75rem 0.85rem;
+    font-size: 1rem;
+    color: var(--ink) !important;
+    background: transparent;
+    border-radius: 10px;
+    text-align: left;
+    white-space: normal;
+  }
+  nav.nav-open .nav-links > a:hover,
+  nav.nav-open .nav-links > a.active {
+    background: var(--apple-blue-tint) !important;
+    color: var(--apple-blue) !important;
+  }
+
+  /* drawer 内分组：summary 变成"小标题"样式，dropdown 强制展开 */
+  nav.nav-open details.nav-group {
+    display: block !important;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--line-hairline);
+  }
+  nav.nav-open details.nav-group:first-of-type {
+    margin-top: 0.4rem;
+    padding-top: 0;
+    border-top: none;
+  }
+  nav.nav-open details.nav-group > summary {
+    display: flex !important;
+    padding: 0.25rem 0.85rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--ink-ghost);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: default;
+    pointer-events: none;
+    list-style: none;
+  }
+  nav.nav-open details.nav-group > summary::-webkit-details-marker,
+  nav.nav-open details.nav-group > summary::marker { display: none; content: ''; }
+  nav.nav-open details.nav-group > summary .caret { display: none !important; }
+
+  /* dropdown 强制展开为纵向列表（覆盖 UA 对 [open] 之外的默认隐藏） */
+  nav.nav-open details.nav-group > .nav-dropdown,
+  nav.nav-open details.nav-group:not([open]) > .nav-dropdown {
+    display: flex !important;
+    flex-direction: column !important;
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    animation: none !important;
+    gap: 0.1rem;
+  }
+  nav.nav-open details.nav-group > .nav-dropdown a {
+    display: block !important;
+    padding: 0.7rem 0.85rem !important;
+    font-size: 0.95rem !important;
+    color: var(--ink) !important;
+    background: transparent !important;
+    border-radius: 10px !important;
+    white-space: normal !important;
+    text-align: left;
+  }
+  nav.nav-open details.nav-group > .nav-dropdown a:hover,
+  nav.nav-open details.nav-group > .nav-dropdown a.active {
+    background: var(--apple-blue-tint) !important;
+    color: var(--apple-blue) !important;
+  }
 
   /* KPI 强制 2 列 */
   .kpi { border-right: none; border-bottom: 1px solid var(--line-hairline); min-width: 0; flex: 0 0 50%; padding: 1rem 1.1rem; }
   .kpi:nth-child(2n) { border-right: none; }
   .kpi dd { font-size: 1.15rem; }
   .kpi dt { font-size: 0.65rem; }
-}
-
-/* ---------- 中等屏 (≤ 720px) nav 展平：解构分组成扁平横滚条 ---------- */
-@media (max-width: 720px) {
-  /* 让分组消失结构 — summary 隐藏，所有 dropdown 内的 a 升到 nav-links 子节点位置 */
-  .nav-group { display: contents; }
-  .nav-group summary { display: none !important; }
-  .nav-dropdown {
-    display: contents !important;
-    position: static !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    backdrop-filter: none !important;
-    animation: none !important;
-  }
-  .nav-dropdown a {
-    padding: 0.4rem 0.65rem !important;
-    font-size: 0.82rem !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-    color: var(--ink-soft) !important;
-  }
-  .nav-dropdown a:hover,
-  .nav-dropdown a.active {
-    background: transparent !important;
-    color: var(--apple-blue) !important;
-  }
 }
 
 /* ---------- iPhone（≤ 480px）极窄优化 ---------- */
@@ -1585,7 +1710,7 @@ footer .meta {
 <nav>
   <div class="container">
     <a href="#" class="brand">Phuket · 06.18 — 06.22</a>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links-main">
       <a href="#overview">概览</a>
       <a href="#weather">天气</a>
       <a href="#schedule">行程</a>
@@ -1613,6 +1738,9 @@ footer .meta {
           <a href="#prep">📋 行前准备</a>
           <a href="#tips">💡 实用 Tips</a>
           <a href="#emergency">🚨 紧急联系</a>
+          <a href="#sos">🆘 应急流程</a>
+          <a href="#team">👥 团队信息</a>
+          <a href="#tentative">➕ Tentative +2</a>
         </div>
       </details>
       <button type="button" class="theme-toggle" aria-label="切换深色 / 浅色" title="切换主题">
@@ -1620,22 +1748,26 @@ footer .meta {
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
+      <button type="button" class="nav-hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-links-main">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+<div class="nav-scrim" aria-hidden="true"></div>
 
 <header class="hero">
   <div class="container">
-    <p class="hero-eyebrow">5 天 4 晚 · 6 人 · 潜水团</p>
+    <p class="hero-eyebrow">5 天 4 晚 · 8 人 · 潜水 + 休闲 · <span style="opacity:0.7">+2 tentative</span></p>
     <h1 class="hero-title">普吉 · <em>盛夏潜水</em><br>与 Hyrox 之旅</h1>
     <p style="max-width: 60ch; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.6;">
-      OW × 3 + AOW × 3 + 健身一条街 Hyrox + 电动冲浪 + 厨师课 + 泰式按摩。两组潜水员同日出证，全员 D5 满档收尾，干净直飞回家。
+      OW × 3 + AOW × 3 + 休闲 × 2 + 健身一条街 Hyrox + 电动冲浪 + 厨师课 + 泰式按摩。两组潜水员同日出证，休闲组白天独立游玩，全员 D5 满档收尾，干净直飞回家。
     </p>
     <dl class="hero-meta">
       <div><dt>OW 3 人 · 国泰 CX</dt><dd>06.18 10:50 抵 · 06.22 18:20 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">广州 → 香港转 → 普吉</span></dd></div>
-      <div><dt>AOW 3 人 · 国航 CA</dt><dd>06.18 17:45 抵 · 06.22 19:25 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">北京直飞普吉</span></dd></div>
-      <div><dt>住宿</dt><dd>Rawai 3BR 私泳池别墅</dd></div>
-      <div><dt>团费</dt><dd>~8-9k RMB / 人</dd></div>
+      <div><dt>AOW + 休闲 5 人 · 国航 CA</dt><dd>06.18 17:45 抵 · 06.22 19:25 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">北京直飞普吉</span></dd></div>
+      <div><dt>住宿</dt><dd>Rawai 5BR 私泳池别墅</dd></div>
+      <div><dt>团费</dt><dd>潜水 ~10-12k / 休闲 ~8-10k RMB</dd></div>
     </dl>
   </div>
 </header>
@@ -1648,9 +1780,9 @@ footer .meta {
 
     <dl class="kpi-row">
       <div class="kpi"><dt>行程</dt><dd>5 天 4 晚</dd></div>
-      <div class="kpi"><dt>人数</dt><dd>6 人</dd></div>
-      <div class="kpi"><dt>主目标</dt><dd>OW × 3 · AOW × 3</dd></div>
-      <div class="kpi"><dt>人均</dt><dd>~7,000 RMB</dd></div>
+      <div class="kpi"><dt>人数</dt><dd>8 人（+2 tentative）</dd></div>
+      <div class="kpi"><dt>主目标</dt><dd>OW × 3 · AOW × 3 · 休闲 × 2</dd></div>
+      <div class="kpi"><dt>人均</dt><dd>潜水 ~11k / 休闲 ~9k RMB</dd></div>
     </dl>
 
     <h3>5 天一句话时间轴</h3>
@@ -1659,54 +1791,57 @@ footer .meta {
         <span class="t-day">D1</span>
         <span class="t-date">06.18 周四</span>
         <span class="t-title">两批抵达 · 海鲜市场合体</span>
-        <span class="t-meta">OW 10:50 落 · AOW 17:45 落 · 20:30 全员晚餐</span>
+        <span class="t-meta">OW 10:50 落 · AOW + 休闲 17:45 落（同 CA821）· 20:30 全员 8 人晚餐</span>
       </li>
       <li>
         <span class="t-day">D2</span>
         <span class="t-date">06.19 周五</span>
-        <span class="t-title">OW 泳池 / AOW 自由 / 双线晚活动</span>
-        <span class="t-meta">OW 全天潜店 · AOW eFoil 试玩 · 晚 Hyrox 4 + 厨师课 2 分流</span>
+        <span class="t-title">OW 泳池 / AOW 自由 / 休闲游 / 三线晚活动</span>
+        <span class="t-meta">OW 全天潜店 · AOW eFoil 试玩 · 休闲 Big Buddha + 老城 · 晚 Hyrox 4 + 厨师课 4 分流</span>
       </li>
       <li>
         <span class="t-day">D3</span>
         <span class="t-date">06.20 周六</span>
-        <span class="t-title">双组出海 · 皇帝岛</span>
-        <span class="t-meta">OW 大小皇帝岛 2 潜 · AOW 皇帝岛 3 潜（深潜+导航+选修）</span>
+        <span class="t-title">双组出海 / 休闲游普吉老城</span>
+        <span class="t-meta">OW 大小皇帝岛 2 潜 · AOW 皇帝岛 3 潜 · 休闲 SPA + 老城咖啡 + Lard Yai 步行街</span>
       </li>
       <li>
         <span class="t-day">D4</span>
         <span class="t-date">06.21 周日</span>
-        <span class="t-title">双组同日出证 🎉 · 庆功晚餐</span>
-        <span class="t-meta">OW 大小皇帝岛 2 潜出证 · AOW 皮皮岛 2 潜出证 · 19:30 Kan Eang 海景庆功</span>
+        <span class="t-title">双组同日出证 🎉 · 8 人庆功晚餐</span>
+        <span class="t-meta">OW 大小皇帝岛 2 潜出证 · AOW 皮皮岛 2 潜出证 · 休闲 Kata Beach + 高端 SPA · 19:30 全员庆功</span>
       </li>
       <li>
         <span class="t-day">D5</span>
         <span class="t-date">06.22 周一</span>
-        <span class="t-title">eFoil → Kong → 按摩 → 机场</span>
-        <span class="t-meta">08:00 全员 eFoil · 12:30 Kong 课 · 14:30 按摩 · 18:20/19:25 两批起飞</span>
+        <span class="t-title">eFoil / Kong / 按摩 → 机场</span>
+        <span class="t-meta">潜水 6 人 eFoil + Kong · 休闲 SPA + Kafé · 全员按摩 → 18:20 OW / 19:25 AOW+休闲 起飞</span>
       </li>
     </ol>
 
     <h3 style="margin-top: 2rem;">人员构成 & 重叠</h3>
-    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 0.75rem;">总共 <strong>6 人</strong>，按潜水基础分两组，加项跨组重叠：</p>
+    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 0.75rem;">总共 <strong>8 人</strong>（确认） + <strong>2 人 tentative</strong>，按主线分三组，加项跨组重叠：</p>
     <table class="schedule">
       <thead><tr><th>组别</th><th>人</th><th>主活动</th><th>价位 / 人</th></tr></thead>
       <tbody>
         <tr><td><strong>OW 组</strong></td><td>3 人</td><td>D2 泳池 + D3-D4 大小皇帝岛 4 潜出证</td><td>14,220 THB（9 折）</td></tr>
         <tr><td><strong>AOW 组</strong></td><td>3 人</td><td>D3 皇帝岛 3 潜 + D4 皮皮岛 2 潜出证</td><td>12,600 THB（9 折）</td></tr>
-        <tr><td style="color: var(--ink-soft);">↳ 厨师课加项</td><td>1 OW + 1 AOW</td><td>D2 晚 Pum Thai 1.5h 班</td><td>+1,400 THB</td></tr>
-        <tr><td style="color: var(--ink-soft);">↳ Hyrox 加项 D2</td><td>2 OW + 2 AOW</td><td>D2 晚 Unit 27 官方课</td><td>+600 THB</td></tr>
-        <tr><td style="color: var(--ink-soft);">↳ D5 全员活动</td><td>6 人全员</td><td>eFoil + Kong 课 + 按摩</td><td>+3,300 THB</td></tr>
+        <tr><td><strong>休闲组</strong></td><td>2 人</td><td>D2-D4 白天独立行程：Big Buddha / 老城 / Kata Beach / SPA</td><td>~5,500 THB</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ 厨师课加项</td><td>1 OW + 1 AOW + 2 休闲 = 4 人</td><td>D2 晚 Pum Thai 1.5h 班</td><td>+1,800 THB</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ Hyrox 加项 D2</td><td>2 OW + 2 AOW = 4 人</td><td>D2 晚 Unit 27 官方课</td><td>+800 THB</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ D5 全员活动</td><td>潜水 6 人 eFoil+Kong · 全员 8 人按摩</td><td>eFoil + Kong 课 + 按摩</td><td>+3,300 THB（潜水）/ +600 THB（休闲）</td></tr>
+        <tr><td style="color: var(--ink-faint);">↳ tentative +2</td><td>+2 OW + Hyrox</td><td>跟 OW 组合并，详见文末附录</td><td>~15,000 THB</td></tr>
       </tbody>
     </table>
 
     <div class="box ocean">
       <h4>排期为什么这样</h4>
       <ul style="margin: 0.5rem 0 0 1.2rem; line-height: 1.7;">
-        <li><strong>OW 三天 · AOW 两天</strong>：OW 多了 D2 泳池理论，所以 D2 AOW 全天空（潜店给的休整日），刚好让 2 个厨师课的人能晚去 Pum Thai</li>
-        <li><strong>同日 D4 出证</strong>：两组同时拿证，D4 晚一起庆功，节奏不脱节</li>
+        <li><strong>OW 三天 · AOW 两天</strong>：OW 多了 D2 泳池理论，所以 D2 AOW 全天空（潜店给的休整日），刚好让厨师课的人能晚去 Pum Thai</li>
+        <li><strong>休闲组三天独立白天行程</strong>：D2-D4 潜水组出海/泳池时，休闲 2 人走 Big Buddha / 普吉老城 / Kata Beach / SPA 低强度路线，晚上跟全员合体晚餐</li>
+        <li><strong>同日 D4 出证</strong>：两组同时拿证，D4 晚 8 人一起庆功，节奏不脱节</li>
         <li><strong>D5 禁飞窗口 ≥ 53h ✓</strong>：D4 最后一潜 ~14:00 → D5 最早起飞 18:20，远超 24h 安全线</li>
-        <li><strong>D5 全员满档不水下</strong>：eFoil 是水面活动 / Kong 是健身 / 按摩 — 都不触发禁飞规则，最后一天利用率最大</li>
+        <li><strong>D5 全员满档不水下</strong>：eFoil 是水面活动 / Kong 是健身 / 按摩 — 都不触发禁飞规则；休闲组 D5 上午 SPA + Kafé，下午跟潜水组合体按摩</li>
       </ul>
     </div>
   </div>
@@ -1800,8 +1935,8 @@ footer .meta {
         <span class="day-tag">两批抵达</span>
       </div>
       <div class="day-content">
-        <h3>两组航班分开抵达 · 两批接送</h3>
-        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">OW 比 AOW 早 ~7 小时到普吉，可以先入住别墅 + 探路 + 午餐；AOW 落地后直接 Rawai 海鲜市场晚餐合体。</p>
+        <h3>两批航班抵达 · 两趟接送（AOW + 休闲 5 人同 CA821）</h3>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">OW 比 AOW + 休闲组早 ~7 小时到普吉，可以先入住别墅 + 探路 + 午餐；AOW + 休闲 5 人晚上同一班 CA821 落地后直接 Rawai 海鲜市场晚餐合体。</p>
 
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
@@ -1820,26 +1955,26 @@ footer .meta {
             <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">💡 <strong>预习关键</strong>：潜店给 OW 的 eLearning 链接出发前就该激活。D1 下午集中刷完 5 章 ≈ 2-3h（视频+多选题）。次日潜店理论段可压缩，腾出时间练泳池技能。</p>
           </div>
           <div class="card" style="border-left: 3px solid var(--sunset);">
-            <h4 style="color: var(--sunset);">🟠 AOW 3 人（晚到 · 国航 CA）</h4>
+            <h4 style="color: var(--sunset);">🟠 AOW 3 人 + 休闲 2 人（晚到 · 国航 CA821 同班）</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
-                <tr><td>17:45</td><td>HKT 落地（国航 CA821 · 北京直飞）</td></tr>
+                <tr><td>17:45</td><td>HKT 落地（国航 CA821 · 北京直飞 · 5 人同班）</td></tr>
                 <tr><td>18:00-18:30</td><td>入境 + 提行李</td></tr>
-                <tr><td>18:45</td><td>包车 → 别墅</td></tr>
+                <tr><td>18:45</td><td><strong>14 座 minivan</strong> → 别墅（5 人 + 5 大箱）</td></tr>
                 <tr><td>19:30</td><td>抵达别墅 + 卸行李</td></tr>
-                <tr><td>20:30</td><td>🍽 <strong>全员合体晚餐 @ Rawai 海鲜市场 + Salaloy 加工</strong><br><span style="font-size:0.82rem;color:var(--ink-soft)">市场买海鲜 → Salaloy Seafood 加工（52/2 Wiset Rd · 海边户外座）· 第一晚最强普吉体验 · 人均 500-700 THB</span></td></tr>
-                <tr><td>22:00</td><td>休息（OW 次日 8:30 上课 / AOW 9:00 eFoil）</td></tr>
+                <tr><td>20:30</td><td>🍽 <strong>全员 8 人合体晚餐 @ Rawai 海鲜市场 + Salaloy 加工</strong><br><span style="font-size:0.82rem;color:var(--ink-soft)">市场买海鲜 → Salaloy Seafood 加工（52/2 Wiset Rd · 海边户外座）· 第一晚最强普吉体验 · 人均 500-700 THB</span></td></tr>
+                <tr><td>22:00</td><td>休息（OW 次日 8:30 上课 / AOW 9:00 eFoil / 休闲 9:00 Big Buddha）</td></tr>
               </tbody>
             </table>
-            <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">AOW 次日 D2 全天空 + 9:00 eFoil → 不用早起赶潜店</p>
+            <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">AOW + 休闲共 5 人同 CA821，接机只需 1 趟 14 座 minivan</p>
           </div>
         </div>
 
         <div class="box ocean">
           <p><strong>包车订 2 趟接机</strong>：</p>
           <ul style="margin: 0.5rem 0 0 1rem;">
-            <li>11:00 OW 接机（CX771 10:50 落） · minivan · ~1,500 THB</li>
-            <li>18:00 AOW 接机（CA821 17:45 落） · minivan · ~1,500 THB</li>
+            <li>11:00 OW 3 人接机（CX771 10:50 落） · 标准 7 座 · ~1,500 THB</li>
+            <li>18:00 AOW + 休闲 5 人接机（CA821 17:45 落） · <strong>14 座 minivan</strong> · ~2,200 THB</li>
           </ul>
         </div>
       </div>
@@ -1853,9 +1988,9 @@ footer .meta {
         <span class="day-tag">分组日</span>
       </div>
       <div class="day-content">
-        <h3>OW 泳池 · AOW 自由 · 双线晚活动</h3>
+        <h3>OW 泳池 · AOW 自由 · 休闲游 · 三线晚活动</h3>
 
-        <h4>白天 · 两组分头</h4>
+        <h4>白天 · 三组分头</h4>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
             <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 全天潜店</h4>
@@ -1878,24 +2013,40 @@ footer .meta {
                 <tr><td>09:00-10:30</td><td><span class="tag tag-fit">eFoil 试玩</span> <strong>Kata Surf Limited @ Kata Beach</strong> · 中文教练 · WeChat <code>jerryalex198275</code> · 1,700 THB/30min 含基础课 · D5 前预热熟练 → 全员场上手快 <a href="#efoil" style="color:var(--sunset)">↓ 详情</a></td></tr>
                 <tr><td>11:00</td><td>回别墅冲澡换装</td></tr>
                 <tr><td>12:00-13:30</td><td><span class="tag tag-food">午餐</span> 🥥 <strong>Atsumi Raw Cafe</strong>（Rawai · raw vegan / 健康融合 · 冷压果汁 + 芒果西番莲 smoothie · zucchini spaghetti + masaman 咖喱 · ~400 THB/人）</td></tr>
-                <tr><td>14:00-17:00</td><td><span class="tag tag-rest">下午自由</span> 别墅泳池 / Rawai 海滩 / 半日 SPA / Big Buddha + Wat Chalong</td></tr>
+                <tr><td>14:00-17:00</td><td><span class="tag tag-rest">下午自由</span> 别墅泳池 / Rawai 海滩 / 半日 SPA</td></tr>
                 <tr><td>17:00</td><td>休整 → 准备晚活动</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
+        <div class="card" style="border-left: 3px solid var(--coral); margin-top: 1rem;">
+          <h4 style="color: var(--coral);">🌺 休闲组 2 人 · Big Buddha + Promthep 日落</h4>
+          <table class="schedule" style="font-size: 0.85rem;">
+            <tbody>
+              <tr><td>08:30</td><td>早餐（跟 AOW 一起）</td></tr>
+              <tr><td>09:00-11:00</td><td><span class="tag tag-rest">景点</span> 🛕 <strong>Big Buddha + Wat Chalong</strong>（离别墅 15 min · 普吉两大地标 · 体力低强度）</td></tr>
+              <tr><td>11:30-13:00</td><td><span class="tag tag-food">午餐</span> 🦞 <strong>Rawai 海鲜市场 + Salaloy 加工</strong>（中午版本人少 · 自选海鲜加工 · ~500 THB/人）</td></tr>
+              <tr><td>13:30-16:30</td><td><span class="tag tag-rest">午休</span> 别墅泳池 + 阅读 / 小憩</td></tr>
+              <tr><td>17:00-18:30</td><td><span class="tag tag-rest">日落</span> 🌅 <strong>Promthep Cape 日落</strong>（普吉最西端 · 印度洋日落 · 风景 No.1）</td></tr>
+              <tr><td>18:30</td><td>回别墅冲澡 → 准备 Pum Thai</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">休闲组当晚跟 OW/AOW 各 1 人一起去 Pum Thai 厨师课（4 人版）</p>
+        </div>
+
         <h4 style="margin-top: 1.5rem;">D2 晚上分两线</h4>
-        <p style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.75rem;">人员分配：<strong>厨师课组 = 1 OW + 1 AOW</strong>；<strong>Hyrox 组 = 2 OW + 2 AOW</strong></p>
+        <p style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.75rem;">人员分配：<strong>厨师课组 = 1 OW + 1 AOW + 2 休闲 = 4 人</strong>；<strong>Hyrox 组 = 2 OW + 2 AOW = 4 人</strong></p>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--coral);">
-            <h4 style="color: var(--coral);">🍳 厨师课 2 人（1 OW + 1 AOW）</h4>
+            <h4 style="color: var(--coral);">🍳 厨师课 4 人（1 OW + 1 AOW + 2 休闲）</h4>
             <table class="schedule" style="font-size: 0.85rem; margin-top: 0.5rem;">
               <tbody>
-                <tr><td>16:00</td><td>OW 那位下泳池课，回别墅冲澡</td></tr>
-                <tr><td>17:30</td><td>Grab → Patong（~25min/250 THB）</td></tr>
-                <tr><td>18:00-21:00</td><td><strong>Pum Thai 晚班</strong>（市场参观 + 4-5 道菜 + 教师讲解 + 现做现吃）</td></tr>
-                <tr><td>21:15</td><td>Grab → 别墅</td></tr>
+                <tr><td>16:00</td><td>OW 那位下泳池课回别墅；休闲 2 人收 Promthep</td></tr>
+                <tr><td>16:30-17:15</td><td>4 人全部回别墅 → 冲澡换装</td></tr>
+                <tr><td>17:30</td><td><strong>2 辆 Grab</strong> → Patong（~25min/250 THB × 2）</td></tr>
+                <tr><td>18:00-21:00</td><td><strong>Pum Thai 晚班 4 人</strong>（市场参观 + 4-5 道菜 + 教师讲解 + 现做现吃）</td></tr>
+                <tr><td>21:15</td><td>2 辆 Grab → 别墅</td></tr>
                 <tr><td>21:45</td><td>到家</td></tr>
               </tbody>
             </table>
@@ -1946,7 +2097,7 @@ footer .meta {
         <span class="day-tag">双组出海</span>
       </div>
       <div class="day-content">
-        <h3>潜水 Day 1 · 双组同时出海</h3>
+        <h3>潜水 Day 1 · 双组同时出海 · 休闲组游普吉老城</h3>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
             <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 大小皇帝岛</h4>
@@ -1981,7 +2132,21 @@ footer .meta {
             </table>
           </div>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.95rem;"><span class="tag tag-food">全体晚餐</span> 🌿 <strong>19:30 Mor Mu Dong @ Chalong</strong>（米其林必比登 Bib Gourmand 2026 · 红树林包围老建筑 · 100-200 THB/道 · 9/4 Moo 3 Pa-Lai 路 · 离别墅 ~10 min 车）</p>
+
+        <div class="card" style="border-left: 3px solid var(--coral); margin-top: 1rem;">
+          <h4 style="color: var(--coral);">🌺 休闲组 2 人 · 普吉老城 + 周六步行街</h4>
+          <table class="schedule" style="font-size: 0.85rem;">
+            <tbody>
+              <tr><td>09:00-09:30</td><td>慢早餐（潜水组已出海）</td></tr>
+              <tr><td>09:30-11:00</td><td><span class="tag tag-rest">SPA</span> 💆 街边正规店 <strong>90 min 油按</strong>（Rawai · ~600-800 THB/人）</td></tr>
+              <tr><td>11:30-13:30</td><td><span class="tag tag-food">老城</span> ☕ <strong>普吉老城漫步</strong> + 网红咖啡（Torry's Ice Cream / Campus Coffee Roasters / The Memory at On On Hotel）· 葡萄牙殖民建筑街景</td></tr>
+              <tr><td>14:00-16:30</td><td><span class="tag tag-rest">市集</span> 🛍 <strong>Lard Yai 周六步行街</strong>（Thalang Rd · 周六 16:00 起 · 本地小吃 + 手工艺品）</td></tr>
+              <tr><td>17:00</td><td>Grab → 回别墅泳池</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.95rem;"><span class="tag tag-food">全体晚餐 8 人</span> 🌿 <strong>19:30 Mor Mu Dong @ Chalong</strong>（米其林必比登 Bib Gourmand 2026 · 红树林包围老建筑 · 100-200 THB/道 · 9/4 Moo 3 Pa-Lai 路 · 离别墅 ~10 min 车 · 需提前订 8 人桌）</p>
       </div>
     </article>
 
@@ -1993,7 +2158,7 @@ footer .meta {
         <span class="day-tag">出证日</span>
       </div>
       <div class="day-content">
-        <h3>双组出证 🎉 · 庆祝晚餐</h3>
+        <h3>双组出证 🎉 · 休闲组 Kata Beach · 8 人庆功晚餐</h3>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
             <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 大小皇帝岛 → 出证</h4>
@@ -2026,7 +2191,20 @@ footer .meta {
             </table>
           </div>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.95rem;"><span class="tag tag-food">庆祝晚餐</span> 🎉 <strong>19:30 Kan Eang @ Pier · Chalong Bay 海景</strong>（50 年泰国海鲜老店 · Thai Select 认证 · 招牌 Phuket Lobster / Hormok Talay / 椰子海鲜咖喱 · 300-500 THB/道 · 离别墅 10 min 车 · 出证日在 Chalong Pier 庆功圆满收尾）</p>
+
+        <div class="card" style="border-left: 3px solid var(--coral); margin-top: 1rem;">
+          <h4 style="color: var(--coral);">🌺 休闲组 2 人 · Kata Beach + 高端 SPA</h4>
+          <table class="schedule" style="font-size: 0.85rem;">
+            <tbody>
+              <tr><td>09:30-12:00</td><td><span class="tag tag-rest">海滩</span> 🏖 <strong>Karon / Kata Beach</strong> 海边漫步 + 早午餐（沙白水清 · 选个 beach club 躺平 · ~500-800 THB/人）</td></tr>
+              <tr><td>12:30</td><td>Grab → Patong / Kamala 区</td></tr>
+              <tr><td>13:00-15:00</td><td><span class="tag tag-rest">高端 SPA</span> 💎 <strong>Let's Relax Patong / Oasis Spa Kamala</strong>（90 min 油按 + 草药热敷 · ~2,000 THB/人 · 出证日给自己也来个仪式感）</td></tr>
+              <tr><td>15:30</td><td>Grab → 回别墅 → 准备庆功</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.95rem;"><span class="tag tag-food">8 人庆祝晚餐</span> 🎉 <strong>19:30 Kan Eang @ Pier · Chalong Bay 海景</strong>（50 年泰国海鲜老店 · Thai Select 认证 · 招牌 Phuket Lobster / Hormok Talay / 椰子海鲜咖喱 · 300-500 THB/道 · 离别墅 10 min 车 · 出证日在 Chalong Pier 庆功圆满收尾 · 提前订 8 人海景桌）</p>
       </div>
     </article>
 
@@ -2038,45 +2216,69 @@ footer .meta {
         <span class="day-tag">满档收尾</span>
       </div>
       <div class="day-content">
-        <h3>电动冲浪 → Lactic Jungle → 按摩 → 两批走机场</h3>
-        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">AOW 比 OW 早 1 小时去机场。前半天全员一起，按摩开始分开节奏。</p>
+        <h3>三线并行 · eFoil / Kong / SPA → 按摩 → 两批走机场</h3>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">潜水 6 人走 eFoil + Kong，休闲 2 人留别墅 SPA + Kong Kafé。下午 14:30 全员合体按摩 → 16:00 同车送机。</p>
 
-        <h4 style="margin-top: 1rem;">早上 - 中午 · 全员一起</h4>
+        <h4 style="margin-top: 1rem;">早上 · 三线分开</h4>
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--ocean);">
+            <h4 style="color: var(--ocean-deep);">🌊 潜水 6 人 · eFoil + Kong</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>06:30-07:30</td><td>早餐 + 退房 + 寄存行李</td></tr>
+                <tr><td>07:30</td><td>出发去 Kata Beach（~20 min）</td></tr>
+                <tr><td>08:00-10:30</td><td><span class="tag tag-fit">eFoil</span> 6 人轮换 @ Kata — OW 首次教练带 · AOW 二刷</td></tr>
+                <tr><td>11:00</td><td>回别墅冲澡换装</td></tr>
+                <tr><td>12:00</td><td>出发 Soi Ta-iad</td></tr>
+                <tr><td>12:30-13:30</td><td><span class="tag tag-fit">Kong</span> <strong>Lactic Jungle 团课</strong>（Hyrox 风格 · 1h）</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--coral);">
+            <h4 style="color: var(--coral);">🌺 休闲 2 人 · 别墅 SPA + Kafé</h4>
+            <table class="schedule" style="font-size: 0.85rem;">
+              <tbody>
+                <tr><td>06:30-07:30</td><td>早餐 + 退房 + 寄存行李</td></tr>
+                <tr><td>08:00-09:30</td><td><span class="tag tag-rest">SPA</span> 💆 <strong>别墅旁正规店 90 min 油按</strong>（最后一次彻底放松）</td></tr>
+                <tr><td>09:30-10:30</td><td>慢早餐 + 别墅泳池</td></tr>
+                <tr><td>11:00</td><td>跟潜水组合体冲澡</td></tr>
+                <tr><td>12:00</td><td>同车去 Soi Ta-iad</td></tr>
+                <tr><td>12:30-13:30</td><td><span class="tag tag-food">Kafé</span> ☕ <strong>Kong Kafé 慢午餐 + Soi Ta-iad 散步</strong>（潜水组在 Kong 里上课）</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 1.5rem;">中午 · 8 人合体午餐</h4>
         <table class="schedule">
           <thead><tr><th>时间</th><th>安排</th></tr></thead>
           <tbody>
-            <tr><td>06:30-07:30</td><td>早餐 + 退房 + 行李寄存别墅</td></tr>
-            <tr><td>07:30</td><td>出发去 Kata Beach（~20 min）</td></tr>
-            <tr><td>08:00-10:30</td><td><span class="tag tag-fit">eFoil</span> 全体电动冲浪 @ Kata Beach — OW 首次（教练带），AOW 二刷</td></tr>
-            <tr><td>11:00</td><td>从 Kata 回别墅冲澡换装（~20 min）</td></tr>
-            <tr><td>12:00</td><td>出发去 Soi Ta-iad（~15 min）</td></tr>
-            <tr><td>12:30-13:30</td><td><span class="tag tag-fit">Kong</span> <strong>Kong Lactic Jungle 团课</strong>（Hyrox 风格 · 1h 教练带练）</td></tr>
-            <tr><td>13:30-14:30</td><td><span class="tag tag-food">Kong Kafé</span> 全员午餐在 Kong 内的 Kafé（Acai + 轻食 · 省外出）</td></tr>
+            <tr><td>13:30-14:30</td><td><span class="tag tag-food">Kong Kafé</span> 全员 8 人午餐（Acai + 轻食 · 省外出）</td></tr>
           </tbody>
         </table>
 
-        <h4 style="margin-top: 2rem;">下午 · 全员一起去机场</h4>
+        <h4 style="margin-top: 2rem;">下午 · 全员 8 人一起去机场</h4>
         <table class="schedule">
           <thead><tr><th>时间</th><th>安排</th></tr></thead>
           <tbody>
-            <tr><td>14:30-15:30</td><td><span class="tag tag-rest">按摩</span> 全员 60 min 泰式按摩</td></tr>
+            <tr><td>14:30-15:30</td><td><span class="tag tag-rest">按摩</span> 全员 8 人 60 min 泰式按摩（提前订大店）</td></tr>
             <tr><td>15:30</td><td>回别墅取行李</td></tr>
-            <tr><td>16:00</td><td>🚐 <strong>全员同车包车 → HKT</strong>（6 人 minivan）</td></tr>
+            <tr><td>16:00</td><td>🚐 <strong>全员同车包车 → HKT</strong>（14 座 minivan · 8 人 + 8 大箱 + 2 潜水包）</td></tr>
             <tr><td>16:50</td><td>抵达 HKT / 各组分别 Check-in</td></tr>
-            <tr><td>17:00-18:15</td><td>OW 候机 + AOW 在机场吃东西 / 免税逛</td></tr>
-            <tr><td><strong>18:20</strong></td><td>🔵 OW 起飞 HKT → HKG（CX778）→ 22:00-01:15 香港转机 → 02:20(D6) 抵 CAN</td></tr>
-            <tr><td><strong>19:25</strong></td><td>🟠 AOW 起飞 HKT → PEK（CA822 直飞）→ 02:25(D6) 抵 PEK</td></tr>
+            <tr><td>17:00-18:15</td><td>OW 候机 + AOW + 休闲在机场吃东西 / 免税逛</td></tr>
+            <tr><td><strong>18:20</strong></td><td>🔵 OW 3 人起飞 HKT → HKG（CX778）→ 22:00-01:15 香港转机 → 02:20(D6) 抵 CAN</td></tr>
+            <tr><td><strong>19:25</strong></td><td>🟠 AOW + 休闲 5 人起飞 HKT → PEK（CA822 直飞）→ 02:25(D6) 抵 PEK</td></tr>
           </tbody>
         </table>
 
         <div class="box success">
           <h4>✅ 一起走的好处</h4>
           <ul style="margin: 0.5rem 0 0 1rem;">
-            <li>包车只需 <strong>1 趟</strong>（省 ~1,500 THB + 调度简单）</li>
-            <li>全员按摩同样 60 min（不用 OW 缩短 / AOW 拉长）</li>
-            <li>AOW 多在机场等 1h，正好慢慢吃餐 + 逛免税</li>
+            <li>包车只需 <strong>1 趟 14 座 minivan</strong>（省 ~2,000 THB + 调度简单）</li>
+            <li>全员 8 人按摩同时 60 min</li>
+            <li>AOW + 休闲多在机场等 1h，正好慢慢吃餐 + 逛免税</li>
             <li>OW 国际航班提前 1h30min 抵机场，时间充裕</li>
-            <li>D5 节奏对全员都更轻松</li>
+            <li>休闲组 D5 上午 SPA 后整个早上轻松，跟潜水组合体后节奏完全协调</li>
           </ul>
         </div>
 
@@ -2729,22 +2931,53 @@ footer .meta {
     <p class="section-marker">§08 · 住宿</p>
     <h2 class="section-title">别墅选址</h2>
 
-    <p class="section-lead">中档 25-35k THB/晚，3BR 私泳池别墅，定位在 Rawai 北部 / Chalong 南部三角内 — 离 Chalong Pier（潜水船）、Soi Ta-iad（Kong 健身一条街）、Rawai Beach（eFoil + 海鲜市场）都在 10 分钟车程内。</p>
+    <p class="section-lead"><strong>8 人版需要 5BR 私泳池别墅</strong>（容纳 8 成人 + 可加床应对 tentative +2）。中档-高端 50-70k THB/晚，定位在 Rawai 北部 / Chalong 南部三角内 — 离 Chalong Pier（潜水船）、Soi Ta-iad（Kong 健身一条街）、Rawai Beach（eFoil + 海鲜市场）都在 10 分钟车程内。Layan / Bang Tao 高端区有更多 5BR 选项但距 Chalong 略远 25 min。</p>
 
-    <h3>价位重新校准（实地行情）</h3>
-    <div class="box ocean">
-      <p>我之前估的"中档 25-35k THB/晚"在 Rawai 实际是<strong>偏豪华</strong>档。深挖后真实分布：</p>
-      <ul style="margin: 0.5rem 0 0 1rem;">
-        <li><strong>经济档 8-15k THB/晚</strong>（4 晚 32-60k）— 3BR 私泳池 + 基本厨房，够住够用</li>
-        <li><strong>中档 15-25k THB/晚</strong>（4 晚 60-100k）— 加管家 / 早餐 / 大花园 / 设计感</li>
-        <li><strong>高端 25-35k+ THB/晚</strong>（4 晚 100-140k+）— Boutique 别墅区 / 海景 / 全套服务</li>
-      </ul>
-      <p style="margin-top: 0.75rem;"><strong>建议</strong>：你们时间大头在潜水+健身（不在别墅），别墅主要是泳池 + 晚上聚会用，<strong>中档 15-25k 已经很舒服</strong>，省下的钱可加 D4 fun dive / 升级 Kan Eang Phuket Lobster 套餐 / 高端 SPA。</p>
+    <div class="box warn">
+      <p><strong>⚠️ 房源紧迫</strong>：Rawai 真正的 5BR 私泳池 villa 数量有限，旺季 2 周内可能订不到。<strong>这周内必须并行发 5 家询价</strong>。备选：2 栋 3BR 拼订（6 人 + 2 人分栋，详见文末备选 listings）。</p>
     </div>
 
-    <h3 style="margin-top: 2rem;">3 档具体房源 + 预订直链</h3>
+    <h3 style="margin-top: 2rem;">5BR 价位行情（8 人版）</h3>
+    <div class="box ocean">
+      <p>5BR 私泳池 villa 在 Rawai 的真实价格分布：</p>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li><strong>中档 5BR 35-50k THB/晚</strong>（4 晚 140-200k）— 标准配置 5 间 ensuite + 私泳池 + 厨房</li>
+        <li><strong>高端 5BR 50-70k THB/晚</strong>（4 晚 200-280k）— 加管家 / 早餐 / 大花园 / 海景 / 设计感（<strong>推荐档</strong>）</li>
+        <li><strong>顶级 5BR 70-120k THB/晚</strong>（4 晚 280-480k）— Boutique 别墅区 / 海景 / 全套服务 / 私人厨师</li>
+      </ul>
+      <p style="margin-top: 0.75rem;"><strong>建议</strong>：8 人住高端 5BR 人均住宿 5,000-7,000 RMB，比 6 人住 3BR 反而只贵 1,500 左右。中档 5BR 数量少不好订，<strong>直接锁高端 5BR</strong> 更稳。</p>
+    </div>
 
-    <h4 style="margin-top: 1rem;">🟢 经济档（8-15k THB/晚）· 4 晚 32-60k THB ≈ 6,400-12,000 RMB</h4>
+    <h3 style="margin-top: 2rem;">5BR 推荐方向（8 人版）</h3>
+    <div class="grid-3" style="margin-bottom: 1.5rem;">
+      <div class="card" style="border-left: 3px solid var(--ocean);">
+        <h4>Botanica Luxury Villas</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">Layan / Bang Tao 高端区 · 5BR 多 · 距 Chalong 25 min</p>
+        <p class="price">~55-75k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.botanicaluxuryvillas.com/" target="_blank">📎 官网</a> · 谷歌搜「Botanica 5 bedroom」</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--sunset);">
+        <h4>The Eva Phuket (5BR)</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai · 整套 5BR villa · 距 Chalong Pier 近 · 私泳池</p>
+        <p class="price">~50-65k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;">Airbnb / Booking 搜「The Eva Phuket 5 bedroom」</p>
+      </div>
+      <div class="card">
+        <h4>The Luxe Nomad 平台</h4>
+        <p style="color: var(--ink-soft); font-size: 0.88rem;">高端 villa 聚合站 · 含 Villa Sunpao / Villa Splash 等 5BR</p>
+        <p class="price">~60-90k THB/晚</p>
+        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.theluxenomad.com/" target="_blank">📎 The Luxe Nomad</a> / <a href="https://www.luxuryretreats.com/" target="_blank">Luxury Retreats</a></p>
+      </div>
+    </div>
+
+    <div class="box ocean">
+      <p><strong>📋 询价模板</strong>：见 <code>预订模板.md §2</code>（包含 10 个问题：日期可用 / 5BR ensuite / 床型 / 厨房 / Chalong 距离 / 14 座接送 / 清洁 / <strong>加床政策（应对 tentative +2）</strong> / 总价明细 / 退订）</p>
+    </div>
+
+    <h3 style="margin-top: 2rem;">备选：2 栋 3BR 拼订（6 + 2 分栋）</h3>
+    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1rem;">如果 5BR 找不到合适的，可以订 2 栋 3BR：潜水 6 人住主栋（OW/AOW），休闲 2 人住小栋。下面是 3BR 备选 listings（来自原 6 人版本）。</p>
+
+    <h4 style="margin-top: 1rem;">🟢 经济档 3BR（8-15k THB/晚）· 4 晚 32-60k THB ≈ 6,400-12,000 RMB</h4>
     <div class="grid-3">
       <div class="card">
         <h4>Lady Naya Villas</h4>
@@ -2766,7 +2999,7 @@ footer .meta {
       </div>
     </div>
 
-    <h4 style="margin-top: 1.5rem;">🟡 中档（15-25k THB/晚）· 4 晚 60-100k THB ≈ 12,000-20,000 RMB <span class="tag tag-cert">推荐</span></h4>
+    <h4 style="margin-top: 1.5rem;">🟡 中档 3BR（15-25k THB/晚）· 4 晚 60-100k THB ≈ 12,000-20,000 RMB</h4>
     <div class="grid-3">
       <div class="card" style="border-left: 3px solid var(--sunset);">
         <h4>⭐ Rawai Private Villas - Pools and Garden</h4>
@@ -2788,7 +3021,7 @@ footer .meta {
       </div>
     </div>
 
-    <h4 style="margin-top: 1.5rem;">🔴 高端档（25-35k+ THB/晚）· 4 晚 100-140k+ THB ≈ 20,000-28,000+ RMB</h4>
+    <h4 style="margin-top: 1.5rem;">🔴 高端档 3BR（25-35k+ THB/晚）· 4 晚 100-140k+ THB ≈ 20,000-28,000+ RMB</h4>
     <div class="grid-3">
       <div class="card">
         <h4>Saiyuan Villas（boutique 区）</h4>
@@ -2810,38 +3043,40 @@ footer .meta {
       </div>
     </div>
 
-    <h3 style="margin-top: 2.5rem;">搜索关键词（自己再淘）</h3>
+    <h3 style="margin-top: 2.5rem;">搜索关键词（5BR 自己再淘）</h3>
     <ul style="padding-left: 1.5rem;">
-      <li><strong>Airbnb</strong>：<a href="https://www.airbnb.com/s/Rawai--Thailand/homes?adults=6&room_types[]=Entire+home%2Fapt&amenities[]=7" target="_blank"><code class="mono">Rawai 3 bedroom pool villa</code> 直搜</a> · 筛选「整套住宿 + 6 客人 + 私人泳池」</li>
-      <li><strong>Booking.com</strong>：<a href="https://www.booking.com/villas/city/th/ban-ra-wai.html" target="_blank"><code class="mono">Rawai villas</code> 直搜</a> · 筛选「整套别墅 + 6 客 + 泳池」</li>
-      <li><strong>Agoda</strong>：搜「Rawai pool villa」中文界面对中国卡更友好</li>
-      <li><strong>FazWaz</strong>：<a href="https://www.fazwaz.com/villa-for-rent/thailand/phuket/phuket-town/rawai" target="_blank">长租房源</a> · 月租比短租日均便宜 30%</li>
+      <li><strong>Airbnb</strong>：<a href="https://www.airbnb.com/s/Phuket--Thailand/homes?adults=8&room_types[]=Entire+home%2Fapt&amenities[]=7&min_bedrooms=5" target="_blank"><code class="mono">Phuket 5 bedroom pool villa</code> 直搜</a> · 筛选「整套住宿 + 8 客 + 私人泳池 + ≥5 卧」</li>
+      <li><strong>Booking.com</strong>：<a href="https://www.booking.com/villas/city/th/ban-ra-wai.html" target="_blank"><code class="mono">Rawai villas</code> 直搜</a> · 筛选「整套别墅 + 8 客 + 泳池 + 5 卧」</li>
+      <li><strong>Agoda</strong>：搜「Phuket 5 bedroom pool villa Rawai」中文界面对中国卡更友好</li>
+      <li><strong>The Luxe Nomad / Luxury Retreats / Asia Villas</strong>：高端聚合站，5BR 选项多</li>
+      <li><strong>FazWaz</strong>：<a href="https://www.fazwaz.com/villa-for-rent/thailand/phuket/phuket-town/rawai" target="_blank">长租房源</a> · 月租比短租日均便宜 30%（不一定适合 4 晚短租）</li>
     </ul>
 
     <div class="box warn">
-      <h4>避坑 + 订位 tips</h4>
+      <h4>避坑 + 订位 tips（5BR 特别注意）</h4>
       <ul style="margin: 0.5rem 0 0 1rem;">
         <li><strong>别选 Patong / Kata</strong> — 潜店每天接送多 25 分钟</li>
         <li><strong>别选 Cape Panwa / Cape Yamu</strong> — 高端但太远，潜水接送会被拖</li>
-        <li>看清是否含<strong>早餐 + 司机服务</strong>（中档有些含，有些不含，价差很大）</li>
-        <li>多家直接平台<strong>比 OTA 平台便宜 10-15%</strong>，但订位保障弱 — 大额订单仍走 Booking/Airbnb</li>
+        <li>看清是否含<strong>早餐 + 司机服务</strong>（5BR 高端档有些含，有些不含，价差很大）</li>
+        <li>5BR 价格弹性比 3BR 大，可以谈 <strong>"长租 4 晚 + 含接送 + 含早餐食材"</strong> 打包</li>
+        <li>跟房东要 <strong>floor plan</strong>，避免某间房只有一张单人床住不下成年人</li>
+        <li><strong>加床政策</strong>：能不能临时加 2 张床应对 tentative +2？务必写邮件留证</li>
         <li>6 月是<strong>淡季初期</strong>（雨季），价格通常比 11-3 月旺季便宜 20-30%</li>
-        <li>3BR 别墅 6 月一般<strong>提前 1-2 周</strong>订就有位（不像 12 月旺季要提前 2 个月）</li>
-        <li>入住时多数要押金（2,000-10,000 THB 现金，退房返还），<strong>预留充足现金</strong></li>
+        <li>5BR 房源少，6 月一般<strong>提前 2-3 周</strong>订才有位（旺季 12 月要 2 个月）</li>
+        <li>入住时多数要押金（5,000-20,000 THB 现金，退房返还），<strong>预留充足现金</strong></li>
       </ul>
     </div>
 
     <div class="box ocean" style="margin-top: 1.5rem;">
-      <h4>💡 我的建议</h4>
-      <p>看完所有档位后，我推荐 <strong>中档（15-25k THB/晚）的 Rawai Private Villas - Pools and Garden</strong>，理由：</p>
+      <h4>💡 8 人版推荐策略</h4>
+      <p>5BR 优先级 > 双 3BR 拼订，理由：</p>
       <ul style="margin: 0.5rem 0 0 1rem;">
-        <li>9.0/10 评分 · 8 个 3BR villa 集中管理（专业运营，房况稳定）</li>
-        <li>距 Rawai Beach 0.6mi 步行可达 · 离 Soi Ta-iad + Chalong Pier 都很近</li>
-        <li>每房 ensuite 卫生间 + 私泳池 + 厨房 · 6 人住绰绰有余</li>
-        <li>价格 15-22k THB/晚 × 4 = ~60-88k THB ≈ 12,000-17,600 RMB · 人均 2,000-2,900 RMB 住宿</li>
-        <li>比 25-35k 高端档<strong>省 40-60k THB</strong>，省下来够全员加 D4 Fun Dive + 升级按摩 + 多吃一顿米其林</li>
+        <li>5BR 一栋调度简单（早餐 / 集合 / 派对都在一处）</li>
+        <li>休闲 2 人和潜水 6 人晚上还能一起聚 → 增加感情</li>
+        <li>5BR 一栋人均 ~5,500 RMB 住宿（8 人均摊 50-65k THB/晚 × 4 = 200-260k）</li>
+        <li>双 3BR 拼订表面省钱，但要协调 2 栋的早餐 + 司机 + 押金，<strong>实际更累</strong></li>
       </ul>
-      <p style="margin-top: 0.75rem;"><strong>如果坚持 25-35k 高端档</strong>，推荐 Saiyuan Villas（boutique 7-villa 区，最有"度假感"）。</p>
+      <p style="margin-top: 0.75rem;"><strong>执行</strong>：<a href="#booking" style="color: var(--ocean);">本周内并行发 5 家 5BR 询价</a>，72h 内拿到至少 3 个报价再决策。</p>
     </div>
   </div>
 </section>
@@ -2983,7 +3218,7 @@ footer .meta {
           <tr><td>Rawai → 普吉机场 HKT</td><td>800 THB</td></tr>
         </tbody>
       </table>
-      <p style="margin-top: 0.5rem; font-size: 0.88rem;">6 人团 5 天 Grab 总额预算 ~3,000-4,000 THB，比 1 辆摩托车便宜 + 安全。<strong>除非有 IDP 老手 + 想体验，否则建议放弃摩托。</strong></p>
+      <p style="margin-top: 0.5rem; font-size: 0.88rem;">8 人团 5 天 Grab 总额预算 ~4,000-5,500 THB（休闲组白天用得多一点），比 1 辆摩托车便宜 + 安全。<strong>除非有 IDP 老手 + 想体验，否则建议放弃摩托。</strong></p>
     </div>
   </div>
 </section>
@@ -2996,23 +3231,24 @@ footer .meta {
     <p class="section-lead">按紧急程度排序。Kong Hyrox 和 Pum Thai 因为周一/周五的特殊班次需先邮件/电话确认，比订其他都急。</p>
 
     <div class="checklist-progress">
-      <span class="progress-text">已完成 <span class="progress-count">0 / 11</span></span>
+      <span class="progress-text">已完成 <span class="progress-count">0 / 12</span></span>
       <div class="progress-bar"><div class="progress-fill"></div></div>
       <button type="button" class="progress-reset">重置</button>
     </div>
 
     <ul class="checklist">
-      <li class="urgent"><label><input type="checkbox" data-key="kong"><span class="item-body"><span class="urgent-dot"></span><strong>Kong Strength（Hyrox 课）</strong> · D5 周一 12:30 班 · 电话 +66 92-452-5172 · 邮箱 admin@kongchalong.com · <em>必须提前 1 周确认有此课</em></span></label></li>
-      <li class="urgent"><label><input type="checkbox" data-key="pumthai"><span class="item-body"><span class="urgent-dot"></span><strong>Pum Thai（厨师课）</strong> · D2 周五 18:00 班 · 电话 +66 81-240-8924 · 邮箱 Bookings@pumthaifoodchain.com · 2 人位</span></label></li>
-      <li><label><input type="checkbox" data-key="villa"><span class="item-body"><strong>别墅 4 晚</strong> · Rawai 区 3BR 私泳池 · 06.18-06.22 · <strong>推荐 Rawai Private Villas - Pools and Garden（中档 15-22k/晚 · 9.0/10）</strong> · <a href="https://www.booking.com/hotel/th/rawai-private-villas-pools-and-garden.html" target="_blank">📎 Booking 链接</a></span></label></li>
-      <li><label><input type="checkbox" data-key="diving-deposit"><span class="item-body"><strong>潜水课程定金</strong> · OW × 3 + AOW × 3（9 折） · 发护照 + PADI 体检表</span></label></li>
-      <li><label><input type="checkbox" data-key="efoil"><span class="item-body"><strong>电动冲浪 eFoil</strong> · D5 周一 08:00-10:30 · 6 人轮换需 2 块板 + 2 教练</span></label></li>
-      <li><label><input type="checkbox" data-key="massage"><span class="item-body"><strong>泰式按摩</strong> · D5 周一 15:00-16:30 · 90 min · 6 人</span></label></li>
-      <li><label><input type="checkbox" data-key="pickup-ow"><span class="item-body"><strong>机场接机 #1</strong> · D1 周四 11:00 HKT 接 OW 3 人（国泰 CX771 10:50 落）</span></label></li>
-      <li><label><input type="checkbox" data-key="pickup-aow"><span class="item-body"><strong>机场接机 #2</strong> · D1 周四 18:00 HKT 接 AOW 3 人（国航 CA821 17:45 落）</span></label></li>
-      <li><label><input type="checkbox" data-key="dropoff"><span class="item-body"><strong>机场送机</strong> · D5 周一 16:00 别墅 → HKT · <strong>全员同车 6 人</strong>（OW 18:20 / AOW 19:25 各自登机）</span></label></li>
-      <li><label><input type="checkbox" data-key="flights"><span class="item-body"><strong>国际机票</strong> · 提前 2 个月订更省</span></label></li>
-      <li><label><input type="checkbox" data-key="insurance"><span class="item-body"><strong>旅行保险</strong> · 必须含水上活动 + 潜水（美亚/平安/安联）</span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="villa"><span class="item-body"><span class="urgent-dot"></span><strong>别墅 4 晚 · 5BR 私泳池</strong> · Rawai/Layan · 06.18-06.22 · <strong>本周内必须发 5 家询价</strong> · 推荐：Botanica Luxury Villas / The Eva Phuket / The Luxe Nomad 平台</span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="kong"><span class="item-body"><span class="urgent-dot"></span><strong>Kong Strength（Hyrox 课）</strong> · D5 周一 12:30 班 · 6 人潜水组（休闲 2 人不上）· 电话 +66 92-452-5172 · <em>必须提前 1 周确认有此课</em></span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="pumthai"><span class="item-body"><span class="urgent-dot"></span><strong>Pum Thai（厨师课）</strong> · D2 周五 18:00 班 · <strong>4 人位</strong>（1 OW + 1 AOW + 2 休闲）· +66 81-240-8924 · Bookings@pumthaifoodchain.com</span></label></li>
+      <li><label><input type="checkbox" data-key="diving-deposit"><span class="item-body"><strong>潜水课程定金</strong> · OW × 3 + AOW × 3（9 折 · 80,460 THB） · 发护照 + PADI 体检表</span></label></li>
+      <li><label><input type="checkbox" data-key="efoil"><span class="item-body"><strong>电动冲浪 eFoil</strong> · D2 试玩 3 AOW + D5 潜水组 6 人 · D5 6 人轮换需 2 块板 + 2 教练</span></label></li>
+      <li><label><input type="checkbox" data-key="unit27"><span class="item-body"><strong>Unit 27 Hyrox</strong> · D2 周五 17:00 官方课 · 4 人 drop-in · info@unit-27.com / app</span></label></li>
+      <li><label><input type="checkbox" data-key="massage"><span class="item-body"><strong>泰式按摩</strong> · D5 周一 14:30-15:30 · 60 min · <strong>8 人</strong>（订大店或连锁分两间）+ 休闲组 D3/D4/D5 上午专属 SPA</span></label></li>
+      <li><label><input type="checkbox" data-key="pickup-ow"><span class="item-body"><strong>机场接机 #1</strong> · D1 周四 11:00 HKT 接 OW 3 人（国泰 CX771 10:50 落）· 7 座</span></label></li>
+      <li><label><input type="checkbox" data-key="pickup-aow"><span class="item-body"><strong>机场接机 #2</strong> · D1 周四 18:00 HKT 接 <strong>AOW + 休闲 5 人</strong>（国航 CA821 17:45 落）· <strong>14 座 minivan</strong></span></label></li>
+      <li><label><input type="checkbox" data-key="dropoff"><span class="item-body"><strong>机场送机</strong> · D5 周一 16:00 别墅 → HKT · <strong>全员同车 8 人</strong>（14 座 minivan）· OW 18:20 / AOW+休闲 19:25 各自登机</span></label></li>
+      <li><label><input type="checkbox" data-key="flights"><span class="item-body"><strong>国际机票</strong> · OW 3 国泰已订 / AOW 3 国航已订 / 休闲 2 待订 CA821 · 提前 2 个月订更省</span></label></li>
+      <li><label><input type="checkbox" data-key="insurance"><span class="item-body"><strong>旅行保险</strong> · 必须含水上活动 + 潜水（美亚/平安/安联）· 8 人都要</span></label></li>
     </ul>
   </div>
 </section>
@@ -3024,43 +3260,46 @@ footer .meta {
     <h2 class="section-title">预算明细</h2>
     <p class="section-lead">单位 THB。汇率参考 1 RMB ≈ 5 THB。</p>
 
-    <h3>团费汇总（6 人 · 不含住宿 / 机票）</h3>
+    <h3>团费汇总（8 人 · 不含住宿 / 机票）</h3>
     <table class="budget">
       <thead><tr><th>项目</th><th>明细</th><th style="text-align: right;">金额 THB</th></tr></thead>
       <tbody>
         <tr><td>潜水课程（9 折）</td><td>3 × 14,220 + 3 × 12,600</td><td class="num">80,460</td></tr>
-        <tr><td>电动冲浪 D2 试玩（Kata Surf）</td><td>3 AOW × 1,700</td><td class="num">5,100</td></tr>
-        <tr><td>电动冲浪 D5 全员（Kata Surf）</td><td>6 人 × 1,700</td><td class="num">10,200</td></tr>
+        <tr><td>电动冲浪 D2 试玩</td><td>3 AOW × 1,700</td><td class="num">5,100</td></tr>
+        <tr><td>电动冲浪 D5 潜水组</td><td>6 人 × 1,700（休闲 2 不参加）</td><td class="num">10,200</td></tr>
         <tr><td>Rawai ↔ Kata 包车（2 趟）</td><td>500 × 2</td><td class="num">1,000</td></tr>
-        <tr><td>Unit 27（D2 晚 Hyrox 课）</td><td>4 人 × 600</td><td class="num">2,400</td></tr>
+        <tr><td>Unit 27（D2 晚 Hyrox 课）</td><td>4 人 × 800</td><td class="num">3,200</td></tr>
         <tr><td>Kong Hyrox（D5 中）</td><td>6 人 × 800</td><td class="num">4,800</td></tr>
-        <tr><td>Pum Thai 厨师课</td><td>2 人 × 2,000</td><td class="num">4,000</td></tr>
-        <tr><td>泰式按摩 90min</td><td>6 人 × 800</td><td class="num">4,800</td></tr>
-        <tr><td>餐饮（5 天）</td><td>6 人 × 3,500</td><td class="num">21,000</td></tr>
-        <tr><td>机场接送 3 段</td><td>1,500 × 3（2 接 + 1 全员送）</td><td class="num">4,500</td></tr>
-        <tr><td>市内包车 + 杂费</td><td>6 人 × 500</td><td class="num">3,000</td></tr>
-        <tr class="total"><td colspan="2">活动 + 餐饮小计</td><td class="num">139,860</td></tr>
-        <tr><td>别墅 4 晚 · 经济档</td><td>~10k × 4 晚（Lady Naya / F10）</td><td class="num">~40,000</td></tr>
-        <tr><td>别墅 4 晚 · <strong>中档（推荐）</strong></td><td>~18k × 4 晚（Rawai Private Villas）</td><td class="num"><strong>~72,000</strong></td></tr>
-        <tr><td>别墅 4 晚 · 高端</td><td>~30k × 4 晚（Saiyuan / VRBO 1200m²）</td><td class="num">~120,000</td></tr>
-        <tr class="total"><td colspan="2"><strong>含住宿合计 · 中档推荐</strong>（不含机票）</td><td class="num"><strong>~211,860</strong></td></tr>
-        <tr><td colspan="2" style="font-size:0.85rem;color:var(--ink-soft)">经济档 ~180k / 高端档 ~260k 各档总价对比</td><td></td></tr>
+        <tr><td>Pum Thai 厨师课</td><td><strong>4 人 × 2,000</strong>（含 2 休闲）</td><td class="num">8,000</td></tr>
+        <tr><td>泰式按摩（D5 全员 60min）</td><td><strong>8 人 × 600</strong></td><td class="num">4,800</td></tr>
+        <tr><td>休闲组专属 SPA（D3 街边 + D4 高端 + D5 别墅旁）</td><td>2 人 × 3,500</td><td class="num">7,000</td></tr>
+        <tr><td>休闲组景点 / 老城 / 市场杂费</td><td>2 人 × 2,000</td><td class="num">4,000</td></tr>
+        <tr><td>餐饮（5 天）</td><td><strong>8 人 × 3,500</strong></td><td class="num">28,000</td></tr>
+        <tr><td>机场接送 3 段</td><td>7 座 1,500 + 14 座 2,200 × 2</td><td class="num">5,900</td></tr>
+        <tr><td>市内包车 + 杂费</td><td>8 人 × 500</td><td class="num">4,000</td></tr>
+        <tr class="total"><td colspan="2">活动 + 餐饮小计</td><td class="num">166,460</td></tr>
+        <tr><td>别墅 4 晚 · 5BR 中档</td><td>~40k × 4 晚</td><td class="num">~160,000</td></tr>
+        <tr><td>别墅 4 晚 · <strong>5BR 高端（推荐）</strong></td><td>~55k × 4 晚（Botanica / The Eva）</td><td class="num"><strong>~220,000</strong></td></tr>
+        <tr><td>别墅 4 晚 · 5BR 顶级</td><td>~80k × 4 晚（Luxe Nomad / Boutique）</td><td class="num">~320,000</td></tr>
+        <tr class="total"><td colspan="2"><strong>含住宿合计 · 5BR 高端推荐</strong>（不含机票）</td><td class="num"><strong>~386,460</strong></td></tr>
+        <tr><td colspan="2" style="font-size:0.85rem;color:var(--ink-soft)">人均：潜水组 ~10-12k RMB / 休闲组 ~8-10k RMB（不含机票）</td><td></td></tr>
       </tbody>
     </table>
 
     <div class="kpi-row">
-      <div class="kpi"><dt>团费 / 人（中档推荐）</dt><dd>~35,300 THB</dd></div>
-      <div class="kpi"><dt>团费 / 人 RMB</dt><dd>~7,000-7,500</dd></div>
+      <div class="kpi"><dt>人均潜水组（5BR 高端）</dt><dd>~55,000 THB · ~11,000 RMB</dd></div>
+      <div class="kpi"><dt>人均休闲组（5BR 高端）</dt><dd>~45,000 THB · ~9,000 RMB</dd></div>
       <div class="kpi"><dt>潜店 9 折省</dt><dd>8,940 THB</dd></div>
       <div class="kpi"><dt>不含项</dt><dd>机票 / 个人消费</dd></div>
     </div>
 
     <h3>省钱建议</h3>
     <ul style="padding-left: 1.5rem;">
-      <li><strong>eFoil 团购</strong>：6 人一起谈，单价能砍到 2,500 THB / 30min</li>
-      <li><strong>按摩选街边正规店</strong>：连锁贵 50%，街边正规 90min 油按 ~600 THB</li>
+      <li><strong>eFoil 团购</strong>：D2 试玩 + D5 6 人两场打包谈，单价能砍到 2,500 THB / 30min</li>
+      <li><strong>别墅</strong>：8 人摊 5BR 比 6 人摊 3BR 人均只贵 1.5k RMB，性价比高</li>
+      <li><strong>按摩选街边正规店</strong>：连锁贵 50%，街边正规 60min 油按 ~600 THB（休闲组 D3 走街边店）</li>
       <li><strong>餐饮</strong>：早餐别墅自做（用厨房）→ 午餐路边摊 → 晚餐稍好</li>
-      <li><strong>机票</strong>：提前 2 个月订 / 选转机便宜 30-50%</li>
+      <li><strong>机票</strong>：休闲 2 人尽快订 CA821（北京-普吉直飞，6 月一般 2.5-3.5k RMB 往返）</li>
     </ul>
   </div>
 </section>
@@ -3229,16 +3468,112 @@ footer .meta {
     <div class="box ocean">
       <p><strong>普吉雨季初期（5-10 月）</strong>。6 月平均温度 27-32°C，午后多阵雨。海况：安达曼海一般稳定，偶有大浪影响出海（潜店会决定是否取消）。</p>
     </div>
-    <h4>必带衣物</h4>
-    <ul style="padding-left: 1.5rem;">
-      <li>泳衣 / 速干衣 ×2（潜水后另一套穿）</li>
-      <li>速干 T 恤 + 短裤 ×3-4</li>
-      <li>1 件薄长袖（船上风大、空调房）</li>
-      <li>拖鞋 + 运动鞋（Kong 课要）</li>
-      <li>轻便雨衣 或 7-Eleven 现买（10 THB / 件）</li>
-      <li>防水手机壳 / GoPro</li>
-      <li>太阳镜 + 帽子</li>
-    </ul>
+
+    <h3 style="margin-top: 2.5rem;">📦 行李 Packing List（出发前 2 天打勾）</h3>
+    <p class="section-lead">按"忘了多严重"分 7 大类。每人独立打勾。<strong>红框 = 漏带回不去家</strong>；<strong>黄框 = 落地补买麻烦</strong>；其他都能在 7-Eleven / Big C 解决。</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--coral);">
+        <h4 style="color: var(--coral);">📄 文档 / 钱包 · 漏带回不去家</h4>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span class="item-body"><strong>护照</strong>（剩余有效期 ≥ 6 个月）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">护照<strong>复印件 × 2</strong> + 拍照存手机 + 微信收藏</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">回程机票<strong>电子行程单</strong>（入境时可能要看）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">别墅<strong>订单 PDF</strong>（入境时可能要看）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body"><strong>旅行保险</strong> PDF + 24h 救援电话</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">VISA / Master <strong>信用卡 × 2 张</strong>（一张备用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">借记卡（银联 ATM 取 THB 用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body"><strong>3,000-5,000 THB 现金</strong>（小费、市场、押金）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">人民币现金少量（机场返程缓冲）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">IDP 国际驾照（仅租摩托的人）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">驾照原件（IDP 必须配原件用）</span></label></li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--coral);">
+        <h4 style="color: var(--coral);">🤿 潜水专项 · 漏带影响出证</h4>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span class="item-body"><strong>PADI 体检表</strong>（已在国内签好的）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">阳性项的<strong>医生证明</strong>（如有）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">AOW 3 人：<strong>OW 出证卡</strong>（PADI / SSI 都行 · 实体或 e-card 截图）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">日记本 + 笔（部分教练要求填 logbook）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body"><strong>晕船药</strong>（出海前 30 min 服 · 茶苯海明 / Cinnarizine）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">耳塞 / 鼻夹（如平时游泳用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">个人面镜（戴近视片或习惯了自己镜的人）</span></label></li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--apple-blue);">
+        <h4 style="color: var(--apple-blue);">💪 健身 / Hyrox</h4>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span class="item-body"><strong>运动鞋</strong>（Hyrox 课强制 · 跑+力量复合鞋最好）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">速干运动短裤 × 2</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">速干背心 / T 恤 × 2</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">运动袜 × 3-4</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">运动毛巾</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">水杯（健身房有饮水机）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">心率表 / Apple Watch（可选）</span></label></li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--ink-soft);">
+        <h4>👕 衣物 / 日用</h4>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span class="item-body">泳衣 × 2（一套湿一套穿）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">速干 T 恤 / 短裤 × 3-4</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">薄长袖 × 1（船上风大 + 空调房）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">凉鞋 / 拖鞋（沙滩 + 别墅穿）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">轻便雨衣（7-Eleven 也有 10 THB）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body"><strong>防水手机壳</strong>（雨季 + 出海必备）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">GoPro / 防水相机（可选）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">太阳镜 + 帽子</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">小双肩包（出海日装备用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">大塑料袋 × 2（湿衣物 + 行李防水）</span></label></li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--sunset);">
+        <h4 style="color: var(--sunset);">💊 药品 · 落地补买难</h4>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span class="item-body"><strong>个人慢性病药</strong>（一定按医嘱足量带 + 处方拍照）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">晕船药（茶苯海明 / Cinnarizine）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">止泻药（蒙脱石散 / 洛哌丁胺）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">退烧 / 止痛（布洛芬 / 对乙酰）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">抗组胺（西替利嗪 · 海鲜过敏 + 蚊虫叮咬）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">创可贴 + 碘伏</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">蚊不叮 / 风油精 / DEET 喷雾</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body"><strong>reef-safe 防晒</strong>（不含 oxybenzone · 50+）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">晒后修复（芦荟胶）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">女性：卫生用品（泰国款式少）</span></label></li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-left: 3px solid var(--ink-soft);">
+        <h4>📱 电子 / 其他</h4>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span class="item-body">手机 + 充电线（Lightning / USB-C）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">充电宝（<strong>≤ 100 Wh 才能带上机</strong>）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body"><strong>转换插头</strong>（泰国 type A/B/C 通用 · 国内三脚插要转）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">eSIM / Tourist SIM（落地启用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">耳机（飞机上用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">充气颈枕（飞机 + 跨天转机用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">眼罩 / 耳塞（OW 跨天转机用）</span></label></li>
+          <li><label><input type="checkbox"><span class="item-body">小礼物（如要给教练 / 司机）</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box warn" style="margin-top: 1.5rem;">
+      <h4>⚠️ 机场托运 / 随身 雷区</h4>
+      <ul style="margin: 0.5rem 0 0 1.2rem;">
+        <li><strong>充电宝</strong>必须随身、≤ 100 Wh（约 27,000 mAh），不能托运</li>
+        <li><strong>液体</strong>随身 ≤ 100 ml / 件 + 总量 1L 透明袋 — 防晒霜 / 洗面奶大瓶必须托运</li>
+        <li><strong>电子烟</strong>泰国全境禁止（罚款最高 30,000 THB / 监禁）— 出发前从行李里挑出来</li>
+        <li>大麻制品（包括 CBD）泰国近期收紧管制，不要带</li>
+        <li>潜水刀如携带 — 必须托运</li>
+        <li>≥ 20,000 USD 等值现金需申报</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -3532,11 +3867,80 @@ footer .meta {
   </div>
 </section>
 
+<!-- ============== Tentative +2 附录 ============== -->
+<section id="tentative">
+  <div class="container">
+    <p class="section-marker">§15 · 附录</p>
+    <h2 class="section-title">附录：Tentative +2（OW + Hyrox）方案</h2>
+    <p class="section-lead">如果新增 2 人在 06-05 前确认加入，他们跟 OW 组合并（D2 泳池 + D3-D4 大小皇帝岛 4 潜 + D2 晚 Hyrox）。这里列出触发后需要调整的预订项 / 预算 / 风险点。</p>
+
+    <div class="box warn">
+      <p><strong>⏰ 触发条件</strong>：新 2 人在 <strong>2026-06-05</strong> 前确认；之后按 8 人方案执行，不再回头加人（潜店 / 别墅 / 包车都来不及改）。</p>
+    </div>
+
+    <h3 style="margin-top: 2rem;">人员变化（8 → 10）</h3>
+    <table class="schedule">
+      <thead><tr><th>组别</th><th>8 人</th><th>+2 = 10 人</th></tr></thead>
+      <tbody>
+        <tr><td>OW 组</td><td>3 人</td><td><strong>5 人</strong></td></tr>
+        <tr><td>AOW 组</td><td>3 人</td><td>3 人（不变）</td></tr>
+        <tr><td>休闲组</td><td>2 人</td><td>2 人（不变）</td></tr>
+        <tr><td>Hyrox D2 晚</td><td>4 人</td><td><strong>6 人</strong></td></tr>
+        <tr><td>Hyrox D5 中</td><td>6 人</td><td><strong>8 人</strong>（潜水组全员）</td></tr>
+        <tr><td>厨师课 D2 晚</td><td>4 人</td><td>4 人（不变）</td></tr>
+        <tr><td>D5 按摩</td><td>8 人</td><td><strong>10 人</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 2rem;">预订调整</h3>
+    <div class="grid-2">
+      <div class="card" style="border-left: 3px solid var(--apple-red);">
+        <h4 style="color: var(--apple-red);">⚠️ 需重新沟通</h4>
+        <ul style="line-height: 1.7;">
+          <li><strong>别墅</strong>：5BR 加 2 张床（沙发床/可移动），或别墅旁加订 1 栋 1-2BR 小户</li>
+          <li><strong>潜店 OW</strong>：5 人需 2 教练（1:4 师生比），跟鲸嘻确认能否安排</li>
+          <li><strong>Unit 27 D2 晚</strong>：6 人 drop-in 单课容量，需邮件确认</li>
+          <li><strong>eFoil D5</strong>：8 人轮换 ~3.5h，提前谈第 3 块板</li>
+          <li><strong>按摩 D5</strong>：10 人订连锁店分两间</li>
+          <li><strong>包车送机</strong>：14 座装 10 人 + 10 大箱可能要 + 1 辆轿车走行李</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--ocean);">
+        <h4 style="color: var(--ocean-deep);">💰 预算变化（团费小计）</h4>
+        <table class="schedule" style="font-size: 0.88rem;">
+          <tbody>
+            <tr><td>潜水课程</td><td>+28,440 THB</td></tr>
+            <tr><td>Unit 27 D2 晚</td><td>+1,600 THB</td></tr>
+            <tr><td>Kong Hyrox D5</td><td>+1,600 THB</td></tr>
+            <tr><td>eFoil D5</td><td>+6,000 THB</td></tr>
+            <tr><td>按摩 D5</td><td>+1,200 THB</td></tr>
+            <tr><td>餐饮 5 天 × 2 人</td><td>+7,000 THB</td></tr>
+            <tr><td>包车（可能加车）</td><td>+1,500 THB</td></tr>
+            <tr><td>别墅加床 / 加 1 栋</td><td>+20,000-40,000 THB</td></tr>
+            <tr class="total"><td><strong>合计差额</strong></td><td><strong>+67,000-87,000 THB</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 2rem;">触发后第一周必做</h3>
+    <ol style="padding-left: 1.5rem; line-height: 1.8;">
+      <li>跟鲸嘻潜店发微信：OW 从 3 → 5 人，是否需要 2 教练？再要 9 折？</li>
+      <li>跟别墅房东问加床政策（如不行就备选小别墅拼订）</li>
+      <li>问新 2 人航班 — 跟 OW 同 CX 还是 AOW 同 CA821？</li>
+      <li>Unit 27 邮件改成 6 人 drop-in 询价</li>
+      <li>eFoil 运营商问 D5 第 3 块板</li>
+      <li>按摩重新订（10 人需大店）</li>
+      <li>送机包车 14 座 + 备选第二辆</li>
+    </ol>
+  </div>
+</section>
+
 <footer>
   <div class="container">
     <div>
       <h4>行程信息</h4>
-      <p style="font-size: 0.85rem;">普吉 · 2026.06.18-22<br>6 人 · OW × 3 + AOW × 3<br>5 天 4 晚</p>
+      <p style="font-size: 0.85rem;">普吉 · 2026.06.18-22<br><strong>8 人</strong> · OW × 3 + AOW × 3 + 休闲 × 2<br>+ 2 tentative · 5 天 4 晚</p>
     </div>
     <div>
       <h4>文档</h4>
@@ -3587,30 +3991,98 @@ footer .meta {
 
   document.querySelectorAll('section[id]').forEach(sec => spy.observe(sec));
 
+  // 移动端汉堡 drawer：开关 / 点链接关 / 点遮罩关 / ESC 关 / 桌面尺寸自动关
+  (function initMobileNav() {
+    const nav = document.querySelector('nav');
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const scrim = document.querySelector('.nav-scrim');
+    if (!nav || !hamburger || !navLinks) return;
+
+    // 实时测量 nav 高度，写入 CSS 变量，让 drawer 知道从哪开始
+    function syncNavHeight() {
+      const h = nav.getBoundingClientRect().height;
+      if (h > 0) document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    syncNavHeight();
+    window.addEventListener('resize', syncNavHeight);
+    window.addEventListener('orientationchange', syncNavHeight);
+
+    // 收集所有 nav 内的 details，drawer 模式下强制设 open 属性
+    // —— 仅靠 CSS !important 在 iOS Safari/Chrome 无法压过 <details> 的 shadow DOM 隐藏
+    const navDetails = document.querySelectorAll('nav details.nav-group');
+
+    function setDrawer(open) {
+      nav.classList.toggle('nav-open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      // 锁定 body 滚动（drawer 内独立滚动）
+      document.body.style.overflow = open ? 'hidden' : '';
+      // 强制所有 details 跟随 drawer 状态（iOS Safari/Chrome 必需）
+      navDetails.forEach(d => {
+        if (open) d.setAttribute('open', '');
+        else d.removeAttribute('open');
+      });
+    }
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setDrawer(!nav.classList.contains('nav-open'));
+    });
+
+    // 遮罩点击关闭
+    if (scrim) scrim.addEventListener('click', () => setDrawer(false));
+
+    // drawer 内链接点击后关闭
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setDrawer(false));
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('nav-open')) setDrawer(false);
+    });
+
+    // 窗口拉宽到桌面 → 自动关闭 drawer
+    const mql = window.matchMedia('(min-width: 721px)');
+    mql.addEventListener('change', (e) => {
+      if (e.matches && nav.classList.contains('nav-open')) setDrawer(false);
+    });
+  })();
+
   // nav 分组下拉：点子项 / 点外部 / ESC 自动关闭
+  // —— 但 drawer 模式（移动端 nav.nav-open）下这些行为全部跳过，避免把强开的 details 又关掉
   (function initNavDropdowns() {
     const groups = document.querySelectorAll('.nav-group');
     if (!groups.length) return;
-    // 点击 dropdown 内任一链接后关闭
+    const navEl = document.querySelector('nav');
+    const inDrawerMode = () => navEl && navEl.classList.contains('nav-open');
+
+    // 点击 dropdown 内任一链接后关闭（drawer 模式跳过 — drawer 自己会关）
     groups.forEach(g => {
       g.querySelectorAll('.nav-dropdown a').forEach(a => {
-        a.addEventListener('click', () => { g.open = false; });
+        a.addEventListener('click', () => {
+          if (!inDrawerMode()) g.open = false;
+        });
       });
     });
-    // 点击 nav 外部关闭所有 open 的下拉
+    // 点击 nav 外部关闭所有 open 的下拉（drawer 模式跳过）
     document.addEventListener('click', (e) => {
+      if (inDrawerMode()) return;
       groups.forEach(g => {
         if (g.open && !g.contains(e.target)) g.open = false;
       });
     });
-    // ESC 关闭
+    // ESC 关闭（drawer 模式跳过 — drawer 自己 ESC 处理）
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') groups.forEach(g => { g.open = false; });
+      if (e.key === 'Escape' && !inDrawerMode()) {
+        groups.forEach(g => { g.open = false; });
+      }
     });
-    // 同时只允许一个 dropdown 打开
+    // 同时只允许一个 dropdown 打开（drawer 模式跳过 — 移动端所有组都要展开）
     groups.forEach(g => {
       g.addEventListener('toggle', () => {
-        if (g.open) {
+        if (g.open && !inDrawerMode()) {
           groups.forEach(other => { if (other !== g) other.open = false; });
         }
       });
