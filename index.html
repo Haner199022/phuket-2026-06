@@ -1552,31 +1552,43 @@ footer .meta {
     color: var(--apple-blue) !important;
   }
 
-  /* drawer 内分组：summary 变成"小标题"样式，dropdown 强制展开 */
+  /* drawer 内分组：summary 变成显眼的分类标题（不是小灰字） */
   nav.nav-open details.nav-group {
     display: block !important;
-    margin-top: 0.85rem;
-    padding-top: 0.85rem;
-    border-top: 1px solid var(--line-hairline);
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
   }
   nav.nav-open details.nav-group:first-of-type {
-    margin-top: 0.4rem;
-    padding-top: 0;
-    border-top: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
   }
   nav.nav-open details.nav-group > summary {
     display: flex !important;
-    padding: 0.5rem 0.85rem 0.35rem;
-    font-size: 0.78rem !important;
+    align-items: center;
+    padding: 0.4rem 0.85rem 0.6rem !important;
+    font-size: 0.95rem !important;
     font-weight: 700 !important;
-    color: var(--ink-soft) !important;
+    color: var(--ink) !important;
     text-transform: none;
-    letter-spacing: 0.02em !important;
+    letter-spacing: 0 !important;
     cursor: default;
     pointer-events: none;
     list-style: none;
     background: transparent !important;
     border-radius: 0 !important;
+  }
+  /* 左侧加蓝色色块作为视觉锚点 */
+  nav.nav-open details.nav-group > summary::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: var(--apple-blue);
+    border-radius: 2px;
+    margin-right: 0.55rem;
+    flex-shrink: 0;
   }
   nav.nav-open details.nav-group > summary::-webkit-details-marker,
   nav.nav-open details.nav-group > summary::marker { display: none; content: ''; }
