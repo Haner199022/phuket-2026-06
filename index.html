@@ -791,8 +791,29 @@ ol.trip-timeline .t-meta {
   .day-card { grid-template-columns: 1fr; gap: 1rem; }
   .day-marker { position: relative; top: auto; }
   .hero-meta { gap: 1.5rem; }
-  .schedule { font-size: 0.85rem; }
-  .schedule td:first-child { white-space: nowrap; }
+
+  /* 行程表格紧凑化 — 字号 0.96→0.82rem · 内边距 0.9→0.5rem · 行高 1.45→1.4 */
+  .schedule th {
+    padding: 0.45rem 0.45rem;
+    font-size: 0.68rem;
+  }
+  .schedule td {
+    padding: 0.5rem 0.45rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .schedule td:first-child {
+    font-size: 0.76rem;
+    padding-right: 0.3rem;
+    white-space: nowrap;
+  }
+  .schedule td:nth-child(2) {
+    word-break: break-word;
+  }
+
+  /* day card 内的 .card 也减小 padding，给 schedule 更多宽度 */
+  .day-content .card { padding: 1rem; }
+  .day-content .card > h4 { font-size: 0.98rem; margin-bottom: 0.5rem; }
 }
 
 /* ---------- Print ---------- */
