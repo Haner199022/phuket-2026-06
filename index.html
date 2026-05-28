@@ -1623,8 +1623,7 @@ footer .meta {
 
 /* ---------- iPhone（≤ 480px）极窄优化 ---------- */
 @media (max-width: 480px) {
-  /* 表格统一可横向滑动 + 视觉提示 */
-  section table.schedule,
+  /* budget 表列多，保持横向滑动 */
   section table.budget {
     display: block;
     overflow-x: auto;
@@ -1641,8 +1640,42 @@ footer .meta {
     background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
     background-attachment: local, local, scroll, scroll;
   }
+
+  /* schedule 表只有 2 列（时间 + 描述），让描述自然换行，不要横滑 */
+  section table.schedule {
+    display: table;
+    width: 100%;
+    table-layout: auto;
+    white-space: normal;
+  }
   section table.schedule td,
-  section table.schedule th { font-size: 0.82rem; padding: 0.6rem 0.7rem; }
+  section table.schedule th {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.45rem;
+    line-height: 1.4;
+    vertical-align: top;
+  }
+  section table.schedule td:first-child {
+    font-size: 0.76rem;
+    white-space: nowrap;
+    padding-right: 0.3rem;
+    width: 1%;
+  }
+  section table.schedule td:nth-child(2),
+  section table.schedule td:nth-child(3) {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* day-content 字号层级在手机上统一为 4 档 */
+  .day-content h3 { font-size: 1.2rem !important; }
+  .day-content h4 { font-size: 1rem !important; margin-top: 1.25rem; }
+  .day-content > p,
+  .day-content .card > p { font-size: 0.88rem !important; }
+  .day-content .card { padding: 1rem !important; }
+  .day-content .card > h4 { font-size: 0.98rem !important; margin-bottom: 0.5rem; }
+  .day-content .card p[style*="font-size"] { font-size: 0.78rem !important; }
 
   /* 照片网格小屏 2 列、紧凑 */
   .photo-grid { grid-template-columns: 1fr 1fr !important; gap: 0.5rem; }
