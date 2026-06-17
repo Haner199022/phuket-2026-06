@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phuket · 8 人潜水+休闲 · 2026.06.18 — 22</title>
+<title>Phuket · 10 人潜水团 · 2026.06.18 — 22</title>
 <style>
 :root {
   /* 冷调灰阶系统 — 偏蓝、钢、雾 */
@@ -1306,6 +1306,12 @@ table.schedule {
 }
 .photo-grid img { transition: transform 600ms var(--ease-apple); }
 .photo-grid figure:hover img { transform: scale(1.03); }
+/* steady 修饰：统一 3:2，关闭 masonry auto，避免图片被裁/塌高（用于船图 / Ton Mai 实拍） */
+.photo-grid.steady figure,
+.photo-grid.steady figure:nth-child(5n+1),
+.photo-grid.steady figure:nth-child(7n+3),
+.photo-grid.steady figure:nth-child(11n+5) { aspect-ratio: 3 / 2 !important; }
+.photo-grid.steady img { width: 100%; height: 100%; object-fit: cover; }
 .photo-grid figcaption {
   font-family: var(--font-body);
   font-size: var(--text-tiny);
@@ -1790,8 +1796,9 @@ footer .meta {
         <summary>活动 <span class="caret" aria-hidden="true">▾</span></summary>
         <div class="nav-dropdown">
           <a href="#diving">🤿 潜水</a>
-          <a href="#efoil">🏄 冲浪</a>
+          <a href="#efoil">🚤 快艇</a>
           <a href="#cooking">🍳 厨师课</a>
+          <a href="#massage">💆 按摩</a>
           <a href="#gyms">💪 健身</a>
           <a href="#motorbike">🛵 摩托车</a>
         </div>
@@ -1810,7 +1817,6 @@ footer .meta {
           <a href="#prep">📋 行前准备</a>
           <a href="#tips">💡 实用 Tips</a>
           <a href="#emergency">🚨 紧急联系</a>
-          <a href="#tentative">➕ Tentative +2</a>
         </div>
       </details>
       <button type="button" class="theme-toggle" aria-label="切换深色 / 浅色" title="切换主题">
@@ -1828,16 +1834,17 @@ footer .meta {
 
 <header class="hero">
   <div class="container">
-    <p class="hero-eyebrow">5 天 4 晚 · 8 人 · 潜水 + 休闲 · <span style="opacity:0.7">+2 tentative</span></p>
+    <p class="hero-eyebrow">5 天 4 晚 · 10 人 · 潜水 + 健身</p>
     <h1 class="hero-title">普吉 · <em>盛夏潜水</em><br>与 Hyrox 之旅</h1>
     <p style="max-width: 60ch; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.6;">
-      OW × 3 + AOW × 3 + 休闲 × 2 + 健身一条街 Hyrox + 电动冲浪 + 厨师课 + 泰式按摩。两组潜水员同日出证，休闲组白天独立游玩，全员 D5 满档收尾，干净直飞回家。
+鲸嘻 OW × 4 + AOW × 3 + 别店 OW × 2 + 浮潜跟船 × 1 + 健身一条街 Hyrox + 快艇包船 + 厨师课 + 泰式按摩。两组潜水员同日出证，B 无证跟船浮潜，全员 D5 满档收尾，干净直飞回家。
     </p>
     <dl class="hero-meta">
-      <div><dt>OW 3 人 · 国泰 CX</dt><dd>06.18 10:50 抵 · 06.22 18:20 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">广州 → 香港转 → 普吉</span></dd></div>
-      <div><dt>AOW + 休闲 5 人 · 国航 CA</dt><dd>06.18 17:45 抵 · 06.22 19:25 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">北京直飞普吉</span></dd></div>
-      <div><dt>住宿</dt><dd>Rawai 5BR 私泳池别墅</dd></div>
-      <div><dt>团费</dt><dd>潜水 ~10-12k / 休闲 ~8-10k RMB</dd></div>
+      <div><dt>鲸嘻 OW 3 人 · 国泰 CX</dt><dd>06.18 10:50 抵 · 06.22 18:20 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">广州 → 香港转 → 普吉</span></dd></div>
+      <div><dt>别店 OW 2 人 · 经曼谷</dt><dd>06.18 SL901 CAN→DMK 02:45-04:45 · 06.23 BKK→CAN 21:30<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">⬜ 曼谷↔普吉段未购 · 比大队多 1 天</span></dd></div>
+      <div><dt>北京组 5 人 · 国航 CA</dt><dd>06.18 17:45 抵 · 06.22 19:25 离<br><span style="font-size:0.78rem;color:var(--ink-soft);font-weight:400">北京直飞普吉（3 AOW + A + B）</span></dd></div>
+      <div><dt>住宿</dt><dd>4BR 私泳池别墅（带健身房）· 已订</dd></div>
+      <div><dt>团费</dt><dd>潜水 ~5-6k RMB / 人（含住宿）</dd></div>
     </dl>
   </div>
 </header>
@@ -1850,9 +1857,9 @@ footer .meta {
 
     <dl class="kpi-row">
       <div class="kpi"><dt>行程</dt><dd>5 天 4 晚</dd></div>
-      <div class="kpi"><dt>人数</dt><dd>8 人（+2 tentative）</dd></div>
-      <div class="kpi"><dt>主目标</dt><dd>OW × 3 · AOW × 3 · 休闲 × 2</dd></div>
-      <div class="kpi"><dt>人均</dt><dd>潜水 ~11k / 休闲 ~9k RMB</dd></div>
+      <div class="kpi"><dt>人数</dt><dd>10 人（2男8女）</dd></div>
+      <div class="kpi"><dt>主目标</dt><dd>鲸嘻 OW4 + AOW3 · 别店 OW2 · 浮潜1</dd></div>
+      <div class="kpi"><dt>人均</dt><dd>潜水 ~5-6k RMB（含住宿）</dd></div>
     </dl>
 
     <h3>5 天一句话时间轴</h3>
@@ -1860,58 +1867,58 @@ footer .meta {
       <li>
         <span class="t-day">D1</span>
         <span class="t-date">06.18 周四</span>
-        <span class="t-title">两批抵达 · 海鲜市场合体</span>
-        <span class="t-meta">OW 10:50 落 · AOW + 休闲 17:45 落（同 CA821）· 20:30 全员 8 人晚餐</span>
+        <span class="t-title">两批抵达 · Rum Jungle 合体晚餐</span>
+        <span class="t-meta">鲸嘻OW 3 人 10:50 落 · 别店 2 人经曼谷（时刻待定）· 北京组 5 人 17:45 落 · 20:30 全员 10 人晚餐</span>
       </li>
       <li>
         <span class="t-day">D2</span>
         <span class="t-date">06.19 周五</span>
-        <span class="t-title">OW 泳池 / AOW 自由 / 休闲游 / 三线晚活动</span>
-        <span class="t-meta">OW 全天潜店 · AOW eFoil 试玩 · 休闲 Big Buddha + 老城 · 晚 Hyrox 4 + 厨师课 4 分流</span>
+        <span class="t-title">OW 泳池 / AOW 自由 / 三线晚活动</span>
+        <span class="t-meta">OW 全天潜店 · AOW 自由 · B 自由 · 晚 Hyrox 4 + 厨师课 2（Naidee）分流</span>
       </li>
       <li>
         <span class="t-day">D3</span>
         <span class="t-date">06.20 周六</span>
-        <span class="t-title">双组出海 / 休闲游普吉老城</span>
-        <span class="t-meta">OW 大小皇帝岛 2 潜 · AOW 皇帝岛 3 潜 · 休闲 SPA + 老城咖啡 + Lard Yai 步行街</span>
+        <span class="t-title">双组出海（B 跟 OW 船浮潜）</span>
+        <span class="t-meta">OW 大小皇帝岛 2 潜 · AOW 皇帝岛 3 潜 · B 跟 OW 船浮潜大小皇帝岛</span>
       </li>
       <li>
         <span class="t-day">D4</span>
         <span class="t-date">06.21 周日</span>
-        <span class="t-title">双组同日出证 🎉 · 8 人庆功晚餐</span>
-        <span class="t-meta">OW 大小皇帝岛 2 潜出证 · AOW 皮皮岛 2 潜出证 · 休闲 Kata Beach + 高端 SPA · 19:30 全员庆功</span>
+        <span class="t-title">双组同日出证 🎉 · 10 人庆功晚餐</span>
+        <span class="t-meta">OW 大小皇帝岛 2 潜出证 · AOW 皮皮岛 2 潜出证 · B 跟 AOW 船浮潜皮皮岛 · 19:30 全员庆功</span>
       </li>
       <li>
         <span class="t-day">D5</span>
         <span class="t-date">06.22 周一</span>
-        <span class="t-title">eFoil / Kong / 按摩 → 机场</span>
-        <span class="t-meta">潜水 6 人 eFoil + Kong · 休闲 SPA + Kafé · 全员按摩 → 18:20 OW / 19:25 AOW+休闲 起飞</span>
+        <span class="t-title">快艇包船 / Kong / 按摩 → 机场</span>
+        <span class="t-meta">快艇包船 2h + Kong · 全员 10 人按摩 @ Ton Mai → 出团 8 人 18:20/19:25 起飞（别店 2 单独）</span>
       </li>
     </ol>
 
     <h3 style="margin-top: 2rem;">人员构成 & 重叠</h3>
-    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 0.75rem;">总共 <strong>8 人</strong>（确认） + <strong>2 人 tentative</strong>，按主线分三组，加项跨组重叠：</p>
+    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 0.75rem;">总共 <strong>10 人（2 男 8 女）</strong>，按主线分组，加项跨组重叠：</p>
     <table class="schedule">
       <thead><tr><th>组别</th><th>人</th><th>主活动</th><th>价位 / 人</th></tr></thead>
       <tbody>
-        <tr><td><strong>OW 组</strong></td><td>3 人</td><td>D2 泳池 + D3-D4 大小皇帝岛 4 潜出证</td><td>14,220 THB（9 折）</td></tr>
-        <tr><td><strong>AOW 组</strong></td><td>3 人</td><td>D3 皇帝岛 3 潜 + D4 皮皮岛 2 潜出证</td><td>12,600 THB（9 折）</td></tr>
-        <tr><td><strong>休闲组</strong></td><td>2 人</td><td>D2-D4 白天独立行程：Big Buddha / 老城 / Kata Beach / SPA</td><td>~5,500 THB</td></tr>
-        <tr><td style="color: var(--ink-soft);">↳ 厨师课加项</td><td>1 OW + 1 AOW + 2 休闲 = 4 人</td><td>D2 晚 Pum Thai 1.5h 班</td><td>+1,800 THB</td></tr>
+        <tr><td><strong>OW 组（鲸嘻）</strong></td><td>4 人</td><td>D2 泳池 + D3-D4 大小皇帝岛 4 潜出证</td><td>14,220 THB（9 折）</td></tr>
+        <tr><td><strong>AOW 组（鲸嘻）</strong></td><td>3 人</td><td>D3 皇帝岛 3 潜 + D4 皮皮岛 2 潜出证</td><td>12,600 THB（9 折）</td></tr>
+        <tr><td><strong>OW 组（别的潜店）</strong></td><td>2 人</td><td>广州 1男1女，在别家潜店考 OW（D2-D4 自理）</td><td>自付 · 另计</td></tr>
+        <tr><td><strong>浮潜跟船</strong></td><td>1 人（B）</td><td>D3 跟 OW 船大小皇帝岛 · D4 跟 AOW 船皮皮岛（无证浮潜）</td><td>待潜店报价</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ 厨师课加项</td><td>2 人</td><td>D2 晚 Naidee Cookery Class</td><td>待报价</td></tr>
         <tr><td style="color: var(--ink-soft);">↳ Hyrox 加项 D2</td><td>2 OW + 2 AOW = 4 人</td><td>D2 晚 Unit 27 官方课</td><td>+800 THB</td></tr>
-        <tr><td style="color: var(--ink-soft);">↳ D5 全员活动</td><td>潜水 6 人 eFoil+Kong · 全员 8 人按摩</td><td>eFoil + Kong 课 + 按摩</td><td>+3,300 THB（潜水）/ +600 THB（休闲）</td></tr>
-        <tr><td style="color: var(--ink-faint);">↳ tentative +2</td><td>+2 OW + Hyrox</td><td>跟 OW 组合并，详见文末附录</td><td>~15,000 THB</td></tr>
+        <tr><td style="color: var(--ink-soft);">↳ D5 全员活动</td><td>快艇包船 2h · Kong · 全员 10 人按摩</td><td>包船 + Kong 课 + 按摩 @ Ton Mai</td><td>包船 16,000/船 · 按摩 +600/人</td></tr>
       </tbody>
     </table>
 
     <div class="box ocean">
       <h4>排期为什么这样</h4>
       <ul style="margin: 0.5rem 0 0 1.2rem; line-height: 1.7;">
-        <li><strong>OW 三天 · AOW 两天</strong>：OW 多了 D2 泳池理论，所以 D2 AOW 全天空（潜店给的休整日），刚好让厨师课的人能晚去 Pum Thai</li>
-        <li><strong>休闲组三天独立白天行程</strong>：D2-D4 潜水组出海/泳池时，休闲 2 人走 Big Buddha / 普吉老城 / Kata Beach / SPA 低强度路线，晚上跟全员合体晚餐</li>
-        <li><strong>同日 D4 出证</strong>：两组同时拿证，D4 晚 8 人一起庆功，节奏不脱节</li>
+        <li><strong>OW 三天 · AOW 两天</strong>：OW 多了 D2 泳池理论，所以 D2 AOW 全天空（潜店给的休整日），刚好让厨师课的人能晚去 Naidee</li>
+        <li><strong>浮潜 B 跟船</strong>：D3 跟 OW 船去大小皇帝岛、D4 跟 AOW 船去皮皮岛，全程船上+浮潜（水面活动，无禁飞限制），跟潜水组同进同出</li>
+        <li><strong>同日 D4 出证</strong>：两组同时拿证，D4 晚 10 人一起庆功，节奏不脱节</li>
         <li><strong>D5 禁飞窗口 ≥ 53h ✓</strong>：D4 最后一潜 ~14:00 → D5 最早起飞 18:20，远超 24h 安全线</li>
-        <li><strong>D5 全员满档不水下</strong>：eFoil 是水面活动 / Kong 是健身 / 按摩 — 都不触发禁飞规则；休闲组 D5 上午 SPA + Kafé，下午跟潜水组合体按摩</li>
+        <li><strong>D5 全员满档不水下</strong>：快艇包船 wakesurf 是水面活动 / Kong 是健身 / 按摩 — 都不触发禁飞规则；别墅自带健身房，想加练随时</li>
       </ul>
     </div>
   </div>
@@ -2005,12 +2012,12 @@ footer .meta {
         <span class="day-tag">两批抵达</span>
       </div>
       <div class="day-content">
-        <h3>两批航班抵达 · 两趟接送（AOW + 休闲 5 人同 CA821）</h3>
-        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">OW 比 AOW + 休闲组早 ~7 小时到普吉，可以先入住别墅 + 探路 + 午餐；AOW + 休闲 5 人晚上同一班 CA821 落地后直接 Rawai 海鲜市场晚餐合体。</p>
+        <h3>两批航班抵达 · 两趟接送（北京组 5 人同 CA821）</h3>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">鲸嘻 OW 3 人（国泰 CX771 10:50）早到普吉先入住 + 探路 + 午餐；别店 2 人经曼谷转（SL901 04:45 抵 DMK → ⬜ 曼谷→普吉段未购，到普吉时刻待定）；北京组 5 人（1 OW + 3 AOW + B）CA821 17:45 落地后直接去 Rum Jungle 全员合体晚餐。</p>
 
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
-            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人（先到 · 国泰 CX）</h4>
+            <h4 style="color: var(--ocean-deep);">🔵 鲸嘻 OW 3 人（先到 · 国泰 CX771 · 别店 2 人经曼谷另到）</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
                 <tr><td>10:50</td><td>HKT 落地（国泰 CX771）</td></tr>
@@ -2025,26 +2032,27 @@ footer .meta {
             <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">💡 <strong>预习关键</strong>：潜店给 OW 的 eLearning 链接出发前就该激活。D1 下午集中刷完 5 章 ≈ 2-3h（视频+多选题）。次日潜店理论段可压缩，腾出时间练泳池技能。</p>
           </div>
           <div class="card" style="border-left: 3px solid var(--sunset);">
-            <h4 style="color: var(--sunset);">🟠 AOW 3 人 + 休闲 2 人（晚到 · 国航 CA821 同班）</h4>
+            <h4 style="color: var(--sunset);">🟠 北京组 5 人 = 3 AOW + A + B（晚到 · 国航 CA821 同班）</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
                 <tr><td>17:45</td><td>HKT 落地（国航 CA821 · 北京直飞 · 5 人同班）</td></tr>
                 <tr><td>18:00-18:30</td><td>入境 + 提行李</td></tr>
                 <tr><td>18:45</td><td><strong>14 座 minivan</strong> → 别墅（5 人 + 5 大箱）</td></tr>
                 <tr><td>19:30</td><td>抵达别墅 + 卸行李</td></tr>
-                <tr><td>20:30</td><td>🍽 <strong>全员 8 人合体晚餐 @ Rawai 海鲜市场 + Salaloy 加工</strong><br><span style="font-size: 0.82rem; color: var(--ink-soft)">市场买海鲜 → Salaloy Seafood 加工（52/2 Wiset Rd · 海边户外座）· 第一晚最强普吉体验 · 人均 500-700 THB</span></td></tr>
-                <tr><td>22:00</td><td>休息（OW 次日 8:30 上课 / AOW 9:00 eFoil / 休闲 9:00 Big Buddha）</td></tr>
+                <tr><td>20:30</td><td>🍽 <strong>全员合体晚餐 @ Rum Jungle</strong><br><span style="font-size: 0.82rem; color: var(--ink-soft)">Rawai · Sai Yuan Rd 家庭老店（意 / 地中海，花园灯笼氛围）· 离别墅近 · ☎ 076 388 153 建议提前订 · 人均 ~500-700 THB<br>（原 Salaloy 海鲜市场因 D1 周四休改此；Salaloy 见 §14 备选）</span></td></tr>
+                <tr><td>22:00</td><td>休息（OW 次日 8:30 上课 / AOW 自由 / B 自由）</td></tr>
               </tbody>
             </table>
-            <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">AOW + 休闲共 5 人同 CA821，接机只需 1 趟 14 座 minivan</p>
+            <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">北京组 5 人同 CA821，接机只需 1 趟 14 座 minivan</p>
           </div>
         </div>
 
         <div class="box ocean">
           <p><strong>包车订 2 趟接机</strong>：</p>
           <ul style="margin: 0.5rem 0 0 1rem;">
-            <li>11:00 OW 3 人接机（CX771 10:50 落） · 标准 7 座 · ~1,500 THB</li>
-            <li>18:00 AOW + 休闲 5 人接机（CA821 17:45 落） · <strong>14 座 minivan</strong> · ~2,200 THB</li>
+            <li>11:00 鲸嘻 OW 3 人接机（CX771 10:50 落） · 标准 7 座 · ~1,500 THB</li>
+            <li>⬜ 别店 2 人经曼谷转，普吉到达时刻定后单独接</li>
+            <li>18:00 北京组 5 人接机（CA821 17:45 落 · 3 AOW + A + B） · <strong>14 座 minivan</strong> · ~2,200 THB</li>
           </ul>
         </div>
       </div>
@@ -2058,12 +2066,12 @@ footer .meta {
         <span class="day-tag">分组日</span>
       </div>
       <div class="day-content">
-        <h3>OW 泳池 · AOW 自由 · 休闲游 · 三线晚活动</h3>
+        <h3>OW 泳池 · AOW 自由 · 三线晚活动</h3>
 
         <h4>白天 · 三组分头</h4>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
-            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 全天潜店</h4>
+            <h4 style="color: var(--ocean-deep);">🔵 OW 4 人 · 全天潜店</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
                 <tr><td>07:30</td><td>早餐</td></tr>
@@ -2080,8 +2088,7 @@ footer .meta {
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
                 <tr><td>08:30</td><td>早餐</td></tr>
-                <tr><td>09:00-10:30</td><td><span class="tag tag-fit">eFoil 试玩</span> <strong>Kata Surf Limited @ Kata Beach</strong> · 中文教练 · WeChat <code>jerryalex198275</code> · 1,700 THB/30min 含基础课 · D5 前预热熟练 → 全员场上手快 <a href="#efoil" style="color:var(--sunset)">↓ 详情</a></td></tr>
-                <tr><td>11:00</td><td>回别墅冲澡换装</td></tr>
+                <tr><td>09:00-11:00</td><td><span class="tag tag-rest">自由</span> 别墅泳池 / 健身房 / Rawai 海滩 / SPA（原 eFoil 试玩取消，快艇包船改 D5 一场）</td></tr>
                 <tr><td>12:00-13:30</td><td><span class="tag tag-food">午餐</span> 🥥 <strong>Atsumi Raw Cafe</strong>（Rawai · raw vegan / 健康融合 · 冷压果汁 + 芒果西番莲 smoothie · zucchini spaghetti + masaman 咖喱 · ~400 THB/人）</td></tr>
                 <tr><td>14:00-17:00</td><td><span class="tag tag-rest">下午自由</span> 别墅泳池 / Rawai 海滩 / 半日 SPA</td></tr>
                 <tr><td>17:00</td><td>休整 → 准备晚活动</td></tr>
@@ -2091,35 +2098,31 @@ footer .meta {
         </div>
 
         <div class="card" style="border-left: 3px solid var(--coral); margin-top: 1rem;">
-          <h4 style="color: var(--coral);">🌺 休闲组 2 人 · Big Buddha + Promthep 日落</h4>
+          <h4 style="color: var(--coral);">🤿 浮潜 B · D2 自由日</h4>
           <table class="schedule" style="font-size: 0.85rem;">
             <tbody>
               <tr><td>08:30</td><td>早餐（跟 AOW 一起）</td></tr>
-              <tr><td>09:00-11:00</td><td><span class="tag tag-rest">景点</span> 🛕 <strong>Big Buddha + Wat Chalong</strong>（离别墅 15 min · 普吉两大地标 · 体力低强度）</td></tr>
-              <tr><td>11:30-13:00</td><td><span class="tag tag-food">午餐</span> 🦞 <strong>Rawai 海鲜市场 + Salaloy 加工</strong>（中午版本人少 · 自选海鲜加工 · ~500 THB/人）</td></tr>
-              <tr><td>13:30-16:30</td><td><span class="tag tag-rest">午休</span> 别墅泳池 + 阅读 / 小憩</td></tr>
-              <tr><td>17:00-18:30</td><td><span class="tag tag-rest">日落</span> 🌅 <strong>Promthep Cape 日落</strong>（普吉最西端 · 印度洋日落 · 风景 No.1）</td></tr>
-              <tr><td>18:30</td><td>回别墅冲澡 → 准备 Pum Thai</td></tr>
+              <tr><td>白天</td><td><span class="tag tag-rest">自由</span> 别墅泳池 / 健身房 / Rawai 海滩 / 休息（B 浮潜跟船在 D3/D4，D2 养精蓄锐）</td></tr>
+              <tr><td>晚上</td><td>看是否去 Naidee 厨师课（2 人之一），否则别墅/海边自由</td></tr>
             </tbody>
           </table>
-          <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">休闲组当晚跟 OW/AOW 各 1 人一起去 Pum Thai 厨师课（4 人版）</p>
+          <p style="font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.5rem;">厨师课改 Naidee Cookery Class · 2 人版（具体 2 人由组织者定）</p>
         </div>
 
-        <h4 style="margin-top: 1.5rem;">D2 晚上分两线</h4>
-        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 0.75rem;">人员分配：<strong>厨师课组 = 1 OW + 1 AOW + 2 休闲 = 4 人</strong>；<strong>Hyrox 组 = 2 OW + 2 AOW = 4 人</strong></p>
+        <h4 style="margin-top: 1.5rem;">D2 晚上分流</h4>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 0.75rem;">人员分配：<strong>厨师课组 = 2 人（Naidee）</strong>；<strong>Hyrox 组 = 2 OW + 2 AOW = 4 人</strong>；<strong>其余 2 人当晚自由</strong></p>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--coral);">
-            <h4 style="color: var(--coral);">🍳 厨师课 4 人（1 OW + 1 AOW + 2 休闲）</h4>
+            <h4 style="color: var(--coral);">🍳 厨师课 2 人 @ Naidee Cookery Class</h4>
             <table class="schedule" style="font-size: 0.85rem; margin-top: 0.5rem;">
               <tbody>
-                <tr><td>16:00</td><td>OW 那位下泳池课回别墅；休闲 2 人收 Promthep</td></tr>
-                <tr><td>16:30-17:15</td><td>4 人全部回别墅 → 冲澡换装</td></tr>
-                <tr><td>17:30</td><td><strong>2 辆 Grab</strong> → Patong（~25min/250 THB × 2）</td></tr>
-                <tr><td>18:00-21:00</td><td><strong>Pum Thai 晚班 4 人</strong>（市场参观 + 4-5 道菜 + 教师讲解 + 现做现吃）</td></tr>
-                <tr><td>21:15</td><td>2 辆 Grab → 别墅</td></tr>
-                <tr><td>21:45</td><td>到家</td></tr>
+                <tr><td>16:00-17:15</td><td>下课/从别墅集合 → 冲澡换装</td></tr>
+                <tr><td>傍晚</td><td>Grab → Naidee（车程待地址确认）</td></tr>
+                <tr><td>晚班</td><td><strong>Naidee 厨师课 2 人</strong>（时段/时长待确认 · 详见 §06）</td></tr>
+                <tr><td>课后</td><td>Grab 回别墅（21:00 前，不影响 D3 出海）</td></tr>
               </tbody>
             </table>
+            <p style="font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.4rem;">⚠️ Naidee 地址/时段/价目待确认 · 原 Pum Thai 若已订需取消</p>
           </div>
           <div class="card" style="border-left: 3px solid var(--jungle);">
             <h4 style="color: var(--jungle);">💪 Hyrox 4 人 @ Unit 27（2 OW + 2 AOW）</h4>
@@ -2147,14 +2150,14 @@ footer .meta {
           <p><strong>OW 16:00 提早收工 = 17:00 官方 Hyrox 课能赶上</strong>：原以为 OW 17:00 才结束，只能选 18:00 Open Gym。现在 OW 16:00 就下课，4 个人全部能赶上 17:00 Unit 27 的<strong>官方教练带练 Hyrox 课</strong>——这是 Soi Ta-iad 周一/三/五专属时段，体验比单纯 Open Gym 强很多。</p>
         </div>
 
-        <p style="font-size: 0.85rem; color: var(--ink-soft); margin-top: 1.5rem;">📍 Pum Thai 课程详情、价目表、菜单、流程已抽到独立章节 → <a href="#cooking" style="color: var(--sunset); font-weight: 600;">§05 · 厨师课</a></p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft); margin-top: 1.5rem;">📍 厨师课改订 Naidee Cookery Class（2 人），详情 / 待办见 → <a href="#cooking" style="color: var(--sunset); font-weight: 600;">§06 · 厨师课</a></p>
 
         <div class="box ocean" style="margin-top: 1.5rem;">
           <p><strong>D2 是 OW 那 2 人最累的一天</strong>：8:30 泳池 → 16:00 下课 → 17:00 Hyrox 课。建议这两位上完课后早点回，不要在 Soi Ta-iad 街边吃宵夜拖太晚（D3 早 7 点要被接走出海）。</p>
         </div>
 
         <div class="box success" style="margin-top: 1.5rem;">
-          <p><strong>AOW 组 D2 全天空的价值</strong>：潜店给的休整日。2 个 AOW 的人晚上一个去 Pum Thai、一个去 Unit 27，刚好分流。</p>
+          <p><strong>AOW 组 D2 全天空的价值</strong>：潜店给的休整日。AOW 晚上有人去 Naidee 厨师课、有人去 Unit 27 Hyrox，刚好分流。</p>
         </div>
       </div>
     </article>
@@ -2167,16 +2170,16 @@ footer .meta {
         <span class="day-tag">双组出海</span>
       </div>
       <div class="day-content">
-        <h3>潜水 Day 1 · 双组同时出海 · 休闲组游普吉老城</h3>
+        <h3>潜水 Day 1 · 双组同时出海（B 跟 OW 船浮潜）</h3>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
-            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 大小皇帝岛</h4>
+            <h4 style="color: var(--ocean-deep);">🔵 OW 4 人 · 大小皇帝岛（B 浮潜同船）</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
-                <tr><td>07:00-07:40</td><td>司机接 → 码头</td></tr>
+                <tr><td>07:00-07:40</td><td>司机接 → 码头（含 B）</td></tr>
                 <tr><td>08:00-08:50</td><td>早餐 + 签到</td></tr>
                 <tr><td>09:30-09:50</td><td>船上简报</td></tr>
-                <tr><td>11:00-12:00</td><td>🌊 <strong>OW dive 1</strong>（首次开放水域）</td></tr>
+                <tr><td>11:00-12:00</td><td>🌊 <strong>OW dive 1</strong>（首次开放水域）· B 船边浮潜</td></tr>
                 <tr><td>12:30-13:00</td><td>船上午餐</td></tr>
                 <tr><td>13:00-13:30</td><td>表面间隔</td></tr>
                 <tr><td>14:00-14:50</td><td>🌊 <strong>OW dive 2</strong></td></tr>
@@ -2203,20 +2206,11 @@ footer .meta {
           </div>
         </div>
 
-        <div class="card" style="border-left: 3px solid var(--coral); margin-top: 1rem;">
-          <h4 style="color: var(--coral);">🌺 休闲组 2 人 · 普吉老城 + 周六步行街</h4>
-          <table class="schedule" style="font-size: 0.85rem;">
-            <tbody>
-              <tr><td>09:00-09:30</td><td>慢早餐（潜水组已出海）</td></tr>
-              <tr><td>09:30-11:00</td><td><span class="tag tag-rest">SPA</span> 💆 街边正规店 <strong>90 min 油按</strong>（Rawai · ~600-800 THB/人）</td></tr>
-              <tr><td>11:30-13:30</td><td><span class="tag tag-food">老城</span> ☕ <strong>普吉老城漫步</strong> + 网红咖啡（Torry's Ice Cream / Campus Coffee Roasters / The Memory at On On Hotel）· 葡萄牙殖民建筑街景</td></tr>
-              <tr><td>14:00-16:30</td><td><span class="tag tag-rest">市集</span> 🛍 <strong>Lard Yai 周六步行街</strong>（Thalang Rd · 周六 16:00 起 · 本地小吃 + 手工艺品）</td></tr>
-              <tr><td>17:00</td><td>Grab → 回别墅泳池</td></tr>
-            </tbody>
-          </table>
+        <div class="box ocean" style="margin-top: 1rem;">
+          <p>🤿 <strong>浮潜 B 今天跟 OW 船</strong>去大小皇帝岛，全程船上 + 浮潜（水面活动）。OW 船当天 <strong>4 OW + 1 浮潜 = 5 人</strong>，已在 §0 微信跟潜店确认座位 + 救生衣 + 船上午餐。</p>
         </div>
 
-        <p style="margin-top: 1rem; font-size: 0.92rem;"><span class="tag tag-food">全体晚餐 8 人</span> 🌿 <strong>19:30 Mor Mu Dong @ Chalong</strong>（米其林必比登 Bib Gourmand 2026 · 红树林包围老建筑 · 100-200 THB/道 · 9/4 Moo 3 Pa-Lai 路 · 离别墅 ~10 min 车 · 需提前订 8 人桌）</p>
+        <p style="margin-top: 1rem; font-size: 0.92rem;"><span class="tag tag-food">全体晚餐 10 人</span> 🌿 <strong>19:30 Mor Mu Dong @ Chalong</strong>（米其林必比登 Bib Gourmand 2026 · 红树林包围老建筑 · 100-200 THB/道 · 9/4 Moo 3 Pa-Lai 路 · 离别墅 ~10 min 车 · 需提前订 10 人桌）</p>
       </div>
     </article>
 
@@ -2228,10 +2222,10 @@ footer .meta {
         <span class="day-tag">出证日</span>
       </div>
       <div class="day-content">
-        <h3>双组出证 🎉 · 休闲组 Kata Beach · 8 人庆功晚餐</h3>
+        <h3>双组出证 🎉 · B 跟 AOW 船浮潜皮皮岛 · 10 人庆功晚餐</h3>
         <div class="grid-2">
           <div class="card" style="border-left: 3px solid var(--ocean);">
-            <h4 style="color: var(--ocean-deep);">🔵 OW 3 人 · 大小皇帝岛 → 出证</h4>
+            <h4 style="color: var(--ocean-deep);">🔵 OW 4 人 · 大小皇帝岛 → 出证</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
                 <tr><td>07:00-07:40</td><td>司机接 → 码头</td></tr>
@@ -2246,10 +2240,10 @@ footer .meta {
             </table>
           </div>
           <div class="card" style="border-left: 3px solid var(--sunset);">
-            <h4 style="color: var(--sunset);">🟠 AOW 3 人 · 皮皮岛 → 出证</h4>
+            <h4 style="color: var(--sunset);">🟠 AOW 3 人 · 皮皮岛 → 出证（B 浮潜同船）</h4>
             <table class="schedule" style="font-size: 0.85rem;">
               <tbody>
-                <tr><td>07:00-07:40</td><td>司机接 → 码头（船开 ~1.5h 远点）</td></tr>
+                <tr><td>07:00-07:40</td><td>司机接 → 码头（含 B · 船开 ~1.5h 远点）</td></tr>
                 <tr><td>08:00-08:50</td><td>早餐 + 签到</td></tr>
                 <tr><td>09:30-09:50</td><td>船上简报</td></tr>
                 <tr><td>11:00-12:00</td><td>🌊 <strong>选修 2</strong>（如沉船/夜潜/水下摄影）</td></tr>
@@ -2262,19 +2256,11 @@ footer .meta {
           </div>
         </div>
 
-        <div class="card" style="border-left: 3px solid var(--coral); margin-top: 1rem;">
-          <h4 style="color: var(--coral);">🌺 休闲组 2 人 · Kata Beach + 高端 SPA</h4>
-          <table class="schedule" style="font-size: 0.85rem;">
-            <tbody>
-              <tr><td>09:30-12:00</td><td><span class="tag tag-rest">海滩</span> 🏖 <strong>Karon / Kata Beach</strong> 海边漫步 + 早午餐（沙白水清 · 选个 beach club 躺平 · ~500-800 THB/人）</td></tr>
-              <tr><td>12:30</td><td>Grab → Patong / Kamala 区</td></tr>
-              <tr><td>13:00-15:00</td><td><span class="tag tag-rest">高端 SPA</span> 💎 <strong>Let's Relax Patong / Oasis Spa Kamala</strong>（90 min 油按 + 草药热敷 · ~2,000 THB/人 · 出证日给自己也来个仪式感）</td></tr>
-              <tr><td>15:30</td><td>Grab → 回别墅 → 准备庆功</td></tr>
-            </tbody>
-          </table>
+        <div class="box ocean" style="margin-top: 1rem;">
+          <p>🤿 <strong>浮潜 B 今天跟 AOW 船</strong>去皮皮岛（石灰岩地貌 · 龟群 · 浮潜超出片），全程船上 + 浮潜。AOW 船当天 <strong>3 AOW + 1 浮潜 = 4 人</strong>。</p>
         </div>
 
-        <p style="margin-top: 1rem; font-size: 0.92rem;"><span class="tag tag-food">8 人庆祝晚餐</span> 🎉 <strong>19:30 Kan Eang @ Pier · Chalong Bay 海景</strong>（50 年泰国海鲜老店 · Thai Select 认证 · 招牌 Phuket Lobster / Hormok Talay / 椰子海鲜咖喱 · 300-500 THB/道 · 离别墅 10 min 车 · 出证日在 Chalong Pier 庆功圆满收尾 · 提前订 8 人海景桌）</p>
+        <p style="margin-top: 1rem; font-size: 0.92rem;"><span class="tag tag-food">10 人庆祝晚餐</span> 🎉 <strong>19:30 Kan Eang @ Pier · Chalong Bay 海景</strong>（50 年泰国海鲜老店 · Thai Select 认证 · 招牌 Phuket Lobster / Hormok Talay / 椰子海鲜咖喱 · 300-500 THB/道 · 离别墅 10 min 车 · 出证日在 Chalong Pier 庆功圆满收尾 · 提前订 10 人海景桌）</p>
       </div>
     </article>
 
@@ -2286,58 +2272,42 @@ footer .meta {
         <span class="day-tag">满档收尾</span>
       </div>
       <div class="day-content">
-        <h3>三线并行 · eFoil / Kong / SPA → 按摩 → 两批走机场</h3>
-        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">潜水 6 人走 eFoil + Kong，休闲 2 人留别墅 SPA + Kong Kafé。下午 14:30 全员合体按摩 → 16:00 同车送机。</p>
+        <h3>全员满档 · 快艇包船 / Kong → 按摩 → 两批走机场</h3>
+        <p style="font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1rem;">快艇包船 2h（想玩水的上船）+ Kong Hyrox（最多 9-10 人）；不玩的去 Kong Kafé。下午 14:30 全员 10 人 @ Ton Mai（Rawai）按摩 → 16:00 送机（出团 8 人，别店 2 单独）。</p>
 
-        <h4 style="margin-top: 1rem;">早上 · 三线分开</h4>
-        <div class="grid-2">
-          <div class="card" style="border-left: 3px solid var(--ocean);">
-            <h4 style="color: var(--ocean-deep);">🌊 潜水 6 人 · eFoil + Kong</h4>
-            <table class="schedule" style="font-size: 0.85rem;">
-              <tbody>
-                <tr><td>06:30-07:30</td><td>早餐 + 退房 + 寄存行李</td></tr>
-                <tr><td>07:30</td><td>出发去 Kata Beach（~20 min）</td></tr>
-                <tr><td>08:00-10:30</td><td><span class="tag tag-fit">eFoil</span> 6 人轮换 @ Kata — OW 首次教练带 · AOW 二刷</td></tr>
-                <tr><td>11:00</td><td>回别墅冲澡换装</td></tr>
-                <tr><td>12:00</td><td>出发 Soi Ta-iad</td></tr>
-                <tr><td>12:30-13:30</td><td><span class="tag tag-fit">Kong</span> <strong>Lactic Jungle 团课</strong>（Hyrox 风格 · 1h）</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="card" style="border-left: 3px solid var(--coral);">
-            <h4 style="color: var(--coral);">🌺 休闲 2 人 · 别墅 SPA + Kafé</h4>
-            <table class="schedule" style="font-size: 0.85rem;">
-              <tbody>
-                <tr><td>06:30-07:30</td><td>早餐 + 退房 + 寄存行李</td></tr>
-                <tr><td>08:00-09:30</td><td><span class="tag tag-rest">SPA</span> 💆 <strong>别墅旁正规店 90 min 油按</strong>（最后一次彻底放松）</td></tr>
-                <tr><td>09:30-10:30</td><td>慢早餐 + 别墅泳池</td></tr>
-                <tr><td>11:00</td><td>跟潜水组合体冲澡</td></tr>
-                <tr><td>12:00</td><td>同车去 Soi Ta-iad</td></tr>
-                <tr><td>12:30-13:30</td><td><span class="tag tag-food">Kafé</span> ☕ <strong>Kong Kafé 慢午餐 + Soi Ta-iad 散步</strong>（潜水组在 Kong 里上课）</td></tr>
-              </tbody>
-            </table>
-          </div>
+        <h4 style="margin-top: 1rem;">早上 + 中午 · 全员一条线</h4>
+        <div class="card" style="border-left: 3px solid var(--ocean);">
+          <h4 style="color: var(--ocean-deep);">🚤 快艇包船 + Kong（B 可选）</h4>
+          <table class="schedule" style="font-size: 0.85rem;">
+            <tbody>
+              <tr><td>06:30-07:30</td><td>早餐 + 退房 + 寄存行李（全员）</td></tr>
+              <tr><td>08:00-10:30</td><td><span class="tag tag-fit">🚤 快艇包船 2h</span> Super Air Nautique G23（16,000/4人 + 500/超员 · wakesurf/wakeboard）；不玩的慢早餐 <a href="#efoil" style="color:var(--ocean)">↓ 详情</a></td></tr>
+              <tr><td>11:00</td><td>回别墅冲澡换装</td></tr>
+              <tr><td>12:00</td><td>出发 Soi Ta-iad</td></tr>
+              <tr><td>12:30-13:30</td><td><span class="tag tag-fit">Kong</span> <strong>Lactic Jungle 团课 · 最多 9-10 人</strong>（Hyrox 风格 · 1h）；不练的去 Kong Kafé 慢午餐</td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <h4 style="margin-top: 1.5rem;">中午 · 8 人合体午餐</h4>
+        <h4 style="margin-top: 1.5rem;">中午 · 10 人合体午餐</h4>
         <table class="schedule">
           <thead><tr><th>时间</th><th>安排</th></tr></thead>
           <tbody>
-            <tr><td>13:30-14:30</td><td><span class="tag tag-food">Kong Kafé</span> 全员 8 人午餐（Acai + 轻食 · 省外出）</td></tr>
+            <tr><td>13:30-14:30</td><td><span class="tag tag-food">Kong Kafé</span> 全员 10 人午餐（Acai + 轻食 · 省外出）</td></tr>
           </tbody>
         </table>
 
-        <h4 style="margin-top: 2rem;">下午 · 全员 8 人一起去机场</h4>
+        <h4 style="margin-top: 2rem;">下午 · 全员 10 人一起去机场</h4>
         <table class="schedule">
           <thead><tr><th>时间</th><th>安排</th></tr></thead>
           <tbody>
-            <tr><td>14:30-15:30</td><td><span class="tag tag-rest">按摩</span> 全员 8 人 60 min 泰式按摩（提前订大店）</td></tr>
+            <tr><td>14:30-15:30</td><td><span class="tag tag-rest">按摩</span> 全员 10 人 60 min 泰式按摩 <strong>@ Ton Mai Spa（Rawai）</strong> <a href="#massage" style="color:var(--coral)">↓ 详情</a></td></tr>
             <tr><td>15:30</td><td>回别墅取行李</td></tr>
-            <tr><td>16:00</td><td>🚐 <strong>全员同车包车 → HKT</strong>（14 座 minivan · 8 人 + 8 大箱 + 2 潜水包）</td></tr>
+            <tr><td>16:00</td><td>🚐 <strong>出团 8 人 → HKT</strong>（3 鲸嘻OW广州 + 北京组 5 · 14 座 + 行李）<br><span style="font-size:0.8rem;color:var(--ink-soft)">⚠️ 别店 2 人不跟（6/23 从曼谷回）→ 自定 6/22 退房后住宿 + 普吉→曼谷航班</span></td></tr>
             <tr><td>16:50</td><td>抵达 HKT / 各组分别 Check-in</td></tr>
-            <tr><td>17:00-18:15</td><td>OW 候机 + AOW + 休闲在机场吃东西 / 免税逛</td></tr>
-            <tr><td><strong>18:20</strong></td><td>🔵 OW 3 人起飞 HKT → HKG（CX778）→ 22:00-01:15 香港转机 → 02:20(D6) 抵 CAN</td></tr>
-            <tr><td><strong>19:25</strong></td><td>🟠 AOW + 休闲 5 人起飞 HKT → PEK（CA822 直飞）→ 02:25(D6) 抵 PEK</td></tr>
+            <tr><td>17:00-18:15</td><td>广州组 3 人候机 + 北京组 5 人在机场吃东西 / 免税逛</td></tr>
+            <tr><td><strong>18:20</strong></td><td>🔵 广州组 3 人起飞 HKT → HKG（CX778）→ 22:00-01:15 香港转机 → 02:20(D6) 抵 CAN</td></tr>
+            <tr><td><strong>19:25</strong></td><td>🟠 北京组 5 人起飞 HKT → PEK（3 AOW + A + B · CA822 直飞）→ 02:25(D6) 抵 PEK</td></tr>
           </tbody>
         </table>
 
@@ -2345,10 +2315,10 @@ footer .meta {
           <h4>✅ 一起走的好处</h4>
           <ul style="margin: 0.5rem 0 0 1rem;">
             <li>包车只需 <strong>1 趟 14 座 minivan</strong>（省 ~2,000 THB + 调度简单）</li>
-            <li>全员 8 人按摩同时 60 min</li>
-            <li>AOW + 休闲多在机场等 1h，正好慢慢吃餐 + 逛免税</li>
-            <li>OW 国际航班提前 1h30min 抵机场，时间充裕</li>
-            <li>休闲组 D5 上午 SPA 后整个早上轻松，跟潜水组合体后节奏完全协调</li>
+            <li>全员 10 人按摩同时 60 min（订大店/分两间）</li>
+            <li>北京组 5 人多在机场等 1h，正好慢慢吃餐 + 逛免税</li>
+            <li>广州组 3 人国际航班提前 1h30min 抵机场，时间充裕</li>
+            <li>全员一条线 快艇包船 → Kong → 午餐 → 按摩，节奏完全协调</li>
           </ul>
         </div>
 
@@ -2358,7 +2328,7 @@ footer .meta {
           <p style="margin-top: 0.5rem;"><strong>预订时跟国泰确认</strong>：行李从 HKT 是否直挂到 CAN（如果直挂就不用过签 + 不用重新 check-in）。23:15 抵港时部分餐饮已关门，建议在 HKT 候机时吃饱。</p>
         </div>
 
-        <p style="font-size: 0.85rem; color: var(--ink-soft); margin-top: 1.5rem;">📍 电动冲浪运营商详情、价格对比、D2/D5 两场场次安排已抽到独立章节 → <a href="#efoil" style="color: var(--sunset); font-weight: 600;">§04 · 冲浪</a></p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft); margin-top: 1.5rem;">📍 快艇包船（Super Air Nautique G23）报价 / 待办详情 → <a href="#efoil" style="color: var(--sunset); font-weight: 600;">§05 · 快艇</a></p>
       </div>
     </article>
   </div>
@@ -2369,7 +2339,7 @@ footer .meta {
   <div class="container">
     <p class="section-marker">§04 · 潜水</p>
     <h2 class="section-title">潜水课程详解</h2>
-    <p class="section-lead">潜店：<strong>普吉鲸嘻潜水中心</strong>（已订定，9 折成交）。PADI / SSI 国际认证体系。OW 出证后可独立下潜至 18m；AOW 出证后可下潜至 30m，并解锁深潜 / 夜潜 / 沉船等专长。本团两组同期开班，D4 同日出证。</p>
+    <p class="section-lead">潜店：<strong>普吉鲸嘻潜水中心</strong>（已订定，9 折成交）。PADI / SSI 国际认证体系。OW 出证后可独立下潜至 18m；AOW 出证后可下潜至 30m，并解锁深潜 / 夜潜 / 沉船等专长。本团两组同期开班（OW 4 人 + AOW 3 人），D4 同日出证；另 1 人 B 无证，D3 跟 OW 船 / D4 跟 AOW 船浮潜。</p>
 
     <div class="grid-2">
       <div class="card">
@@ -2619,7 +2589,7 @@ footer .meta {
     <div class="box warn">
       <ul style="margin: 0.5rem 0 0 1rem;">
         <li><strong>禁飞 24h</strong>：D4 最后一潜 ~14:00 结束 → 起飞 D5 19:25，≥53h ✓</li>
-        <li><strong>D5 全天严禁下水</strong>（eFoil 算水面活动，可以做）</li>
+        <li><strong>D5 全天严禁下水</strong>（快艇 wakesurf 算水面活动，可以做）</li>
         <li><strong>潜水当天不喝酒</strong>（晚上小酌 OK，但出海前夜别喝多）</li>
         <li><strong>防晒霜必须 reef-safe</strong>（不含 oxybenzone / octinoxate）</li>
         <li>不触摸珊瑚 / 海洋生物 / 不喂鱼 / 不抓海龟</li>
@@ -2641,97 +2611,46 @@ footer .meta {
 <!-- ============== 电动冲浪 ============== -->
 <section id="efoil">
   <div class="container">
-    <p class="section-marker">§05 · 冲浪</p>
-    <h2 class="section-title">电动冲浪 eFoil</h2>
-    <p class="section-lead">D2 上午 AOW 3 人先去 Kata Beach 试玩 30 min 找手感，D5 上午全员 6 人正式上板。<strong>主推 Kata Surf Limited</strong>（有中文教练、微信预订、官方价目表）。<strong>注意：eFoil 在 Kata Beach，不在 Rawai/Chalong</strong>，每次从别墅去要 20-25 min 车程。</p>
+    <p class="section-marker">§05 · 快艇</p>
+    <h2 class="section-title">水上活动 · 快艇包船</h2>
+    <p class="section-lead">🔁 由 eFoil 改为<strong>快艇包船</strong>：<strong>Super Air Nautique G23 2022</strong>（普吉唯一这条）· wakesurf / wakeboard / 拖曳。<strong>只 D5 上午一场 · 2 小时</strong>（取消原 D2 试玩）。按船按小时计费，不是按人头。</p>
 
     <dl class="kpi-row">
-      <div class="kpi"><dt>D2 试玩</dt><dd>3 AOW · 09:00-10:30</dd></div>
-      <div class="kpi"><dt>D5 全员</dt><dd>6 人 · 08:00-10:30</dd></div>
-      <div class="kpi"><dt>单价</dt><dd>1,700 THB / 30min</dd></div>
-      <div class="kpi"><dt>团费合计</dt><dd>15,300 THB（含包车）</dd></div>
+      <div class="kpi"><dt>场次</dt><dd>D5 上午 · 2h</dd></div>
+      <div class="kpi"><dt>价格</dt><dd>16,000 THB（含 4 人）</dd></div>
+      <div class="kpi"><dt>超员</dt><dd>+500 THB / 人</dd></div>
+      <div class="kpi"><dt>含</dt><dd>保险 / 教练+船长 / 装备 / 饮用水</dd></div>
     </dl>
 
-    <h3>两场场次对比</h3>
+    <div class="photo-grid steady">
+      <figure><img src="./images/boat/b2.jpg" alt="G23 wakesurf"><figcaption>Super Air Nautique G23 · wakesurf</figcaption></figure>
+      <figure><img src="./images/boat/b3.jpg" alt="G23 wakesurf"><figcaption>世界级尾浪 · 多次获 WakeWorld 年度之船</figcaption></figure>
+      <figure><img src="./images/boat/b5.jpg" alt="G23 interior"><figcaption>船内座舱</figcaption></figure>
+    </div>
+    <p style="font-size: 0.78rem; color: var(--ink-faint); margin: -0.3rem 0 0.6rem;">↑ Nautique 官方 G23 图库（2026 展示款；实际包船为 2022 款，外观基本一致）</p>
+
+    <h3 style="margin-top: 2rem;">包船报价</h3>
     <table class="schedule">
-      <thead><tr><th>场次</th><th>D2 试玩</th><th>D5 全员</th></tr></thead>
+      <thead><tr><th>时长</th><th>价格</th><th>含人数上限</th></tr></thead>
       <tbody>
-        <tr><td>日期</td><td>06.19 周五</td><td>06.22 周一</td></tr>
-        <tr><td>人数</td><td>3 人（AOW 组）</td><td>6 人（OW + AOW 全员）</td></tr>
-        <tr><td>时段</td><td>09:00-10:30</td><td>08:00-10:30</td></tr>
-        <tr><td>用意</td><td>AOW D2 全天空 · 提前熟悉</td><td>D5 主活动 · OW 首次上板（教练带），AOW 二刷</td></tr>
-        <tr><td>设备要求</td><td>1 块板足够（3 人轮换）</td><td>至少 2 块板 + 2 教练</td></tr>
-        <tr><td>来回路线</td><td>08:30 出发 → 11:00 回别墅</td><td>07:30 出发 → 11:00 回别墅 → 12:00 转 Soi Ta-iad</td></tr>
-        <tr><td>预算</td><td>3 × 1,700 = <strong>5,100 THB</strong></td><td>6 × 1,700 = <strong>10,200 THB</strong></td></tr>
+        <tr><td>1 小时</td><td>8,500 THB</td><td>最多 2 人</td></tr>
+        <tr style="background: oklch(96% 0.05 50);"><td><strong>2 小时 ⭐（已选）</strong></td><td><strong>16,000 THB</strong></td><td><strong>最多 4 人</strong></td></tr>
+        <tr><td>3 小时</td><td>23,500 THB</td><td>最多 6 人</td></tr>
       </tbody>
     </table>
-
-    <h3 style="margin-top: 2rem;">运营商详情</h3>
-
-    <div class="photo-grid">
-      <figure><img src="./images/efoil/waydoo-ocean-riding-1.jpg" alt="eFoil 海面飞行"><figcaption>Waydoo Flyer One · 海面飞行（板下水翼让人脱离水面）</figcaption></figure>
-      <figure><img src="./images/efoil/waydoo-solo-riding-04.jpg" alt="单人 eFoil"><figcaption>独自驾驶 · 25mph 极速 · 120min 续航</figcaption></figure>
-      <figure><img src="./images/efoil/waydoo-solo-riding-05.jpg" alt="eFoil 板特写"><figcaption>电控板 · 手持遥控加减速 · 入门 30min</figcaption></figure>
-      <figure><img src="./images/efoil/waydoo-ocean-riding-2.jpg" alt="海上飞行"><figcaption>悬浮感 · 无引擎噪音 · 环保</figcaption></figure>
-    </div>
-
-    <div class="grid-2">
-      <div class="card" style="border-left: 3px solid var(--ocean);">
-        <h4 style="color: var(--ocean-deep);">⭐ Kata Surf Limited（推荐）</h4>
-        <ul style="font-size: 0.88rem;">
-          <li><strong>地址</strong>：186/6 Kata Road, Karon, Phuket 83100（<strong>Kata Beach</strong> 沙滩边）</li>
-          <li><strong>从别墅</strong>：Rawai → Kata 约 20 min / 250 THB Grab</li>
-          <li><strong>设备</strong>：Waydoo Flyer One（业内主流）</li>
-          <li><strong>价格</strong>：
-            <br>· 30 min 租赁含基础课：<strong>1,700 THB</strong>
-            <br>· 1h 租赁含基础课：3,000 THB
-            <br>· 30 min 正式教练课：2,000 THB
-            <br>· 1h 正式教练课：3,500 THB
-          </li>
-          <li><strong>联系</strong>：
-            <br>· 英/泰：+66 836-401-761
-            <br>· <strong>中文 / English</strong>：+66 828-092-699 ⭐
-            <br>· WeChat：<code>jerryalex198275</code>
-            <br>· WhatsApp：+66 836-401-761
-            <br>· Email：info@katasurflimited.com
-          </li>
-          <li><strong>预订</strong>：建议 WeChat 加 jerryalex198275 直谈，团购 6 人位提前 1 周</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h4>EasyFlyFoil（备选）</h4>
-        <ul style="font-size: 0.88rem;">
-          <li><strong>地址</strong>：186 Koktanod Rd, Karon（Kata Beach 北段）</li>
-          <li><strong>价格</strong>：~3,000 THB / 30 min（未列价目表）</li>
-          <li><strong>联系</strong>：+66 62-015-1052 / Easyflyfoil22@gmail.com</li>
-          <li><strong>预订</strong>：建议提前 1 天</li>
-          <li>同时在 Koh Phangan 有店</li>
-        </ul>
-      </div>
-    </div>
+    <p style="font-size: 0.9rem; margin-top: 0.5rem;"><strong>超出人数 +500 THB/人</strong>。例：6 人 = 16,000 + 2×500 = 17,000；9 人 = 16,000 + 5×500 = 18,500 THB。含 行程保险 / 教练 + 船长 / 装备 / 船上饮用水。</p>
 
     <div class="box success" style="margin-top: 1.5rem;">
-      <h4>💰 选 Kata Surf 总省 11,700 THB</h4>
-      <p>用 Kata Surf 的 30min 租赁含基础课（1,700 THB）替代原估的 3,000 THB：</p>
-      <ul style="margin: 0.5rem 0 0 1rem;">
-        <li>D2 试玩：3 × 1,700 = <strong>5,100 THB</strong>（原估 9,000，省 3,900）</li>
-        <li>D5 全员：6 × 1,700 = <strong>10,200 THB</strong>（原估 18,000，省 7,800）</li>
-        <li>加上 Rawai ↔ Kata 包车 2 次 ≈ 1,000 THB，<strong>净省 10,700 THB</strong></li>
-      </ul>
-    </div>
-
-    <div class="box warn" style="margin-top: 1.5rem;">
-      <h4>⚠️ 预订前必确认 3 项</h4>
+      <h4>✅ 商家已确认 D5 可订（Kata Surf · jerryalex）</h4>
       <ol style="margin: 0.5rem 0 0 1.2rem;">
-        <li><strong>D5 板数</strong>：6 人 2.5h 必须 ≥ 2 块板 + 2 名教练，否则轮换吃不下</li>
-        <li><strong>团购价</strong>：6 人位提早 1 周报，问能否砍到 1,500 THB / 30min 或赠送 GoPro 拍摄</li>
-        <li><strong>D5 时段</strong>：08:00 起 — 早班是否开门？周一早场是否要提早 30 min 到</li>
+        <li>剩下敲：<strong>集合码头</strong> · <strong>最终上船人数</strong>（算超员费）· 几点出发 · 雨季取消政策</li>
+        <li>联系：WeChat <code>jerryalex198275</code> · Line <code>jerryalex1982</code> · +66 828-092-699（中文）</li>
       </ol>
     </div>
 
     <div class="box ocean" style="margin-top: 1.5rem;">
-      <h4>🧭 D5 严禁下水 ≠ 严禁 eFoil</h4>
-      <p>潜水后 24h 禁飞 / 禁下水的规则针对的是<strong>水下活动</strong>（残留氮气经压力变化释放）。<strong>eFoil 是水面活动</strong>（板浮于水面之上，无气压变化），且最后一潜 D4 ~14:00 → D5 08:00 已隔 ≈ 18h，安全可玩。</p>
+      <h4>🧭 D5 严禁下水 ≠ 严禁玩这个</h4>
+      <p>24h 禁飞/禁下水针对<strong>水下潜水</strong>（残留氮气）。<strong>wakesurf 是水面活动</strong>，且最后一潜 D4 ~14:00 → D5 上午已隔 ≈ 18h+，安全可玩。</p>
     </div>
   </div>
 </section>
@@ -2740,95 +2659,85 @@ footer .meta {
 <section id="cooking">
   <div class="container">
     <p class="section-marker">§06 · 厨师课</p>
-    <h2 class="section-title">Pum Thai 厨师课</h2>
-    <p class="section-lead">D2 周五晚上 18:00-19:30，2 人去 Kathu 区的 Pum Thai。原以为是 3h 长课，抓官方课表才发现是 <strong>6pm 班 1.5-2h 的快节奏短课</strong>，时长刚好能在 21:00 前回别墅、不影响 D3 早 7 点出海。</p>
+    <h2 class="section-title">Naidee Cookery Class 厨师课</h2>
+    <p class="section-lead">🔁 由 Pum Thai <strong>改为 Naidee Cookery Class</strong>，D2 周五晚 <strong>2 人</strong>参加。Naidee 的地址 / 开课时段 / 价目待官方确认后补全，原 Pum Thai 专属的课表 / 菜单 / 图片已移除。</p>
 
     <dl class="kpi-row">
-      <div class="kpi"><dt>时间</dt><dd>D2 · 18:00-19:30</dd></div>
-      <div class="kpi"><dt>人数</dt><dd>2 人（1 OW + 1 AOW）</dd></div>
-      <div class="kpi"><dt>推荐班</dt><dd>Little Lipstick ⭐</dd></div>
-      <div class="kpi"><dt>团费</dt><dd>2,800 THB（2 × 1,400）</dd></div>
+      <div class="kpi"><dt>时间</dt><dd>D2 晚 · 时段待确认</dd></div>
+      <div class="kpi"><dt>人数</dt><dd>2 人</dd></div>
+      <div class="kpi"><dt>地点</dt><dd>Naidee Cookery Class（地址待确认）</dd></div>
+      <div class="kpi"><dt>团费</dt><dd>待报价</dd></div>
     </dl>
 
-    <div class="photo-grid">
-      <figure><img src="./images/pumthai/Pum-Thai-Restaurant-Cooking-Classes-1024x724.jpg" alt="Pum Thai 课程价目表"><figcaption>课程价目表 · 6 pm 班 1.5-2h</figcaption></figure>
-      <figure><img src="./images/pumthai/cooking.jpg" alt="厨房教学"><figcaption>厨房教学 · 学员动手</figcaption></figure>
-      <figure><img src="./images/pumthai/Pum-Thai-Restaurant-Vegan-Class-1024x720.jpg" alt="素食班"><figcaption>素食班可选</figcaption></figure>
-      <figure><img src="./images/pumthai/Pum-Thai-Restaurant-Vegan-Set-Menu-1024x710.jpg" alt="6 套素食菜单"><figcaption>6 套素食菜单可挑</figcaption></figure>
-      <figure><img src="./images/pumthai/Private-Party-1.jpg" alt="私人课氛围"><figcaption>课堂氛围 1</figcaption></figure>
-      <figure><img src="./images/pumthai/Private-Party-4.jpg" alt="私人课氛围"><figcaption>课堂氛围 2</figcaption></figure>
+    <div class="box warn" style="margin-top: 1.5rem;">
+      <h4>⚠️ 待办（改订 Naidee）</h4>
+      <ol style="margin: 0.5rem 0 0 1.2rem; line-height: 1.8;">
+        <li><strong>查 Naidee 官方联系方式 / 地址 / 开课时段</strong>，确认 D2 周五 2 人能上 + 需 21:00 前回别墅（D3 早 7 点出海）</li>
+        <li><strong>下单 / 确认 2 人</strong>，告知菜单偏好 + 过敏/忌口</li>
+        <li><strong>原 Pum Thai 若已订 → 取消退款</strong></li>
+        <li>确认 Naidee 在 Rawai/Chalong 还是更远，决定 Grab 车程（若近则比原 Pum 的 Kathu 25-30min 省很多）</li>
+      </ol>
+      <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.75rem;">📧 询价模板见 <code>预订模板.md §4</code>（EN + 中文，2 人版）</p>
     </div>
 
-    <h3 style="margin-top: 2rem;">6pm 班可选课程</h3>
-    <table class="schedule" style="font-size: 0.9rem;">
-      <thead><tr><th>课程</th><th>时长</th><th>道数</th><th>价格</th><th>含</th></tr></thead>
-      <tbody>
-        <tr><td>Pum's Mini-Me 1</td><td>30 min</td><td>1 道</td><td>700 THB</td><td>食谱书</td></tr>
-        <tr><td>Pum's Mini-Me 2</td><td>45 min</td><td>2 道</td><td>900 THB</td><td>食谱书</td></tr>
-        <tr style="background: oklch(96% 0.05 50);"><td><strong>Pum's Little Lipstick ⭐</strong></td><td><strong>1.5 hrs</strong></td><td><strong>3 道</strong></td><td><strong>1,400 THB</strong></td><td>食谱书</td></tr>
-        <tr><td>Pum's 25th Anniversary</td><td>2 hrs</td><td>3 道 + 蛋糕</td><td>1,599 THB</td><td>限定菜 + 周年纪念</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size: 0.9rem; margin-top: 0.5rem;"><strong>推荐选 Little Lipstick ⭐</strong>：1.5h / 3 道菜 / 1,400 THB · 18:00-19:30 · 含 Pum 第一本食谱书 · 官方标语「为饥饿没耐心的人设计的快节奏班」。</p>
+    <div class="box success" style="margin-top: 1.5rem;">
+      <h4>✅ D2 晚分流</h4>
+      <ul style="margin: 0.5rem 0 0 1rem;">
+        <li>厨师课 2 人（Naidee）+ Hyrox 4 人（2 OW + 2 AOW @ Unit 27）+ 其余 2 人自由</li>
+        <li>选短课时段，确保 21:00 前回别墅，不影响 D3 早 7 点出海</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <h3 style="margin-top: 2rem;">菜品选择（6 套素食菜单 · 荤食类似）</h3>
-    <table class="schedule" style="font-size: 0.88rem;">
-      <thead><tr><th>菜单</th><th>3 道菜</th></tr></thead>
-      <tbody>
-        <tr><td>素 1</td><td>素炒饭 + Panaeng 咖喱 + 香蕉椰奶汤</td></tr>
-        <tr><td>素 2</td><td>素 Pad Thai + 泰式青咖喱 + 芒果糯米饭 🥭</td></tr>
-        <tr><td>素 3</td><td>素 Tom Yum + 腰果素菜 + 香蕉椰奶汤</td></tr>
-        <tr><td>素 4</td><td>素青咖喱 + 糖醋素菜 + 芒果糯米饭 🥭</td></tr>
-        <tr><td>素 5</td><td>什锦素菜 + Phad Thai 素菜 + 香蕉椰奶汤</td></tr>
-        <tr><td>素 6</td><td>素炒饭 + Tom Kha 素菜 + 芒果糯米饭 🥭</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.5rem;">荤食版有 Tom Yum 虾汤 / Pad Thai 鸡虾 / Panaeng 牛肉咖喱 / Massaman 等。报名时邮件确认菜单偏好。</p>
+<!-- ============== 按摩 ============== -->
+<section id="massage">
+  <div class="container">
+    <p class="section-marker">§07 · 按摩</p>
+    <h2 class="section-title">泰式按摩 · Ton Mai Spa</h2>
+    <p class="section-lead">D5（22 周一）14:30-15:30 全员 10 人 60 min 泰式按摩。选 <strong>Ton Mai Spa（Rawai 本地）</strong>——就在 <strong>Wiset Rd</strong>（跟海鲜市场 Salaloy 同路），离别墅仅 5-10 min，D5 取行李顺路。<strong>Tripadvisor 4.7 / 386 评价</strong>（Rawai spa #3），园林环境 + 泳池 / 蒸汽房 / 冷池 / 餐厅。<br><span style="font-size:0.85rem;color:var(--ink-faint)">（原拟 Phumontra 因两家分店离 Rawai 30-55 min 过远、D5 绕路，已弃用。）</span></p>
 
-    <h3 style="margin-top: 2rem;">课程流程</h3>
+    <dl class="kpi-row">
+      <div class="kpi"><dt>时间</dt><dd>D5 · 14:30-15:30</dd></div>
+      <div class="kpi"><dt>人数</dt><dd>10 人 · 60 min</dd></div>
+      <div class="kpi"><dt>离别墅</dt><dd>5-10 min（Rawai）</dd></div>
+      <div class="kpi"><dt>评价</dt><dd>4.7 · 386 评</dd></div>
+    </dl>
+
+    <div class="photo-grid steady">
+      <figure><img src="./images/tonmai/t1.jpg" alt="Ton Mai 泳池"><figcaption>带直入泳池 · 躺椅区</figcaption></figure>
+      <figure><img src="./images/tonmai/t2.jpg" alt="Ton Mai"><figcaption>园林环境</figcaption></figure>
+      <figure><img src="./images/tonmai/t3.jpg" alt="Ton Mai 室内"><figcaption>按摩区</figcaption></figure>
+      <figure><img src="./images/tonmai/t4.jpg" alt="Ton Mai 室内"><figcaption>休息区</figcaption></figure>
+      <figure><img src="./images/tonmai/t5.jpg" alt="Ton Mai"><figcaption>蒸汽房 / 冷池</figcaption></figure>
+      <figure><img src="./images/tonmai/t6.jpg" alt="Ton Mai"><figcaption>Ton Mai Spa 入口</figcaption></figure>
+    </div>
+    <p style="font-size: 0.78rem; color: var(--ink-faint); margin: -0.3rem 0 0.6rem;">↑ Ton Mai Spa · 来源 Tripadvisor</p>
+
     <div class="grid-2">
       <div class="card" style="border-left: 3px solid var(--coral);">
-        <h4 style="color: var(--coral);">⏱ 时间轴</h4>
-        <ol style="padding-left: 1.2rem; font-size: 0.92rem;">
-          <li><strong>17:30</strong> Grab 出发别墅 → Kathu（~25-30 min / 250 THB）</li>
-          <li><strong>18:00</strong> 抵达店内</li>
-          <li><strong>18:00-18:15</strong> 教师讲解今日 3 道菜 + 关键食材 / 香料 / 酱料</li>
-          <li><strong>18:15-18:40</strong> 动手做第 1 道 → 试吃</li>
-          <li><strong>18:40-19:05</strong> 动手做第 2 道 → 试吃</li>
-          <li><strong>19:05-19:30</strong> 动手做第 3 道（甜品多在这一道）→ 试吃</li>
-          <li><strong>19:30</strong> 领纪念食谱书 + 合影 + 散场</li>
-          <li><strong>19:35</strong> Grab 回别墅（~25 min / 250 THB）</li>
-        </ol>
-      </div>
-      <div class="card">
-        <h4>📍 位置与联系</h4>
+        <h4 style="color: var(--coral);">💆 服务 / 价格</h4>
         <ul style="font-size: 0.9rem;">
-          <li><strong>地址</strong>：17/111 Praphuketkaew Road, Kathu, Phuket（<strong>Kathu 区</strong> · 不是 Patong 市中心，而是 Patong-Phuket Town 路上）</li>
-          <li><strong>从别墅</strong>：Rawai → Kathu 约 25-30 min / 250 THB Grab</li>
-          <li><strong>电话</strong>：+66 81-240-8924</li>
-          <li><strong>邮箱</strong>：Bookings@pumthaifoodchain.com</li>
-          <li><strong>官网</strong>：pumthaifoodchain.co.th</li>
-          <li><strong>预订必告知</strong>：D2 周五 18:00 班 · 2 人 · 选 Little Lipstick · 是否有素食/过敏</li>
+          <li>脚底按摩 350 THB 起 · 泰式 / 精油 / 运动 / 磨砂 / 香薰 / 面部</li>
+          <li>柠檬草蒸汽房 · 干桑拿 · 冷池 · 户外泳池 · 餐厅（泰西餐 + 思慕雪）</li>
+          <li>做按摩可 <strong>5 折用泳池/桑拿</strong>；day pass ~200 THB</li>
+          <li>我们：60 min × 10 人，约 ~600-800 THB/人</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--ocean);">
+        <h4 style="color: var(--ocean-deep);">📍 信息 / 预订</h4>
+        <ul style="font-size: 0.9rem;">
+          <li><strong>地址</strong>：6/11 Moo 2 Wiset Rd, Rawai 83130</li>
+          <li><strong>营业</strong>：每天 09:00-23:00</li>
+          <li><strong>离别墅</strong>：~2-4 km · 5-10 min（D5 取行李顺路）</li>
+          <li><strong>预订</strong>：官网未列电话 → <a href="https://maps.app.goo.gl/w9cCAdZzbCyHk8Lk9" target="_blank">Google Maps</a> 致电 / 到店 / Tripadvisor（10 人提前 1-2 天）</li>
         </ul>
       </div>
     </div>
 
     <div class="box warn" style="margin-top: 1.5rem;">
-      <h4>⚠️ 预订前必确认 3 项</h4>
-      <ol style="margin: 0.5rem 0 0 1.2rem;">
-        <li><strong>D2 18:00 班是否开课</strong>：6pm 班需要凑人，先邮件 Bookings@ 确认这天有班 + 报名截止时间</li>
-        <li><strong>菜单偏好</strong>：6 套素食 + 荤食版各几道菜，提早告知（避免现场临时改课）</li>
-        <li><strong>过敏 / 忌口</strong>：海鲜过敏、虾敏、辣度耐受 — 邮件里写清楚</li>
-      </ol>
-    </div>
-
-    <div class="box success" style="margin-top: 1.5rem;">
-      <h4>✅ 时间设计的好处</h4>
-      <ul style="margin: 0.5rem 0 0 1rem;">
-        <li><strong>1.5h 短课</strong>选对了 — 21:00 前回别墅，不影响 D3 早 7 点出海</li>
-        <li><strong>AOW 组 D2 全天空</strong>，所以厨师课 2 人里建议安排 1 个 AOW（更轻松），另 1 个 OW 早 16:00 收工赶得上</li>
-        <li>厨师课 vs Hyrox 分流：2 OW + 2 AOW 去 Unit 27，剩下 1 OW + 1 AOW 去 Pum Thai，分组干净不撞车</li>
-      </ul>
+      <h4>⚠️ 订前确认</h4>
+      <p>10 人同时段能否一次接（大店或分两间）· D5 14:30 时段可订 · 按摩后 15:30 取行李 → 16:00 送机，时间够。</p>
     </div>
   </div>
 </section>
@@ -2836,7 +2745,7 @@ footer .meta {
 <!-- ============== 健身房 ============== -->
 <section id="gyms">
   <div class="container">
-    <p class="section-marker">§07 · 健身房</p>
+    <p class="section-marker">§08 · 健身房</p>
     <h2 class="section-title">Soi Ta-iad · 健身一条街双打卡</h2>
     <p class="section-lead">普吉"健身一条街"= Soi Ta-iad（位于 Chalong），全长约 1 公里，密集分布 20+ 健身房、泰拳馆、健康餐厅、恢复中心。我们打卡两家最有名的：<strong>Unit 27</strong>（D2 晚教练带练）+ <strong>Kong Strength</strong>（D5 中午官方 Hyrox 课）。</p>
 
@@ -2940,11 +2849,11 @@ footer .meta {
     <div class="box ocean">
       <h4>🎯 D5 周一 12:30 我们上的 Lactic Jungle 是什么</h4>
       <p><strong>Lactic Jungle</strong> = "乳酸丛林"。Kong 的高强度代谢训练课，动态全身循环 + 高乳酸输出（即"练到酸爽"），跟 Hyrox 风格非常接近但不是官方 Hyrox。1h 团课。</p>
-      <p style="margin-top: 0.75rem;"><strong>原计划的"上 Hyrox 课"调整</strong>：周一中午并没有官方 Hyrox 课（早 9:30 是 Benchmark / 下午 16:00 是 S&E），但 12:30 的 Lactic Jungle 强度风格接近，且时间正好卡在 eFoil → 按摩 → 机场的窗口。</p>
+      <p style="margin-top: 0.75rem;"><strong>原计划的"上 Hyrox 课"调整</strong>：周一中午并没有官方 Hyrox 课（早 9:30 是 Benchmark / 下午 16:00 是 S&E），但 12:30 的 Lactic Jungle 强度风格接近，且时间正好卡在 快艇包船 → 按摩 → 机场的窗口。</p>
       <p style="margin-top: 0.75rem;"><strong>替代方案</strong>：</p>
       <ul style="margin: 0.5rem 0 0 1rem;">
         <li><strong>方案 1</strong>（推荐）：维持现行 — 12:30 Lactic Jungle，等于上了"准 Hyrox"</li>
-        <li><strong>方案 2</strong>：要正宗 HYROX Benchmark → 改 D5 早 09:30 Kong，但 eFoil 砍掉或移到 D2 早全员（OW 难赶）</li>
+        <li><strong>方案 2</strong>：要正宗 HYROX Benchmark → 改 D5 早 09:30 Kong，但快艇包船时段要相应前移</li>
         <li><strong>方案 3</strong>：Lactic Jungle 不上 → Open Gym 自由用所有设备 + 多用 Normatec / 红外桑拿恢复 + Kafé 早午餐</li>
       </ul>
     </div>
@@ -2998,155 +2907,28 @@ footer .meta {
 <!-- ============== 别墅 ============== -->
 <section id="villa">
   <div class="container">
-    <p class="section-marker">§08 · 住宿</p>
-    <h2 class="section-title">别墅选址</h2>
+    <p class="section-marker">§09 · 住宿</p>
+    <h2 class="section-title">住宿 · 已订</h2>
 
-    <p class="section-lead"><strong>8 人版需要 5BR 私泳池别墅</strong>（容纳 8 成人 + 可加床应对 tentative +2）。中档-高端 50-70k THB/晚，定位在 Rawai 北部 / Chalong 南部三角内 — 离 Chalong Pier（潜水船）、Soi Ta-iad（Kong 健身一条街）、Rawai Beach（eFoil + 海鲜市场）都在 10 分钟车程内。Layan / Bang Tao 高端区有更多 5BR 选项但距 Chalong 略远 25 min。</p>
-
-    <div class="box warn">
-      <p><strong>⚠️ 房源紧迫</strong>：Rawai 真正的 5BR 私泳池 villa 数量有限，旺季 2 周内可能订不到。<strong>这周内必须并行发 5 家询价</strong>。备选：2 栋 3BR 拼订（6 人 + 2 人分栋，详见文末备选 listings）。</p>
-    </div>
-
-    <h3 style="margin-top: 2rem;">5BR 价位行情（8 人版）</h3>
-    <div class="box ocean">
-      <p>5BR 私泳池 villa 在 Rawai 的真实价格分布：</p>
-      <ul style="margin: 0.5rem 0 0 1rem;">
-        <li><strong>中档 5BR 35-50k THB/晚</strong>（4 晚 140-200k）— 标准配置 5 间 ensuite + 私泳池 + 厨房</li>
-        <li><strong>高端 5BR 50-70k THB/晚</strong>（4 晚 200-280k）— 加管家 / 早餐 / 大花园 / 海景 / 设计感（<strong>推荐档</strong>）</li>
-        <li><strong>顶级 5BR 70-120k THB/晚</strong>（4 晚 280-480k）— Boutique 别墅区 / 海景 / 全套服务 / 私人厨师</li>
-      </ul>
-      <p style="margin-top: 0.75rem;"><strong>建议</strong>：8 人住高端 5BR 人均住宿 5,000-7,000 RMB，比 6 人住 3BR 反而只贵 1,500 左右。中档 5BR 数量少不好订，<strong>直接锁高端 5BR</strong> 更稳。</p>
-    </div>
-
-    <h3 style="margin-top: 2rem;">5BR 推荐方向（8 人版）</h3>
-    <div class="grid-3" style="margin-bottom: 1.5rem;">
-      <div class="card" style="border-left: 3px solid var(--ocean);">
-        <h4>Botanica Luxury Villas</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">Layan / Bang Tao 高端区 · 5BR 多 · 距 Chalong 25 min</p>
-        <p class="price">~55-75k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.botanicaluxuryvillas.com/" target="_blank">📎 官网</a> · 谷歌搜「Botanica 5 bedroom」</p>
-      </div>
-      <div class="card" style="border-left: 3px solid var(--sunset);">
-        <h4>The Eva Phuket (5BR)</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai · 整套 5BR villa · 距 Chalong Pier 近 · 私泳池</p>
-        <p class="price">~50-65k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;">Airbnb / Booking 搜「The Eva Phuket 5 bedroom」</p>
-      </div>
-      <div class="card">
-        <h4>The Luxe Nomad 平台</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">高端 villa 聚合站 · 含 Villa Sunpao / Villa Splash 等 5BR</p>
-        <p class="price">~60-90k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.theluxenomad.com/" target="_blank">📎 The Luxe Nomad</a> / <a href="https://www.luxuryretreats.com/" target="_blank">Luxury Retreats</a></p>
-      </div>
-    </div>
+    <p class="section-lead">✅ <strong>已订：4BR 私泳池别墅（带健身房）</strong>。**10 人住 4 间（加床）** — 需跟房东确认加床位 + 是否加费。自带健身房 → Hyrox 加练 / 备用场地。</p>
 
     <div class="box ocean">
-      <p><strong>📋 询价模板</strong>：见 <code>预订模板.md §2</code>（包含 10 个问题：日期可用 / 5BR ensuite / 床型 / 厨房 / Chalong 距离 / 14 座接送 / 清洁 / <strong>加床政策（应对 tentative +2）</strong> / 总价明细 / 退订）</p>
-    </div>
-
-    <h3 style="margin-top: 2rem;">备选：2 栋 3BR 拼订（6 + 2 分栋）</h3>
-    <p style="color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1rem;">如果 5BR 找不到合适的，可以订 2 栋 3BR：潜水 6 人住主栋（OW/AOW），休闲 2 人住小栋。下面是 3BR 备选 listings（来自原 6 人版本）。</p>
-
-    <h4 style="margin-top: 1rem;">🟢 经济档 3BR（8-15k THB/晚）· 4 晚 32-60k THB ≈ 6,400-12,000 RMB</h4>
-    <div class="grid-3">
-      <div class="card">
-        <h4>Lady Naya Villas</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">Soi Naya, Rawai · 3BR 私泳池 + ensuite 卫</p>
-        <p class="price">~8,750 THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/ladynayavillas.html" target="_blank">📎 Booking.com 直链</a></p>
-      </div>
-      <div class="card">
-        <h4>3BR Pool Villa F10</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">250m 到 Rawai Beach · 每房带空调+厨房+按摩浴缸 · 8.5/10</p>
-        <p class="price">~10-13k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/three-bedroom-pool-villa-only-250m-from-the-beach.html" target="_blank">📎 Booking.com 直链</a><br>⚠️ 入住时需现金保证金 2,000 THB</p>
-      </div>
-      <div class="card">
-        <h4>Private Pool Villa Rawai Beach</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai Beach 步行 16 min · 3BR/3BA · 全套厨房 + BBQ + 洗衣机</p>
-        <p class="price">~9-14k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/private-pool-villa-rawai-beach.html" target="_blank">📎 Booking.com 直链</a></p>
-      </div>
-    </div>
-
-    <h4 style="margin-top: 1.5rem;">🟡 中档 3BR（15-25k THB/晚）· 4 晚 60-100k THB ≈ 12,000-20,000 RMB</h4>
-    <div class="grid-3">
-      <div class="card" style="border-left: 3px solid var(--sunset);">
-        <h4>⭐ Rawai Private Villas - Pools and Garden</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">8 套 3BR villa 集中管理 · 每房 ensuite · 0.6mi 到 Rawai Beach · <strong>9.0/10 评分</strong></p>
-        <p class="price">~15-22k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.booking.com/hotel/th/rawai-private-villas-pools-and-garden.html" target="_blank">📎 Booking.com 直链</a><br>⚠️ 入住时押金 10,000 THB 现金 · 退房返还</p>
-      </div>
-      <div class="card">
-        <h4>Thames Tara Private Pool Villa</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai · 3BR · 现代设计 · Klook 平台优惠多</p>
-        <p class="price">~18-25k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.klook.com/en-US/hotels/detail/968524-thames-tara-private-pool-villa-rawai-phuket/" target="_blank">📎 Klook 直链</a></p>
-      </div>
-      <div class="card">
-        <h4>Prima Villa by Rents</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">Rawai · 3BR + 户外泳池 + WiFi + 自助停车</p>
-        <p class="price">~15-20k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.hotels.com/ho1143661984/prima-villa-by-rents-in-phuket-rawai-thailand/" target="_blank">📎 Hotels.com 直链</a></p>
-      </div>
-    </div>
-
-    <h4 style="margin-top: 1.5rem;">🔴 高端档 3BR（25-35k+ THB/晚）· 4 晚 100-140k+ THB ≈ 20,000-28,000+ RMB</h4>
-    <div class="grid-3">
-      <div class="card">
-        <h4>Saiyuan Villas（boutique 区）</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">7-villa 精品社区 · 3-4BR + ensuite · Rawai/Nai Harn 之间绿心 · 高端设施</p>
-        <p class="price">~25-35k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://molokophuket.com/1667-saiyuan-villas-premium-pool-villa-project-in-the-green-heart-of-rawai-phuket" target="_blank">📎 项目介绍页</a><br>需直接联系运营方订位</p>
-      </div>
-      <div class="card">
-        <h4>Luxury 3BR Tropical Garden（1200m²）</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">VRBO · 1200m² 大花园 + 私泳池 + 设计感 · 适合摆拍</p>
-        <p class="price">~28-35k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.vrbo.com/1545789a" target="_blank">📎 VRBO 直链</a></p>
-      </div>
-      <div class="card">
-        <h4>Beachfront Pool Villa Rawai</h4>
-        <p style="color: var(--ink-soft); font-size: 0.88rem;">海滨别墅 · 直面 Rawai 海湾 · 早餐+管家+司机</p>
-        <p class="price">~30-40k THB/晚</p>
-        <p style="font-size: 0.82rem; margin-top: 0.5rem;"><a href="https://www.expedia.com/Phuket-Hotels-Beachfront-Pool-Villa-Rawai-Phuket.h65723352.Hotel-Information" target="_blank">📎 Expedia 直链</a></p>
-      </div>
-    </div>
-
-    <h3 style="margin-top: 2.5rem;">搜索关键词（5BR 自己再淘）</h3>
-    <ul style="padding-left: 1.5rem;">
-      <li><strong>Airbnb</strong>：<a href="https://www.airbnb.com/s/Phuket--Thailand/homes?adults=8&room_types[]=Entire+home%2Fapt&amenities[]=7&min_bedrooms=5" target="_blank"><code class="mono">Phuket 5 bedroom pool villa</code> 直搜</a> · 筛选「整套住宿 + 8 客 + 私人泳池 + ≥5 卧」</li>
-      <li><strong>Booking.com</strong>：<a href="https://www.booking.com/villas/city/th/ban-ra-wai.html" target="_blank"><code class="mono">Rawai villas</code> 直搜</a> · 筛选「整套别墅 + 8 客 + 泳池 + 5 卧」</li>
-      <li><strong>Agoda</strong>：搜「Phuket 5 bedroom pool villa Rawai」中文界面对中国卡更友好</li>
-      <li><strong>The Luxe Nomad / Luxury Retreats / Asia Villas</strong>：高端聚合站，5BR 选项多</li>
-      <li><strong>FazWaz</strong>：<a href="https://www.fazwaz.com/villa-for-rent/thailand/phuket/phuket-town/rawai" target="_blank">长租房源</a> · 月租比短租日均便宜 30%（不一定适合 4 晚短租）</li>
-    </ul>
-
-    <div class="box warn">
-      <h4>避坑 + 订位 tips（5BR 特别注意）</h4>
-      <ul style="margin: 0.5rem 0 0 1rem;">
-        <li><strong>别选 Patong / Kata</strong> — 潜店每天接送多 25 分钟</li>
-        <li><strong>别选 Cape Panwa / Cape Yamu</strong> — 高端但太远，潜水接送会被拖</li>
-        <li>看清是否含<strong>早餐 + 司机服务</strong>（5BR 高端档有些含，有些不含，价差很大）</li>
-        <li>5BR 价格弹性比 3BR 大，可以谈 <strong>"长租 4 晚 + 含接送 + 含早餐食材"</strong> 打包</li>
-        <li>跟房东要 <strong>floor plan</strong>，避免某间房只有一张单人床住不下成年人</li>
-        <li><strong>加床政策</strong>：能不能临时加 2 张床应对 tentative +2？务必写邮件留证</li>
-        <li>6 月是<strong>淡季初期</strong>（雨季），价格通常比 11-3 月旺季便宜 20-30%</li>
-        <li>5BR 房源少，6 月一般<strong>提前 2-3 周</strong>订才有位（旺季 12 月要 2 个月）</li>
-        <li>入住时多数要押金（5,000-20,000 THB 现金，退房返还），<strong>预留充足现金</strong></li>
+      <h4>🏠 别墅信息</h4>
+      <ul style="margin: 0.5rem 0 0 1rem; line-height: 1.8;">
+        <li><strong>地址</strong>：49, 154 Soi Ruam Nanachat</li>
+        <li><strong>房型</strong>：4 BR / 私泳池 / 健身房 / 厨房 + 大客厅</li>
+        <li><strong>分房</strong>：10 人 · 4 间加床（2 男 8 女，组织者分配；跟房东确认床位够）</li>
+        <li><strong>实际房价</strong>：以订单为准</li>
       </ul>
     </div>
 
-    <div class="box ocean" style="margin-top: 1.5rem;">
-      <h4>💡 8 人版推荐策略</h4>
-      <p>5BR 优先级 > 双 3BR 拼订，理由：</p>
+    <div class="box warn" style="margin-top: 1.5rem;">
+      <h4>⚠️ T-2 必做：实测车程</h4>
+      <p>从 <strong>Soi Ruam Nanachat</strong> 用地图量一下：</p>
       <ul style="margin: 0.5rem 0 0 1rem;">
-        <li>5BR 一栋调度简单（早餐 / 集合 / 派对都在一处）</li>
-        <li>休闲 2 人和潜水 6 人晚上还能一起聚 → 增加感情</li>
-        <li>5BR 一栋人均 ~5,500 RMB 住宿（8 人均摊 50-65k THB/晚 × 4 = 200-260k）</li>
-        <li>双 3BR 拼订表面省钱，但要协调 2 栋的早餐 + 司机 + 押金，<strong>实际更累</strong></li>
+        <li>→ <strong>Chalong 码头</strong>（D3/D4 早 07:00 出海接人）：决定几点起床、几点让司机来接</li>
+        <li>→ <strong>Soi Ta-iad</strong>（Unit 27 / Kong 健身一条街）：决定 D2 晚、D5 中往返打车时间</li>
       </ul>
-      <p style="margin-top: 0.75rem;"><strong>执行</strong>：<a href="#booking" style="color: var(--ocean);">本周内并行发 5 家 5BR 询价</a>，72h 内拿到至少 3 个报价再决策。</p>
     </div>
   </div>
 </section>
@@ -3154,7 +2936,7 @@ footer .meta {
 <!-- ============== 摩托车 ============== -->
 <section id="motorbike">
   <div class="container">
-    <p class="section-marker">§09 · 摩托车</p>
+    <p class="section-marker">§10 · 摩托车</p>
     <h2 class="section-title">摩托车租赁比价</h2>
     <p class="section-lead">普吉本地交通最灵活的是摩托车，<strong>Honda Click 125</strong> 是最常见的入门款。4 晚 5 天用量大概 800-1,500 THB/人。<strong>但雨季事故率高、中国驾照不被认可、保险常不赔无证驾驶</strong> — 请先看完底部「⚠️ 关键风险」再决定是否租。</p>
 
@@ -3248,8 +3030,8 @@ footer .meta {
       <tbody>
         <tr><td>Rawai 别墅 ↔ Soi Ta-iad（Kong 健身）</td><td>3 km / 8 min</td><td>Click 足够 · Grab 150 THB 也行</td></tr>
         <tr><td>Rawai 别墅 ↔ Chalong Pier（潜店）</td><td>5 km / 12 min</td><td>潜店免费包接送 · 不用租</td></tr>
-        <tr><td>Rawai 别墅 ↔ Kata Beach（eFoil）</td><td>15 km / 25 min</td><td>Aerox / PCX · Grab 250 THB 也行</td></tr>
-        <tr><td>Rawai 别墅 ↔ Patong（夜市 / 厨师课）</td><td>20 km / 35 min · 山路</td><td><strong>不推荐摩托</strong> · 山路湾多 · 用 Grab 300 THB</td></tr>
+        <tr><td>Rawai 别墅 ↔ 快艇码头（D5 包船）</td><td>视码头 / Grab</td><td>Grab · 跟船店确认集合点</td></tr>
+        <tr><td>Rawai 别墅 ↔ Patong（夜市）</td><td>20 km / 35 min · 山路</td><td><strong>不推荐摩托</strong> · 山路湾多 · 用 Grab 300 THB</td></tr>
         <tr><td>Rawai 别墅 ↔ Big Buddha / Wat Chalong</td><td>10 km / 20 min</td><td>Aerox · 看景观最方便</td></tr>
       </tbody>
     </table>
@@ -3288,7 +3070,7 @@ footer .meta {
           <tr><td>Rawai → 普吉机场 HKT</td><td>800 THB</td></tr>
         </tbody>
       </table>
-      <p style="margin-top: 0.5rem; font-size: 0.88rem;">8 人团 5 天 Grab 总额预算 ~4,000-5,500 THB（休闲组白天用得多一点），比 1 辆摩托车便宜 + 安全。<strong>除非有 IDP 老手 + 想体验，否则建议放弃摩托。</strong></p>
+      <p style="margin-top: 0.5rem; font-size: 0.88rem;">10 人团 5 天 Grab 总额预算 ~5,000-7,000 THB，比摩托便宜 + 安全。<strong>除非有 IDP 老手 + 想体验，否则建议放弃摩托。</strong></p>
     </div>
   </div>
 </section>
@@ -3296,9 +3078,9 @@ footer .meta {
 <!-- ============== 预订清单 ============== -->
 <section id="booking">
   <div class="container">
-    <p class="section-marker">§10 · 预订</p>
+    <p class="section-marker">§11 · 预订</p>
     <h2 class="section-title">预订清单</h2>
-    <p class="section-lead">按紧急程度排序。Kong Hyrox 和 Pum Thai 因为周一/周五的特殊班次需先邮件/电话确认，比订其他都急。</p>
+    <p class="section-lead">按紧急程度排序。潜店变更（加 OW + B 浮潜）、Kong Hyrox、Naidee 厨师课需先微信/邮件/电话确认，比订其他都急。</p>
 
     <div class="checklist-progress">
       <span class="progress-text">已完成 <span class="progress-count">0 / 12</span></span>
@@ -3307,18 +3089,20 @@ footer .meta {
     </div>
 
     <ul class="checklist">
-      <li class="urgent"><label><input type="checkbox" data-key="villa"><span class="item-body"><span class="urgent-dot"></span><strong>别墅 4 晚 · 5BR 私泳池</strong> · Rawai/Layan · 06.18-06.22 · <strong>本周内必须发 5 家询价</strong> · 推荐：Botanica Luxury Villas / The Eva Phuket / The Luxe Nomad 平台</span></label></li>
-      <li class="urgent"><label><input type="checkbox" data-key="kong"><span class="item-body"><span class="urgent-dot"></span><strong>Kong Strength（Hyrox 课）</strong> · D5 周一 12:30 班 · 6 人潜水组（休闲 2 人不上）· 电话 +66 92-452-5172 · <em>必须提前 1 周确认有此课</em></span></label></li>
-      <li class="urgent"><label><input type="checkbox" data-key="pumthai"><span class="item-body"><span class="urgent-dot"></span><strong>Pum Thai（厨师课）</strong> · D2 周五 18:00 班 · <strong>4 人位</strong>（1 OW + 1 AOW + 2 休闲）· +66 81-240-8924 · Bookings@pumthaifoodchain.com</span></label></li>
-      <li><label><input type="checkbox" data-key="diving-deposit"><span class="item-body"><strong>潜水课程定金</strong> · OW × 3 + AOW × 3（9 折 · 80,460 THB） · 发护照 + PADI 体检表</span></label></li>
-      <li><label><input type="checkbox" data-key="efoil"><span class="item-body"><strong>电动冲浪 eFoil</strong> · D2 试玩 3 AOW + D5 潜水组 6 人 · D5 6 人轮换需 2 块板 + 2 教练</span></label></li>
-      <li><label><input type="checkbox" data-key="unit27"><span class="item-body"><strong>Unit 27 Hyrox</strong> · D2 周五 17:00 官方课 · 4 人 drop-in · info@unit-27.com / app</span></label></li>
-      <li><label><input type="checkbox" data-key="massage"><span class="item-body"><strong>泰式按摩</strong> · D5 周一 14:30-15:30 · 60 min · <strong>8 人</strong>（订大店或连锁分两间）+ 休闲组 D3/D4/D5 上午专属 SPA</span></label></li>
-      <li><label><input type="checkbox" data-key="pickup-ow"><span class="item-body"><strong>机场接机 #1</strong> · D1 周四 11:00 HKT 接 OW 3 人（国泰 CX771 10:50 落）· 7 座</span></label></li>
-      <li><label><input type="checkbox" data-key="pickup-aow"><span class="item-body"><strong>机场接机 #2</strong> · D1 周四 18:00 HKT 接 <strong>AOW + 休闲 5 人</strong>（国航 CA821 17:45 落）· <strong>14 座 minivan</strong></span></label></li>
-      <li><label><input type="checkbox" data-key="dropoff"><span class="item-body"><strong>机场送机</strong> · D5 周一 16:00 别墅 → HKT · <strong>全员同车 8 人</strong>（14 座 minivan）· OW 18:20 / AOW+休闲 19:25 各自登机</span></label></li>
-      <li><label><input type="checkbox" data-key="flights"><span class="item-body"><strong>国际机票</strong> · OW 3 国泰已订 / AOW 3 国航已订 / 休闲 2 待订 CA821 · 提前 2 个月订更省</span></label></li>
-      <li><label><input type="checkbox" data-key="insurance"><span class="item-body"><strong>旅行保险</strong> · 必须含水上活动 + 潜水（美亚/平安/安联）· 8 人都要</span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="dive-change"><span class="item-body"><span class="urgent-dot"></span><strong>🔴🔴 潜店变更</strong> · 加 1 名 OW（共 4）+ B 浮潜跟船（D3 OW船 / D4 AOW船）· 微信 · <em>稿子见 预订模板.md §0 · 今天发</em></span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="pickup"><span class="item-body"><span class="urgent-dot"></span><strong>机场接送 3 段</strong> · 接机 7座(广州组3) + 14座(北京组5) · 送机 14座(8) · Klook / 12Go</span></label></li>
+      <li><label><input type="checkbox" data-key="boat"><span class="item-body">✅ <strong>快艇包船</strong> · D5 上午 2h · G23 · Kata Surf 已确认可订 · 16,000/4人+500/超员 · 敲码头+最终人数</span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="kong"><span class="item-body"><span class="urgent-dot"></span><strong>Kong Strength（Hyrox 课）</strong> · D5 周一 12:30 · 最多 9-10 人 · 电话 +66 92-452-5172 · <em>必须人工确认有此课</em></span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="unit27"><span class="item-body"><span class="urgent-dot"></span><strong>Unit 27 Hyrox</strong> · D2 周五 17:00 官方课 · 4 人 drop-in · info@unit-27.com / app</span></label></li>
+      <li><label><input type="checkbox" data-key="massage"><span class="item-body"><strong>泰式按摩 @ Ton Mai Spa</strong> · Rawai 6/11 Moo 2 Wiset Rd · D5 14:30-15:30 · 60 min · <strong>10 人</strong>（提前 1-2 天约 / 分两间）</span></label></li>
+      <li><label><input type="checkbox" data-key="villa-beds"><span class="item-body"><strong>别墅加床</strong> · 跟房东确认 4BR 加床住 10 人 · 床位够 + 是否加费</span></label></li>
+      <li><label><input type="checkbox" data-key="villa-distance"><span class="item-body"><strong>别墅距离实测</strong> · Soi Ruam Nanachat → Chalong 码头 / Soi Ta-iad 车程（决定早起+接送时间）</span></label></li>
+      <li><label><input type="checkbox" data-key="diving-deposit" checked><span class="item-body">✅ <strong>潜水课程定金</strong> · 已付（OW × 3 + AOW × 3，9 折）· 变更见上方 🔴</span></label></li>
+      <li><label><input type="checkbox" data-key="villa" checked><span class="item-body">✅ <strong>别墅</strong> · 已订 4BR 带健身房 · 49,154 Soi Ruam Nanachat</span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="naidee"><span class="item-body"><span class="urgent-dot"></span><strong>厨师课改订 Naidee Cookery Class</strong> · D2 晚 2 人 · 确认地址/时段/已订 · 原 Pum Thai 若已订需取消</span></label></li>
+      <li class="urgent"><label><input type="checkbox" data-key="flights"><span class="item-body"><span class="urgent-dot"></span><strong>别店 2 人 曼谷↔普吉 段</strong> · ⬜ 未购（去程 6/18 DMK→HKT 衔接 SL901 04:45 抵；返程 6/23 HKT→BKK 赶 21:30）+ 6/22 退房后住宿</span></label></li>
+      <li><label><input type="checkbox" data-key="flights-intl" checked><span class="item-body">✅ <strong>国际段机票</strong> · 鲸嘻 OW 国泰 / 北京组 CA821 / 别店 2 人 广州-曼谷往返 均已订</span></label></li>
+      <li><label><input type="checkbox" data-key="insurance"><span class="item-body"><strong>旅行保险</strong> · 必须含水上活动 + 潜水（美亚/平安/安联）· 10 人都要</span></label></li>
     </ul>
   </div>
 </section>
@@ -3326,50 +3110,47 @@ footer .meta {
 <!-- ============== 预算 ============== -->
 <section id="budget">
   <div class="container">
-    <p class="section-marker">§11 · 预算</p>
+    <p class="section-marker">§12 · 预算</p>
     <h2 class="section-title">预算明细</h2>
     <p class="section-lead">单位 THB。汇率参考 1 RMB ≈ 5 THB。</p>
 
-    <h3>团费汇总（8 人 · 不含住宿 / 机票）</h3>
+    <h3>团费汇总（10 人 · 不含住宿 / 机票）</h3>
     <table class="budget">
       <thead><tr><th>项目</th><th>明细</th><th style="text-align: right;">金额 THB</th></tr></thead>
       <tbody>
-        <tr><td>潜水课程（9 折）</td><td>3 × 14,220 + 3 × 12,600</td><td class="num">80,460</td></tr>
-        <tr><td>电动冲浪 D2 试玩</td><td>3 AOW × 1,700</td><td class="num">5,100</td></tr>
-        <tr><td>电动冲浪 D5 潜水组</td><td>6 人 × 1,700（休闲 2 不参加）</td><td class="num">10,200</td></tr>
+        <tr><td>潜水课程（鲸嘻 9 折）</td><td>4 × 14,220 + 3 × 12,600</td><td class="num">94,680</td></tr>
+        <tr><td>别店 OW 2 人</td><td>自付 · 另一家潜店</td><td class="num">另计</td></tr>
+        <tr><td>B 浮潜跟船（D3 + D4）</td><td>待潜店报价</td><td class="num">TBD</td></tr>
+        <tr><td>快艇包船 D5（G23 · 2h）</td><td>16,000（含 4 人）+ 500/超员</td><td class="num">16,000+</td></tr>
         <tr><td>Rawai ↔ Kata 包车（2 趟）</td><td>500 × 2</td><td class="num">1,000</td></tr>
         <tr><td>Unit 27（D2 晚 Hyrox 课）</td><td>4 人 × 800</td><td class="num">3,200</td></tr>
-        <tr><td>Kong Hyrox（D5 中）</td><td>6 人 × 800</td><td class="num">4,800</td></tr>
-        <tr><td>Pum Thai 厨师课</td><td><strong>4 人 × 2,000</strong>（含 2 休闲）</td><td class="num">8,000</td></tr>
-        <tr><td>泰式按摩（D5 全员 60min）</td><td><strong>8 人 × 600</strong></td><td class="num">4,800</td></tr>
-        <tr><td>休闲组专属 SPA（D3 街边 + D4 高端 + D5 别墅旁）</td><td>2 人 × 3,500</td><td class="num">7,000</td></tr>
-        <tr><td>休闲组景点 / 老城 / 市场杂费</td><td>2 人 × 2,000</td><td class="num">4,000</td></tr>
-        <tr><td>餐饮（5 天）</td><td><strong>8 人 × 3,500</strong></td><td class="num">28,000</td></tr>
-        <tr><td>机场接送 3 段</td><td>7 座 1,500 + 14 座 2,200 × 2</td><td class="num">5,900</td></tr>
-        <tr><td>市内包车 + 杂费</td><td>8 人 × 500</td><td class="num">4,000</td></tr>
-        <tr class="total"><td colspan="2">活动 + 餐饮小计</td><td class="num">166,460</td></tr>
-        <tr><td>别墅 4 晚 · 5BR 中档</td><td>~40k × 4 晚</td><td class="num">~160,000</td></tr>
-        <tr><td>别墅 4 晚 · <strong>5BR 高端（推荐）</strong></td><td>~55k × 4 晚（Botanica / The Eva）</td><td class="num"><strong>~220,000</strong></td></tr>
-        <tr><td>别墅 4 晚 · 5BR 顶级</td><td>~80k × 4 晚（Luxe Nomad / Boutique）</td><td class="num">~320,000</td></tr>
-        <tr class="total"><td colspan="2"><strong>含住宿合计 · 5BR 高端推荐</strong>（不含机票）</td><td class="num"><strong>~386,460</strong></td></tr>
-        <tr><td colspan="2" style="font-size:0.85rem;color:var(--ink-soft)">人均：潜水组 ~10-12k RMB / 休闲组 ~8-10k RMB（不含机票）</td><td></td></tr>
+        <tr><td>Kong Hyrox（D5 中）</td><td>最多 9 人 × 800</td><td class="num">7,200</td></tr>
+        <tr><td>Naidee 厨师课（D2 晚）</td><td><strong>2 人 × 2,000</strong>（单价待确认）</td><td class="num">4,000</td></tr>
+        <tr><td>泰式按摩（D5 全员 60min）</td><td><strong>10 人 × 600</strong></td><td class="num">6,000</td></tr>
+        <tr><td>餐饮（5 天）</td><td><strong>10 人 × 3,500</strong></td><td class="num">35,000</td></tr>
+        <tr><td>机场接送 3 段</td><td>14 座 2,200 × 2 + 送机大车 ~3,500</td><td class="num">7,900</td></tr>
+        <tr><td>市内包车 + 杂费</td><td>10 人 × 500</td><td class="num">5,000</td></tr>
+        <tr class="total"><td colspan="2">活动 + 餐饮小计（含包船 base · +500/超员 + B 浮潜 + 别店自付另计）</td><td class="num">179,980</td></tr>
+        <tr><td>别墅 4 晚 · <strong>4BR 已订</strong></td><td>¥5,387.81（人均 10 摊 ≈ ¥539）</td><td class="num">~26,939</td></tr>
+        <tr class="total"><td colspan="2"><strong>含住宿合计</strong>（不含机票）</td><td class="num"><strong>~206,919</strong></td></tr>
+        <tr><td colspan="2" style="font-size:0.85rem;color:var(--ink-soft)">鲸嘻潜水组人均含住宿 ~¥5-6k RMB · 别店 2 人潜水自付 + 食宿均摊 · 浮潜 B 更低</td><td></td></tr>
       </tbody>
     </table>
 
     <div class="kpi-row">
-      <div class="kpi"><dt>人均潜水组（5BR 高端）</dt><dd>~55,000 THB · ~11,000 RMB</dd></div>
-      <div class="kpi"><dt>人均休闲组（5BR 高端）</dt><dd>~45,000 THB · ~9,000 RMB</dd></div>
-      <div class="kpi"><dt>潜店 9 折省</dt><dd>8,940 THB</dd></div>
-      <div class="kpi"><dt>不含项</dt><dd>机票 / 个人消费</dd></div>
+      <div class="kpi"><dt>活动+餐饮小计</dt><dd>179,980 THB</dd></div>
+      <div class="kpi"><dt>潜水课程（鲸嘻）</dt><dd>94,680 THB（OW×4 + AOW×3）</dd></div>
+      <div class="kpi"><dt>别墅人均（÷10）</dt><dd>≈ ¥539</dd></div>
+      <div class="kpi"><dt>不含项</dt><dd>别店潜水自付 / 机票 / 个人消费</dd></div>
     </div>
 
     <h3>省钱建议</h3>
     <ul style="padding-left: 1.5rem;">
-      <li><strong>eFoil 团购</strong>：D2 试玩 + D5 6 人两场打包谈，单价能砍到 2,500 THB / 30min</li>
-      <li><strong>别墅</strong>：8 人摊 5BR 比 6 人摊 3BR 人均只贵 1.5k RMB，性价比高</li>
-      <li><strong>按摩选街边正规店</strong>：连锁贵 50%，街边正规 60min 油按 ~600 THB（休闲组 D3 走街边店）</li>
+      <li><strong>快艇包船</strong>：D5 2h 16,000 含 4 人，超员才 +500/人；人多反而摊薄，确认最终人数一次报准</li>
+      <li><strong>别墅自带健身房</strong>：想加练不用再花 Open Gym 钱</li>
+      <li><strong>按摩选街边正规店</strong>：连锁贵 50%，街边正规 60min 油按 ~600 THB</li>
       <li><strong>餐饮</strong>：早餐别墅自做（用厨房）→ 午餐路边摊 → 晚餐稍好</li>
-      <li><strong>机票</strong>：休闲 2 人尽快订 CA821（北京-普吉直飞，6 月一般 2.5-3.5k RMB 往返）</li>
+      <li><strong>B 浮潜费</strong>：跟潜店谈跟船浮潜打包价（比单独包船便宜很多）</li>
     </ul>
   </div>
 </section>
@@ -3377,7 +3158,7 @@ footer .meta {
 <!-- ============== 行前准备 ============== -->
 <section id="prep">
   <div class="container">
-    <p class="section-marker">§12 · 行前准备</p>
+    <p class="section-marker">§13 · 行前准备</p>
     <h2 class="section-title">行前准备</h2>
 
     <h3>签证 / 入境</h3>
@@ -3527,9 +3308,9 @@ footer .meta {
     <table class="schedule" style="font-size: 0.88rem;">
       <thead><tr><th>段次</th><th>时间</th><th>方向</th><th>人数</th></tr></thead>
       <tbody>
-        <tr><td>D1 接机 #1</td><td>11:00</td><td>HKT → Rawai 别墅</td><td>3 人 OW（CX771 10:50 落）</td></tr>
-        <tr><td>D1 接机 #2</td><td>18:00</td><td>HKT → Rawai 别墅</td><td>3 人 AOW（CA821 17:45 落）</td></tr>
-        <tr><td>D5 送机</td><td>16:00</td><td>Rawai 别墅 → HKT</td><td>6 人全员 · 同车</td></tr>
+        <tr><td>D1 接机 #1</td><td>11:00</td><td>HKT → Rawai 别墅</td><td>鲸嘻 OW 3 人（CX771 10:50）· 别店 2 经曼谷另到</td></tr>
+        <tr><td>D1 接机 #2</td><td>18:00</td><td>HKT → Rawai 别墅</td><td>北京组 5 人（3 AOW + A + B · CA821 17:45 落）</td></tr>
+        <tr><td>D5 送机</td><td>16:00</td><td>Rawai 别墅 → HKT</td><td>出团 8 人（别店 2 单独，6/23 从曼谷回）</td></tr>
       </tbody>
     </table>
     <p style="font-size: 0.88rem; margin-top: 0.5rem;">3 段单价 ~1,500 THB / 段 = <strong>~4,500 THB 总</strong>（D5 全员同车省 1,500）。建议跟一家运营商打包谈，能再砍 300-500 THB。</p>
@@ -3650,7 +3431,7 @@ footer .meta {
 <!-- ============== 实用 Tips ============== -->
 <section id="tips">
   <div class="container">
-    <p class="section-marker">§13 · 实用 Tips</p>
+    <p class="section-marker">§14 · 实用 Tips</p>
     <h2 class="section-title">在地实用 Tips</h2>
 
     <h3>交通</h3>
@@ -3691,27 +3472,46 @@ footer .meta {
       <thead><tr><th>时段</th><th>人</th><th>餐厅 / 地点</th><th>类型</th><th>人均 THB</th></tr></thead>
       <tbody>
         <tr><td><strong>D1 13:30</strong></td><td>OW 3</td><td><strong>Kongharn Restaurant</strong> · Rawai 主街</td><td>泰家族老店</td><td>~250</td></tr>
-        <tr><td><strong>D1 20:30</strong></td><td>全员 6</td><td><strong>Rawai 海鲜市场 + Salaloy 加工</strong> · 52/2 Wiset Rd</td><td>海鲜（市场买 + 邻店煮）</td><td>500-700</td></tr>
-        <tr><td><strong>D2 12:00</strong></td><td>OW 3</td><td>潜店包餐</td><td>船上泰式简餐</td><td>含</td></tr>
+        <tr><td><strong>D1 20:30</strong></td><td>全员 10</td><td><strong>Rum Jungle</strong> · Sai Yuan Rd, Rawai</td><td>意 / 地中海家庭老店</td><td>500-700</td></tr>
+        <tr><td><strong>D2 12:00</strong></td><td>OW 4</td><td>潜店包餐</td><td>船上泰式简餐</td><td>含</td></tr>
         <tr><td><strong>D2 12:30</strong></td><td>AOW 3</td><td><strong>Atsumi Raw Cafe</strong> · Rawai</td><td>raw vegan + 健康融合</td><td>~400</td></tr>
-        <tr><td><strong>D2 18:00</strong></td><td>厨师课 2</td><td><strong>Pum Thai</strong>（课内含菜品试吃）</td><td>泰菜亲手做</td><td>含课费</td></tr>
+        <tr><td><strong>D2 晚</strong></td><td>厨师课 2</td><td><strong>Naidee Cookery Class</strong>（课内含菜品试吃）</td><td>泰菜亲手做</td><td>含课费</td></tr>
         <tr><td><strong>D2 19:30</strong></td><td>Hyrox 4</td><td><strong>The Shack</strong> · 22/8 Soi Ta-iad（健身一条街上）</td><td>蛋白餐 + 烤肉 + smoothie</td><td>~400</td></tr>
-        <tr><td><strong>D3 12:30</strong></td><td>全员 6</td><td>船上午餐（潜店包）</td><td>泰式简餐</td><td>含</td></tr>
-        <tr><td><strong>D3 19:30</strong></td><td>全员 6</td><td>🌿 <strong>Mor Mu Dong</strong> · Chalong（米其林必比登 2026）</td><td>红树林老建筑泰菜</td><td>300-400</td></tr>
-        <tr><td><strong>D4 12:30</strong></td><td>全员 6</td><td>船上午餐（潜店包）</td><td>泰式简餐</td><td>含</td></tr>
-        <tr><td><strong>D4 19:30</strong></td><td>全员 6</td><td>🎉 <strong>Kan Eang @ Pier</strong> · Chalong Bay 海景</td><td>50 年泰国海鲜老店</td><td>300-500/道</td></tr>
-        <tr><td><strong>D5 06:30</strong></td><td>全员 6</td><td>别墅自做早餐 / 7-Eleven grab</td><td>简餐</td><td>~100</td></tr>
-        <tr><td><strong>D5 13:30</strong></td><td>全员 6</td><td>🥥 <strong>Kong Kafé</strong>（在 Kong 健身房内 · Acai bowl + 健康轻食）</td><td>健身后餐</td><td>~300</td></tr>
-        <tr><td><strong>D5 17:00+</strong></td><td>全员 6</td><td>HKT 机场候机餐 / 免税店买零食</td><td>自由</td><td>—</td></tr>
+        <tr><td><strong>D3 12:30</strong></td><td>全员 10</td><td>船上午餐（潜店包）</td><td>泰式简餐</td><td>含</td></tr>
+        <tr><td><strong>D3 19:30</strong></td><td>全员 10</td><td>🌿 <strong>Mor Mu Dong</strong> · Chalong（米其林必比登 2026）</td><td>红树林老建筑泰菜</td><td>300-400</td></tr>
+        <tr><td><strong>D4 12:30</strong></td><td>全员 10</td><td>船上午餐（潜店包）</td><td>泰式简餐</td><td>含</td></tr>
+        <tr><td><strong>D4 19:30</strong></td><td>全员 10</td><td>🎉 <strong>Kan Eang @ Pier</strong> · Chalong Bay 海景</td><td>50 年泰国海鲜老店</td><td>300-500/道</td></tr>
+        <tr><td><strong>D5 06:30</strong></td><td>全员 10</td><td>别墅自做早餐 / 7-Eleven grab</td><td>简餐</td><td>~100</td></tr>
+        <tr><td><strong>D5 13:30</strong></td><td>全员 10</td><td>🥥 <strong>Kong Kafé</strong>（在 Kong 健身房内 · Acai bowl + 健康轻食）</td><td>健身后餐</td><td>~300</td></tr>
+        <tr><td><strong>D5 17:00+</strong></td><td>全员 10</td><td>HKT 机场候机餐 / 免税店买零食</td><td>自由</td><td>—</td></tr>
       </tbody>
     </table>
+
+    <h4 style="margin-top: 1.5rem;">📞 餐厅订位 · 地址 · 电话（完整）</h4>
+    <div class="box warn">
+      <p>✅ <strong>D1 晚餐已定 Rum Jungle</strong>（Sai Yuan Rd, Rawai · 076 388 153）——解决了原 Salaloy 周四休（D1=周四）的冲突。Salaloy 见下方备选。</p>
+    </div>
+    <table class="schedule" style="font-size: 0.85rem;">
+      <thead><tr><th>餐厅</th><th>地址</th><th>电话 / 渠道</th><th>营业</th><th>订位</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Kongharn</strong><br><span style="color:var(--ink-faint)">D1 午</span></td><td>87/72 Moo 7, Soi Sai Yuan, Rawai 83130</td><td>+66 62 087 7889</td><td>~11:00-22:00</td><td>走单 / 电话</td></tr>
+        <tr><td>🍽️ <strong>Rum Jungle</strong><br><span style="color:var(--ink-faint)">D1 晚（已定）</span></td><td>69/8 Moo 1, Sai Yuan Rd, Rawai</td><td><strong>076 388 153</strong> · FB rumjunglerawaiphuket</td><td>晚市</td><td>意/地中海 · 10 人提前订</td></tr>
+        <tr><td><strong>Atsumi Raw Cafe</strong><br><span style="color:var(--ink-faint)">D2 午 · AOW</span></td><td>99/1 Moo 7, Viset Rd（Soi Mangosteen 口）, Rawai</td><td>+66 80 440 0735 · atsumirawcafe2003@gmail.com</td><td>09:00-20:00</td><td>可订 / 走单</td></tr>
+        <tr><td><strong>The Shack</strong><br><span style="color:var(--ink-faint)">D2 晚</span></td><td>22/8 Soi Ta-iad, Chalong</td><td>+66 62 772 1212 · FB theshackphuket</td><td>~08:00-21:00</td><td>走单</td></tr>
+        <tr><td>🌿 <strong>Mor Mu Dong</strong><br><span style="color:var(--ink-faint)">D3 晚</span></td><td>9/4 Moo 3 Soi Pa Lai, Chao Fa Rd, Chalong 83130</td><td><strong>088 766 1634</strong></td><td>10:00-21:00</td><td>米其林 · 10 人电话订</td></tr>
+        <tr><td>🦞 <strong>Kan Eang @ Pier</strong><br><span style="color:var(--ink-faint)">D4 晚</span></td><td>44/1 Moo 5 Wiset Rd, Chalong 83130</td><td><strong>订位 083 173 1187 / 081 691 0154</strong> · 总机 076 381 212 · kaneang-pier.com</td><td>10:00-23:00</td><td>10 人电话 / 官网</td></tr>
+        <tr><td>🥥 <strong>Kong Kafé</strong><br><span style="color:var(--ink-faint)">D5 午</span></td><td>10/129 Soi Ta-iad, Chalong（Kong Strength 内）</td><td>+66 94 252 5172</td><td>随健身房</td><td>走单</td></tr>
+        <tr><td><strong>Salaloy Seafood</strong> ⚠️<br><span style="color:var(--ink-faint)">备选（周四休）</span></td><td>52/2 Wiset Rd, Rawai 83130</td><td>065 395 4253 · FB salaloyseafood</td><td>11:30-21:00 · <strong>周四休</strong></td><td>海鲜备选 · 非 D1</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 0.85rem; color: var(--ink-soft);">💡 <strong>需提前 1-2 天电话订 10 人桌</strong>：Rum Jungle / Mor Mu Dong / Kan Eang；其余走单即可。境外拨打把 +66 后开头的 0 去掉。</p>
 
     <h4 style="margin-top: 1.5rem;">餐厅选择理由</h4>
     <div class="grid-2">
       <div class="card">
-        <h4>D1 晚 · Salaloy Seafood @ Rawai 海鲜市场</h4>
-        <p style="font-size: 0.88rem;">普吉第一晚必须打卡的体验：先在海鲜市场对岸的店里逛挑（虾蟹鱼贝活蹦乱跳，按斤称重），过马路到 Salaloy 加工——海边户外座位，吹海风吃刚捞的。AOW 落地直接合体不用赶。</p>
-        <p style="font-size: 0.85rem; color: var(--ink-soft);">地址 52/2 Wiset Rd · 11:30-21:00（周四休）· +66 65-395-4253</p>
+        <h4>D1 晚 · Rum Jungle @ Rawai（家庭老店）</h4>
+        <p style="font-size: 0.88rem;">Jo &amp; Tony Bruno 夫妇经营的意 / 地中海家庭餐厅，花园 + 灯笼氛围，就在 Sai Yuan Rd（离别墅近）。北京组落地直接合体，不用赶。<strong>原拟 Salaloy 海鲜市场因 D1（周四）闭店改此</strong>（Salaloy 见下方备选画廊）。</p>
+        <p style="font-size: 0.85rem; color: var(--ink-soft);">地址 69/8 Moo 1, Sai Yuan Rd, Rawai · FB rumjunglerawaiphuket · ☎ 076 388 153 · 建议提前订 10 人桌</p>
       </div>
       <div class="card">
         <h4>D3 晚 · Mor Mu Dong @ Chalong（米其林）</h4>
@@ -3732,7 +3532,7 @@ footer .meta {
 
     <h4 style="margin-top: 2.5rem;">📸 三家头牌餐厅画廊</h4>
 
-    <h5 style="margin-top: 1.5rem;">🌅 Salaloy Seafood @ Rawai（D1 晚 · 全员合体晚餐）</h5>
+    <h5 style="margin-top: 1.5rem;">🌅 Salaloy Seafood @ Rawai（海鲜备选 · ⚠️ 周四休 → D1 已改 Rum Jungle）</h5>
     <div class="photo-grid">
       <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Phuket.jpg" alt="Salaloy 招牌菜"><figcaption>Miang Kham（叶包香料）+ 烤虾 + 切片墨鱼</figcaption></figure>
       <figure><img src="./images/restaurants/salaloy/Sala-Loy-Seafood-Restaurant-Phuket.jpg" alt="Salaloy 餐厅外观"><figcaption>海边户外座 · 蓝白花砖桌</figcaption></figure>
@@ -3759,7 +3559,7 @@ footer .meta {
       <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-09-4K.jpg" alt="野菜炒蛋"><figcaption>野菜叶炒蛋 Melinjo Leaves with Egg</figcaption></figure>
       <figure><img src="./images/restaurants/mor-mu-dong/mor-moo-dong-restaurant-phuket-15-4K.jpg" alt="咖喱炒茄子"><figcaption>咖喱炒茄子 Curry Fried Eggplant</figcaption></figure>
     </div>
-    <p style="font-size: 0.88rem; color: var(--ink-soft);"><strong>必点 10 道</strong>（点 6-8 道 6 人吃刚好，每道 100-200 THB）：酿鲭鱼 · 蛤蜊海葡萄 · 黑墨汁墨鱼 · 鱼干辣酱 · 海螺咖喱叶 · 蕨菜沙拉 · 酸咖喱 · 香蕉花 · 野菜炒蛋 · 咖喱茄子</p>
+    <p style="font-size: 0.88rem; color: var(--ink-soft);"><strong>必点 10 道</strong>（10 人点 10-12 道刚好，每道 100-200 THB）：酿鲭鱼 · 蛤蜊海葡萄 · 黑墨汁墨鱼 · 鱼干辣酱 · 海螺咖喱叶 · 蕨菜沙拉 · 酸咖喱 · 香蕉花 · 野菜炒蛋 · 咖喱茄子</p>
 
     <h5 style="margin-top: 2rem;">🦞 Kan Eang @ Pier @ Chalong Bay（D4 晚 · 出证庆功 · 50 年老店）</h5>
     <div class="photo-grid">
@@ -3853,7 +3653,7 @@ footer .meta {
 <!-- ============== 紧急联系 ============== -->
 <section id="emergency">
   <div class="container">
-    <p class="section-marker">§14 · 紧急</p>
+    <p class="section-marker">§15 · 紧急</p>
     <h2 class="section-title">紧急联系</h2>
     <p class="section-lead">出发前截图保存到手机 + 别墅前台 + 同行人各一份。</p>
 
@@ -3916,8 +3716,8 @@ footer .meta {
         <a href="tel:+66924525172" class="num">+66 92-452-5172</a>
       </div>
       <div class="emergency-item" style="border-left-color: var(--ocean);">
-        <div class="label">Pum Thai（厨师课）</div>
-        <a href="tel:+66812408924" class="num">+66 81-240-8924</a>
+        <div class="label">Naidee Cookery Class（厨师课）</div>
+        <span class="num" style="font-size:0.9rem;color:var(--ink-soft)">联系方式待确认</span>
       </div>
       <div class="emergency-item" style="border-left-color: var(--ocean);">
         <div class="label">普吉鲸嘻潜水中心</div>
@@ -3937,80 +3737,12 @@ footer .meta {
   </div>
 </section>
 
-<!-- ============== Tentative +2 附录 ============== -->
-<section id="tentative">
-  <div class="container">
-    <p class="section-marker">§15 · 附录</p>
-    <h2 class="section-title">附录：Tentative +2（OW + Hyrox）方案</h2>
-    <p class="section-lead">如果新增 2 人在 06-05 前确认加入，他们跟 OW 组合并（D2 泳池 + D3-D4 大小皇帝岛 4 潜 + D2 晚 Hyrox）。这里列出触发后需要调整的预订项 / 预算 / 风险点。</p>
-
-    <div class="box warn">
-      <p><strong>⏰ 触发条件</strong>：新 2 人在 <strong>2026-06-05</strong> 前确认；之后按 8 人方案执行，不再回头加人（潜店 / 别墅 / 包车都来不及改）。</p>
-    </div>
-
-    <h3 style="margin-top: 2rem;">人员变化（8 → 10）</h3>
-    <table class="schedule">
-      <thead><tr><th>组别</th><th>8 人</th><th>+2 = 10 人</th></tr></thead>
-      <tbody>
-        <tr><td>OW 组</td><td>3 人</td><td><strong>5 人</strong></td></tr>
-        <tr><td>AOW 组</td><td>3 人</td><td>3 人（不变）</td></tr>
-        <tr><td>休闲组</td><td>2 人</td><td>2 人（不变）</td></tr>
-        <tr><td>Hyrox D2 晚</td><td>4 人</td><td><strong>6 人</strong></td></tr>
-        <tr><td>Hyrox D5 中</td><td>6 人</td><td><strong>8 人</strong>（潜水组全员）</td></tr>
-        <tr><td>厨师课 D2 晚</td><td>4 人</td><td>4 人（不变）</td></tr>
-        <tr><td>D5 按摩</td><td>8 人</td><td><strong>10 人</strong></td></tr>
-      </tbody>
-    </table>
-
-    <h3 style="margin-top: 2rem;">预订调整</h3>
-    <div class="grid-2">
-      <div class="card" style="border-left: 3px solid var(--apple-red);">
-        <h4 style="color: var(--apple-red);">⚠️ 需重新沟通</h4>
-        <ul style="line-height: 1.7;">
-          <li><strong>别墅</strong>：5BR 加 2 张床（沙发床/可移动），或别墅旁加订 1 栋 1-2BR 小户</li>
-          <li><strong>潜店 OW</strong>：5 人需 2 教练（1:4 师生比），跟鲸嘻确认能否安排</li>
-          <li><strong>Unit 27 D2 晚</strong>：6 人 drop-in 单课容量，需邮件确认</li>
-          <li><strong>eFoil D5</strong>：8 人轮换 ~3.5h，提前谈第 3 块板</li>
-          <li><strong>按摩 D5</strong>：10 人订连锁店分两间</li>
-          <li><strong>包车送机</strong>：14 座装 10 人 + 10 大箱可能要 + 1 辆轿车走行李</li>
-        </ul>
-      </div>
-      <div class="card" style="border-left: 3px solid var(--ocean);">
-        <h4 style="color: var(--ocean-deep);">💰 预算变化（团费小计）</h4>
-        <table class="schedule" style="font-size: 0.88rem;">
-          <tbody>
-            <tr><td>潜水课程</td><td>+28,440 THB</td></tr>
-            <tr><td>Unit 27 D2 晚</td><td>+1,600 THB</td></tr>
-            <tr><td>Kong Hyrox D5</td><td>+1,600 THB</td></tr>
-            <tr><td>eFoil D5</td><td>+6,000 THB</td></tr>
-            <tr><td>按摩 D5</td><td>+1,200 THB</td></tr>
-            <tr><td>餐饮 5 天 × 2 人</td><td>+7,000 THB</td></tr>
-            <tr><td>包车（可能加车）</td><td>+1,500 THB</td></tr>
-            <tr><td>别墅加床 / 加 1 栋</td><td>+20,000-40,000 THB</td></tr>
-            <tr class="total"><td><strong>合计差额</strong></td><td><strong>+67,000-87,000 THB</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <h3 style="margin-top: 2rem;">触发后第一周必做</h3>
-    <ol style="padding-left: 1.5rem; line-height: 1.8;">
-      <li>跟鲸嘻潜店发微信：OW 从 3 → 5 人，是否需要 2 教练？再要 9 折？</li>
-      <li>跟别墅房东问加床政策（如不行就备选小别墅拼订）</li>
-      <li>问新 2 人航班 — 跟 OW 同 CX 还是 AOW 同 CA821？</li>
-      <li>Unit 27 邮件改成 6 人 drop-in 询价</li>
-      <li>eFoil 运营商问 D5 第 3 块板</li>
-      <li>按摩重新订（10 人需大店）</li>
-      <li>送机包车 14 座 + 备选第二辆</li>
-    </ol>
-  </div>
-</section>
 
 <footer>
   <div class="container">
     <div>
       <h4>行程信息</h4>
-      <p style="font-size: 0.85rem;">普吉 · 2026.06.18-22<br><strong>8 人</strong> · OW × 3 + AOW × 3 + 休闲 × 2<br>+ 2 tentative · 5 天 4 晚</p>
+      <p style="font-size: 0.85rem;">普吉 · 2026.06.18-22<br><strong>10 人</strong> · 鲸嘻 OW4+AOW3 · 别店 OW2 · 浮潜1<br>5 天 4 晚</p>
     </div>
     <div>
       <h4>文档</h4>
@@ -4021,7 +3753,7 @@ footer .meta {
       <p style="font-size: 0.85rem;">出发前打印一份 / 截图保存。<br>紧急联系电话务必到手机。<br>所有预订 PDF 存离线邮箱。</p>
     </div>
     <div class="meta">
-      生成于 2026-05-26 · 更新 2026-05-29 · 8 人普吉团（+2 tentative）· Vacation Project · Phuket-2026-06
+      生成于 2026-05-26 · 更新 2026-06-17（10 人：鲸嘻 OW4+AOW3 · 别店 OW2 · 浮潜1 · 4BR 加床 · 厨师课改 Naidee · 快艇 G23 已确认 · 按摩改 Ton Mai · 商家图并入）· Vacation Project · Phuket-2026-06
     </div>
   </div>
 </footer>
